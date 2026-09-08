@@ -161,7 +161,8 @@ const articlesAndWinnersMap: Record<string, string[]> = {
     "https://static.wixstatic.com/media/548938_e5c40bbbf62c44caad59c9e84b17841c~mv2.jpeg",
     "https://static.wixstatic.com/media/548938_55bfdcda2bd84414b320b069b85fc28a~mv2.jpeg",
     "https://static.wixstatic.com/media/548938_1005a7325ceb435f9af5c5e6dff9f0bf~mv2.jpeg",
-    "https://static.wixstatic.com/media/548938_1d9566605f734e9583adfeaa46083606~mv2.jpeg"
+    "https://static.wixstatic.com/media/548938_1d9566605f734e9583adfeaa46083606~mv2.jpeg",
+    "https://static.wixstatic.com/media/548938_04a01ed137724faab90ce2a52b1c5ef4~mv2.jpeg"
   ],
 
   // London 2025
