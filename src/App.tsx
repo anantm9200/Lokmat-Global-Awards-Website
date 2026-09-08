@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate, useLocation } from "react-router-dom";
 import Home from "./pages/Home";
 import AddEvent from "./pages/AddEvent";
 import EventDetails from "./pages/EventDetails";
@@ -11,7 +11,6 @@ import Contact from "./pages/Contact";
 import Gallery from "./pages/Gallery";
 import Partners from "./pages/Partners";
 import About from "./pages/About";
-import GloCon from "./pages/GloCon";
 import LGEC from "./pages/LGEC";
 import LOWS from "./pages/LOWS";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -35,7 +34,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/glocon" element={<GloCon />} />
+        <Route path="/glocon" element={<Navigate to="/lgec" replace />} />
         <Route path="/lgec" element={<LGEC />} />
         <Route path="/lows" element={<LOWS />} />
         <Route path="/event/:id" element={<EventDetails />} />

@@ -10,7 +10,7 @@ export default function LOWS() {
   const { events, loading } = useEvents();
 
   useEffect(() => {
-    document.title = "Lokmat One World Summit & Awards (LOWS) | Lokmat Events";
+    document.title = "Lokmat One World Summit & Awards (LOWS&A) | Lokmat Events";
     window.scrollTo(0, 0);
   }, []);
 
@@ -63,7 +63,7 @@ export default function LOWS() {
               className="flex-1 max-w-7xl text-left"
             >
               <span className="inline-block px-3.5 py-1.5 rounded-full text-xs font-bold tracking-[0.25em] uppercase bg-red-50 text-red-600 border border-red-100 mb-4">
-                LOWS
+                LOWS&A
               </span>
               <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[54px] font-extrabold tracking-tight mb-4 text-[#111111] whitespace-nowrap">
                 Lokmat One World Summit & Awards
