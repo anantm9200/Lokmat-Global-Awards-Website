@@ -21,7 +21,29 @@ export default function EventDetails() {
   const [isMuted, setIsMuted] = useState(true);
   const videoRef = useRef<HTMLVideoElement>(null);
 
-  const event = events.find((e) => e.id === id || (id === "singapore-2024" && e.id === "1") || (id === "1" && e.id === "singapore-2024"));
+  const event = events.find((e) => {
+    if (!id) return false;
+    if (e.id === id) return true;
+    const target = id.toLowerCase().trim();
+    const eventId = e.id.toLowerCase();
+    if (eventId === target) return true;
+
+    // Singapore aliases
+    if ((target === "singapore-2024" || target === "singapore") && (eventId === "1" || eventId === "singapore-2024")) return true;
+    if (target === "1" && (eventId === "1" || eventId === "singapore-2024")) return true;
+
+    // Direct city name aliases
+    const loc = (e.location || "").toLowerCase().replace(/\s+/g, "-");
+    if (target === loc || eventId.includes(target) || target.includes(eventId)) return true;
+    if (target.includes("mauritius") && (eventId.includes("mauritius") || loc.includes("mauritius"))) return true;
+    if (target.includes("cairo") && (eventId.includes("cairo") || loc.includes("cairo"))) return true;
+    if (target.includes("london") && (eventId.includes("london") || loc.includes("london"))) return true;
+    if ((target.includes("hong-kong") || target.includes("macau")) && (eventId.includes("hong-kong") || loc.includes("hong") || loc.includes("macau"))) return true;
+    if (target.includes("baku") && (eventId.includes("baku") || loc.includes("baku"))) return true;
+    if (target.includes("dubai") && (eventId.includes("dubai") || loc.includes("dubai"))) return true;
+
+    return false;
+  });
 
   useEffect(() => {
     if (event) {

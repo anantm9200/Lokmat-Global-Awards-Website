@@ -19,9 +19,7 @@ export function useEvents() {
       const customIds = new Set(customEvents.map(e => e.id));
       const filteredStatic = staticEvents.filter(e => !customIds.has(e.id));
       
-      const allEvents = [...customEvents, ...filteredStatic].filter(
-        e => !e.category.toLowerCase().includes("upcoming")
-      );
+      const allEvents = [...customEvents, ...filteredStatic];
       
       // Sort by event year descending (latest to oldest), then by createdAt descending
       const getYear = (e: LokmatEvent) => {

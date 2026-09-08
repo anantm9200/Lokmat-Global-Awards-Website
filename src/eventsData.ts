@@ -8,7 +8,7 @@ export const staticEvents: LokmatEvent[] = [
     location: "Mauritius",
     description: "The presence of the President of Mauritius, H.E. Shri Dharambeer Gokhool, gave the Mauritius chapter of the Lokmat One World Summit and Awards 2026 distinguished national importance and reinforced its global stature. Set against the Indian Ocean backdrop of Le Méridien Ile Maurice, the summit brought together diplomats, policymakers, business leaders, innovators and changemakers for a powerful exchange of ideas. The edition celebrated global excellence while opening conversations around leadership, entrepreneurship, sustainability, governance and social impact, with the deep India–Mauritius relationship at its centre.",
     category: "Past Summit & Awards",
-    imageUrl: "https://static.wixstatic.com/media/548938_8ff50397db974348beb21275c51dc349~mv2.jpg",
+    imageUrl: "https://static.wixstatic.com/media/548938_199ab3c60a2c4f0facd965e8b6acd840~mv2.jpg",
     logoUrl: "https://static.wixstatic.com/media/548938_9e17a561cd3a45d49344c302d18c3e59~mv2.png",
     videoUrl: "https://video.wixstatic.com/video/548938_52570e309bdb42edac5e01f01a264d5f/1080p/mp4/file.mp4",
     gallery: [

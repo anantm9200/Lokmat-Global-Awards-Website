@@ -41,13 +41,17 @@ export default function App() {
         <Route path="/event/:id" element={<EventDetails />} />
         <Route path="/awards" element={<Awards />} />
         <Route path="/all-events" element={<AllEvents />} />
+        <Route path="/events" element={<AllEvents />} />
         <Route path="/articles" element={<Articles />} />
         <Route path="/upcoming-events" element={<UpcomingEvents />} />
+        <Route path="/upcoming" element={<UpcomingEvents />} />
         <Route path="/gallery" element={<Gallery />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/partners" element={<Partners />} />
         <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/terms" element={<Terms />} />
+        <Route path="/terms-and-conditions" element={<Terms />} />
         <Route path="/disclaimer" element={<Disclaimer />} />
         {/* Hidden CMS Route as requested */}
         <Route path="/add-event" element={<AddEvent />} />
