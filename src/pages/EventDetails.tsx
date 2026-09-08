@@ -62,6 +62,14 @@ export default function EventDetails() {
     }
   };
 
+  const getEventVideoUrl = (ev: typeof event) => {
+    if (!ev) return undefined;
+    if (ev.id === "mauritius-2026" || (ev.location && ev.location.toLowerCase().includes("mauritius"))) {
+      return "https://video.wixstatic.com/video/548938_8a22ddc8c7be4ff3a6a94689dbd39479/1080p/mp4/file.mp4";
+    }
+    return ev.videoUrl;
+  };
+
   const otherEventsList = events.filter((e) => e.id !== id && e.category.toLowerCase().includes("upcoming")).slice(0, 2);
 
   return (
@@ -123,11 +131,11 @@ export default function EventDetails() {
               className="w-full rounded-3xl overflow-hidden aspect-[16/7.7] relative border border-gray-100 shadow-sm mb-12 bg-black group"
               style={{ aspectRatio: "16 / 7.7" }}
             >
-              {event.videoUrl ? (
+              {getEventVideoUrl(event) ? (
                 <>
                   <video 
                     ref={videoRef}
-                    src={event.videoUrl} 
+                    src={getEventVideoUrl(event)} 
                     autoPlay 
                     loop 
                     muted={isMuted}

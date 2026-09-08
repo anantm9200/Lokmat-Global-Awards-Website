@@ -10,7 +10,7 @@ export const staticEvents: LokmatEvent[] = [
     category: "Past Summit & Awards",
     imageUrl: "https://static.wixstatic.com/media/548938_199ab3c60a2c4f0facd965e8b6acd840~mv2.jpg",
     logoUrl: "https://static.wixstatic.com/media/548938_9e17a561cd3a45d49344c302d18c3e59~mv2.png",
-    videoUrl: "https://video.wixstatic.com/video/548938_52570e309bdb42edac5e01f01a264d5f/1080p/mp4/file.mp4",
+    videoUrl: "https://video.wixstatic.com/video/548938_8a22ddc8c7be4ff3a6a94689dbd39479/1080p/mp4/file.mp4",
     gallery: [
       "https://static.wixstatic.com/media/548938_b93acbc5b20c47cb9a60b33f494ddd69~mv2.jpg",
       "https://static.wixstatic.com/media/548938_60f5c988a13d40f9b1a83cd023f0ea19~mv2.jpg",

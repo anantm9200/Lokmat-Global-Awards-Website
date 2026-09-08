@@ -15,14 +15,14 @@ const TROPHY_IMAGES: Record<string, string> = {
   "Dubai Trophy": "https://static.wixstatic.com/media/548938_951587d6f5e44ae3803383883269cbc1~mv2.png",
   "Dubai Trophy, Dubai": "https://static.wixstatic.com/media/548938_951587d6f5e44ae3803383883269cbc1~mv2.png",
   "Lokmat Global Excellence Award": "https://static.wixstatic.com/media/548938_2fa722912316444dba5be87e11bd33bf~mv2.png",
-  "Lokmat Global Excellence Award, Baku": "https://static.wixstatic.com/media/548938_2fa722912316444dba5be87e11bd33bf~mv2.png",
   "Lokmat Global Excellence Award, Cairo": "https://static.wixstatic.com/media/548938_2fa722912316444dba5be87e11bd33bf~mv2.png",
-  "Lokmat Global Excellence Award, Mauritius": "https://static.wixstatic.com/media/548938_2fa722912316444dba5be87e11bd33bf~mv2.png",
+  "Lokmat Global Changemakers Award, Mauritius": "https://static.wixstatic.com/media/548938_cf283b32490245b7abef56f00903fe4f~mv2.png",
+  "Lokmat Global Icon Power Couple Award, Mauritius": "https://static.wixstatic.com/media/548938_b856ac21fdd24a5e951624170c5b8b60~mv2.png",
+  "Lokmat Global Power Couple Award, Mauritius": "https://static.wixstatic.com/media/548938_084bb6b595a84c96acb0730d79c98240~mv2.png",
   "Lokmat Bharat Bhushan Award": "https://static.wixstatic.com/media/548938_977bc89c8ad94e958d1c97178adfc1dd~mv2.png",
   "Lokmat Bharat Bhushan Award, London": "https://static.wixstatic.com/media/548938_977bc89c8ad94e958d1c97178adfc1dd~mv2.png",
   "Lokmat Global Icon Award": "https://static.wixstatic.com/media/548938_9d91ea1bcf164e6aaaa5795885ac6050~mv2.png",
   "Lokmat Global Icon Award, Cairo": "https://static.wixstatic.com/media/548938_9d91ea1bcf164e6aaaa5795885ac6050~mv2.png",
-  "Lokmat Global Icon Award, Mauritius": "https://static.wixstatic.com/media/548938_9d91ea1bcf164e6aaaa5795885ac6050~mv2.png",
   "Lokmat Global Industry Awards": "https://static.wixstatic.com/media/548938_c0f2feec36ad400cab92653b3557c53b~mv2.png",
   "Lokmat Global Industry Awards, Baku": "https://static.wixstatic.com/media/548938_c0f2feec36ad400cab92653b3557c53b~mv2.png",
   "Lokmat Global Sakhi Awards, Singapore": "https://static.wixstatic.com/media/548938_adfd1b5219f548d0a8697c797d80fb12~mv2.png",
@@ -79,7 +79,7 @@ const awardDataMap: Record<string, AwardData[]> = {
     }
   ],
 
-  // Baku - 3 Awards
+  // Baku - 2 Awards
   "baku-2024": [
     {
       awardName: "Lokmat Global Trailblazers Awards, Baku",
@@ -88,10 +88,6 @@ const awardDataMap: Record<string, AwardData[]> = {
     {
       awardName: "Lokmat Global Industry Awards, Baku",
       trophyImage: "https://static.wixstatic.com/media/548938_c0f2feec36ad400cab92653b3557c53b~mv2.png"
-    },
-    {
-      awardName: "Lokmat Global Excellence Award, Baku",
-      trophyImage: "https://static.wixstatic.com/media/548938_2fa722912316444dba5be87e11bd33bf~mv2.png"
     }
   ],
 
@@ -139,15 +135,19 @@ const awardDataMap: Record<string, AwardData[]> = {
     }
   ],
 
-  // Mauritius - 2 Awards
+  // Mauritius - 3 Awards
   "mauritius-2026": [
     {
-      awardName: "Lokmat Global Excellence Award, Mauritius",
-      trophyImage: "https://static.wixstatic.com/media/548938_2fa722912316444dba5be87e11bd33bf~mv2.png"
+      awardName: "Lokmat Global Changemakers Award, Mauritius",
+      trophyImage: "https://static.wixstatic.com/media/548938_cf283b32490245b7abef56f00903fe4f~mv2.png"
     },
     {
-      awardName: "Lokmat Global Icon Award, Mauritius",
-      trophyImage: "https://static.wixstatic.com/media/548938_9d91ea1bcf164e6aaaa5795885ac6050~mv2.png"
+      awardName: "Lokmat Global Icon Power Couple Award, Mauritius",
+      trophyImage: "https://static.wixstatic.com/media/548938_b856ac21fdd24a5e951624170c5b8b60~mv2.png"
+    },
+    {
+      awardName: "Lokmat Global Power Couple Award, Mauritius",
+      trophyImage: "https://static.wixstatic.com/media/548938_084bb6b595a84c96acb0730d79c98240~mv2.png"
     }
   ]
 };
