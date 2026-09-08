@@ -26,6 +26,11 @@ export default function HeroSection() {
   // Authentic Event Images for Hero Slider
   const carouselImages = [
     {
+      src: "https://static.wixstatic.com/media/548938_199ab3c60a2c4f0facd965e8b6acd840~mv2.jpg",
+      fallback: image1,
+      title: "Mauritius, 2026"
+    },
+    {
       src: "https://static.wixstatic.com/media/548938_4cac77e950a84d069f5f29b1cfbbb7b0~mv2.jpg",
       fallback: image1,
       title: "London, 2025"
@@ -39,6 +44,11 @@ export default function HeroSection() {
       src: "https://static.wixstatic.com/media/548938_ded036dc37f0424680a37bc2eb2e5426~mv2.jpg",
       fallback: image2,
       title: "London, 2025"
+    },
+    {
+      src: "https://static.wixstatic.com/media/548938_199ab3c60a2c4f0facd965e8b6acd840~mv2.jpg",
+      fallback: image1,
+      title: "Mauritius, 2026"
     },
     {
       src: "https://static.wixstatic.com/media/548938_bcfbc37d13e846ebb239ae504fb62d47~mv2.jpg",
