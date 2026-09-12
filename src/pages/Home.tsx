@@ -24,7 +24,7 @@ export default function Home() {
       
       <PartnerLogos />
       
-      <main className="bg-white w-[100vw] px-[3%] pt-[60px] pb-[60px]">
+      <main className="bg-white w-[100vw] px-[3%] pt-[30px] pb-[30px] md:pt-[60px] md:pb-[60px]">
         <div className="flex flex-col md:flex-row items-baseline justify-between mb-[60px] gap-8">
           <motion.div
             initial={{ opacity: 0, x: -30 }}
@@ -57,7 +57,7 @@ export default function Home() {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-[158px]">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-[60px] md:mb-[158px]">
                 {events
                   .filter(e => e.title.includes("Lokmat Global Economic Convention"))
                   .slice(0, 2)

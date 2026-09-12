@@ -383,7 +383,7 @@ export default function AwardWinnersSection({ event }: AwardWinnersSectionProps)
   return (
     <div className="w-full">
       {/* 1. Awards Section: Grid of 5 awards in 1 row (starts from left, remainder empty) */}
-      <div className="w-full my-12 pt-10 border-t border-gray-200">
+      <div className="w-full mt-[60px] pt-0 md:my-12 md:pt-10 border-t border-gray-200">
         <h4 className="text-2xl font-bold mb-6 tracking-tight text-[#111111]">
           Awards
         </h4>
@@ -420,7 +420,7 @@ export default function AwardWinnersSection({ event }: AwardWinnersSectionProps)
       </div>
 
       {/* 2. Award Winners and Event Articles Section (3 in a row pictures, no title, full screen on click) */}
-      <div className="w-full my-12 pt-10 border-t border-gray-200">
+      <div className="w-full mt-[60px] pt-0 md:my-12 md:pt-10 border-t border-gray-200">
         <h4 className="text-2xl font-bold mb-6 tracking-tight text-[#111111]">
           Award Winners and Event Articles
         </h4>

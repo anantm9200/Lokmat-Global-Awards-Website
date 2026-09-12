@@ -17,11 +17,19 @@ import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import Disclaimer from "./pages/Disclaimer";
 
-function ScrollToTop() {
+function PageTracker() {
   const { pathname } = useLocation();
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    const isHome = pathname === "/";
+    if (isHome) {
+      document.body.classList.remove("is-inner-page");
+      document.body.classList.add("is-home-page");
+    } else {
+      document.body.classList.remove("is-home-page");
+      document.body.classList.add("is-inner-page");
+    }
   }, [pathname]);
 
   return null;
@@ -30,7 +38,7 @@ function ScrollToTop() {
 export default function App() {
   return (
     <BrowserRouter>
-      <ScrollToTop />
+      <PageTracker />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

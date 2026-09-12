@@ -44,7 +44,7 @@ export default function VisionMissionSection() {
   const ActiveTabIcon = activeContent.icon;
 
   return (
-    <section className="py-12 md:py-16 bg-gradient-to-b from-[#FAFAFA] via-white to-[#FAFAFA] relative overflow-hidden">
+    <section className="pt-[30px] pb-[30px] md:py-16 bg-gradient-to-b from-[#FAFAFA] via-white to-[#FAFAFA] relative overflow-hidden">
       {/* Background ambient lighting elements */}
       <div className="absolute top-1/4 left-0 w-96 h-96 bg-red-500/5 rounded-full filter blur-[120px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-orange-500/5 rounded-full filter blur-[120px] pointer-events-none" />

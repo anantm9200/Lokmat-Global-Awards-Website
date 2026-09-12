@@ -70,8 +70,8 @@ export default function GlobalMapSection() {
   // Flat Equirectangular Projection
   const projection = useMemo(() => {
     return geoEquirectangular()
-      .scale(160)
-      .translate([VIEWBOX_WIDTH / 2, VIEWBOX_HEIGHT / 2 + 20]);
+      .scale(155)
+      .translate([VIEWBOX_WIDTH / 2, VIEWBOX_HEIGHT / 2]);
   }, []);
 
   const pathGenerator = useMemo(() => {
@@ -221,7 +221,7 @@ export default function GlobalMapSection() {
   }, [projection]);
 
   return (
-    <section className="py-12 md:py-16 bg-white relative overflow-hidden border-t border-gray-100">
+    <section className="pt-[30px] pb-[30px] md:py-16 bg-white relative overflow-hidden border-t border-gray-100">
       <div className="w-full px-[3%]">
         
         {/* Section Header */}
@@ -289,7 +289,7 @@ export default function GlobalMapSection() {
 
           {/* Draggable Flat Map Stage */}
           <div 
-            className={`relative w-full my-auto py-2 flex items-center justify-center overflow-hidden ${
+            className={`relative w-full my-auto py-2 flex items-center justify-center overflow-hidden h-[380px] sm:h-auto ${
               isDragging ? "cursor-grabbing" : "cursor-grab"
             }`}
             onMouseDown={handleMouseDown}
@@ -309,7 +309,7 @@ export default function GlobalMapSection() {
             >
               <svg
                 viewBox={`0 0 ${VIEWBOX_WIDTH} ${VIEWBOX_HEIGHT}`}
-                className="w-full h-auto max-h-[580px] object-contain filter drop-shadow-[0_20px_60px_rgba(0,0,0,0.9)]"
+                className="w-auto h-[360px] min-w-[720px] sm:w-full sm:h-auto sm:min-w-0 sm:max-h-[580px] object-contain filter drop-shadow-[0_20px_60px_rgba(0,0,0,0.9)]"
                 xmlns="http://www.w3.org/2000/svg"
               >
                 <defs>

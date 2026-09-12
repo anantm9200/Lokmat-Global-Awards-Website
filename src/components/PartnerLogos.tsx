@@ -28,7 +28,7 @@ export default function PartnerLogos() {
   ]);
 
   return (
-    <section className="bg-white py-[77px] lg:py-[115px] border-b border-gray-100">
+    <section className="bg-white pt-[30px] pb-[30px] lg:py-[115px] border-b border-gray-100">
       <div className="w-[100vw] px-[3%]">
         <div className="text-center mb-[42px]">
           <motion.div

@@ -49,9 +49,9 @@ export default function LGEC() {
     <div className="w-full overflow-x-hidden min-h-screen bg-[#FAFAFA] text-[#111111] flex flex-col font-sans">
       <Navbar />
 
-      <main className="flex-1 w-full pt-[143px] pb-20 md:pt-[179px] md:pb-28 relative">
+      <main className="flex-1 w-full pt-[143px] pb-[30px] md:pt-[179px] md:pb-28 relative">
         {/* Hero Section */}
-        <section className="w-full px-[3%] mb-10 md:mb-14">
+        <section className="w-full px-[3%] mb-[60px] md:mb-14">
           <div className="w-full flex flex-col md:flex-row md:items-center justify-between gap-8">
             <motion.div
               initial={{ opacity: 0, y: 15 }}
@@ -62,9 +62,22 @@ export default function LGEC() {
               <span className="inline-block px-3.5 py-1.5 rounded-full text-xs font-bold tracking-[0.25em] uppercase bg-red-50 text-red-600 border border-red-100 mb-4">
                 LGEC
               </span>
-              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[54px] font-extrabold tracking-tight mb-4 text-[#111111] whitespace-nowrap">
-                Lokmat Global Economic Convention
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[54px] font-extrabold tracking-tight mb-4 text-[#111111] whitespace-normal sm:whitespace-nowrap leading-tight sm:leading-none">
+                <span className="block sm:inline">Lokmat Global </span>
+                <span className="block sm:inline">Economic Convention</span>
               </h1>
+
+              {/* Mobile Logo Display: Pill -> Title -> Logo -> Content */}
+              <div className="block md:hidden my-5">
+                <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-2xl bg-white border border-gray-100 shadow-sm p-4 flex items-center justify-center overflow-hidden">
+                  <img
+                    src="https://static.wixstatic.com/media/548938_1fd265b8996d407995b8147541858509~mv2.jpg"
+                    alt="Lokmat Global Economic Convention Logo"
+                    className="w-full h-full object-contain"
+                  />
+                </div>
+              </div>
+
               <div className="space-y-4 text-base sm:text-lg text-gray-600 font-light leading-relaxed max-w-[95%]">
                 <p>
                   LGEC is Lokmat’s international business and economic platform, taking conversations on India, global markets, enterprise and leadership beyond national borders. It brings together policymakers, business leaders, entrepreneurs, investors, innovators and cultural voices to exchange perspectives and explore opportunities across markets.
@@ -75,12 +88,12 @@ export default function LGEC() {
               </div>
             </motion.div>
 
-            {/* Right Logo Display */}
+            {/* Right Logo Display (Desktop / Tablet) */}
             <motion.div
               initial={{ opacity: 0, scale: 0.95 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="flex-shrink-0 w-44 h-44 sm:w-52 sm:h-52 md:w-68 md:h-68 lg:w-[270px] lg:h-[270px] rounded-2xl bg-white border border-gray-100 shadow-sm p-4 sm:p-6 flex items-center justify-center overflow-hidden"
+              className="hidden md:flex flex-shrink-0 w-52 h-52 md:w-68 md:h-68 lg:w-[270px] lg:h-[270px] rounded-2xl bg-white border border-gray-100 shadow-sm p-4 sm:p-6 items-center justify-center overflow-hidden"
             >
               <img
                 src="https://static.wixstatic.com/media/548938_1fd265b8996d407995b8147541858509~mv2.jpg"
@@ -92,7 +105,7 @@ export default function LGEC() {
         </section>
 
         {/* Editions & Cards Section */}
-        <section className="w-full px-[3%] mb-16">
+        <section className="w-full px-[3%] mb-[60px] md:mb-16">
           <div className="mb-8">
             <span className="text-red-600 font-bold tracking-[0.25em] uppercase text-xs block mb-1">Chapters</span>
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold leading-[1.12] tracking-tight text-[#111111]">

@@ -88,7 +88,7 @@ export default function About() {
       
       <main className="flex-1 w-full pt-[159px] pb-0 md:pt-[195px] md:pb-0 relative">
         {/* Hero Header */}
-        <div className="w-full px-[3%] text-center mb-12">
+        <div className="w-full px-[3%] text-center mb-[30px] md:mb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -109,7 +109,7 @@ export default function About() {
         <VisionMissionSection />
 
         {/* Vision & Values Section */}
-        <section className="py-20 bg-white border-t border-b border-gray-100">
+        <section className="pt-[30px] pb-[30px] md:py-20 bg-white border-t border-b border-gray-100">
           <div className="w-full px-[3%]">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="text-red-600 font-bold tracking-[0.3em] uppercase text-xs mb-3 block">Guided by Purpose</span>
@@ -153,7 +153,7 @@ export default function About() {
         <GlobalEconomicFootprintsSection />
 
         {/* Leadership Section */}
-        <section className="pt-20 pb-16 md:pt-24 md:pb-20 bg-white border-t border-gray-100">
+        <section className="pt-[30px] pb-[30px] md:pt-24 md:pb-20 bg-white border-t border-gray-100">
           <div className="w-full px-[3%]">
             <div className="text-center max-w-3xl mx-auto mb-16">
               <span className="text-red-600 font-bold tracking-[0.3em] uppercase text-xs mb-3 block">Governing Board</span>

@@ -2,9 +2,9 @@ import Navbar from "@/src/components/Navbar";
 import { useParams, Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { useEvents } from "@/src/hooks/useEvents";
-import { ArrowLeft, Calendar, MapPin, Share2, Clock, Users, ArrowUpRight, Volume2, VolumeX } from "lucide-react";
+import { ArrowLeft, Calendar, MapPin, Share2, Clock, Users, ArrowUpRight, Volume2, VolumeX, X, ChevronLeft, ChevronRight } from "lucide-react";
 import Footer from "@/src/components/Footer";
-import { motion } from "motion/react";
+import { motion, AnimatePresence } from "motion/react";
 import { formatDate } from "@/src/lib/utils";
 import EventCard from "@/src/components/EventCard";
 import AwardWinnersSection from "@/src/components/AwardWinnersSection";
@@ -19,6 +19,7 @@ export default function EventDetails() {
   const { id } = useParams<{ id: string }>();
   const { events, loading, error } = useEvents();
   const [isMuted, setIsMuted] = useState(true);
+  const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const event = events.find((e) => {
@@ -62,6 +63,30 @@ export default function EventDetails() {
     }
   };
 
+  const galleryImages = event?.gallery && event.gallery.length > 0 ? event.gallery : [
+    "https://static.wixstatic.com/media/548938_8e1a682b5aeb4f79b98b882fa070c4f4~mv2.jpg",
+    "https://static.wixstatic.com/media/548938_16da964fa0a64825b25b0d428948b731~mv2.jpg",
+    "https://static.wixstatic.com/media/548938_bd414512485f4f8d829f43bf08dddcd7~mv2.jpg",
+    "https://static.wixstatic.com/media/548938_4f37d9ddf20743fe9a52e3db9eacc36d~mv2.jpg",
+    "https://static.wixstatic.com/media/548938_8e1a682b5aeb4f79b98b882fa070c4f4~mv2.jpg",
+    "https://static.wixstatic.com/media/548938_67cac5d58a9e41628c58f9bf88989ffe~mv2.jpg"
+  ];
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (lightboxIndex === null) return;
+      if (e.key === "Escape") setLightboxIndex(null);
+      if (e.key === "ArrowLeft") {
+        setLightboxIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : galleryImages.length - 1));
+      }
+      if (e.key === "ArrowRight") {
+        setLightboxIndex((prev) => (prev !== null && prev < galleryImages.length - 1 ? prev + 1 : 0));
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [lightboxIndex, galleryImages.length]);
+
   const getEventVideoUrl = (ev: typeof event) => {
     if (!ev) return undefined;
     if (ev.id === "mauritius-2026" || (ev.location && ev.location.toLowerCase().includes("mauritius"))) {
@@ -78,7 +103,7 @@ export default function EventDetails() {
       <Navbar />
 
       {/* Main Content Start */}
-      <main className="flex-1 w-[100vw] pt-[127px] pb-24 md:pt-[147px] md:pb-32 px-[3%] relative">
+      <main className="flex-1 w-[100vw] pt-[127px] pb-[30px] md:pt-[147px] md:pb-32 px-[3%] relative">
         
         {loading ? (
            <div className="flex flex-col items-center justify-center py-32 space-y-4">
@@ -128,8 +153,7 @@ export default function EventDetails() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
-              className="w-full rounded-3xl overflow-hidden aspect-[16/7.7] relative border border-gray-100 shadow-sm mb-12 bg-black group"
-              style={{ aspectRatio: "16 / 7.7" }}
+              className="w-full rounded-2xl sm:rounded-3xl overflow-hidden aspect-[16/11] sm:aspect-[16/7.7] relative border border-gray-100 shadow-sm mb-8 sm:mb-12 bg-black group"
             >
               {getEventVideoUrl(event) ? (
                 <>
@@ -140,14 +164,14 @@ export default function EventDetails() {
                     loop 
                     muted={isMuted}
                     playsInline
-                    className="w-full h-full object-contain md:object-cover cursor-pointer"
+                    className="w-full h-full object-cover cursor-pointer"
                     onClick={toggleMute}
                   />
                   <button 
                     onClick={toggleMute}
-                    className="absolute bottom-6 right-6 z-20 w-12 h-12 rounded-full bg-black/50 text-white backdrop-blur-md flex items-center justify-center hover:bg-black/70 transition-colors opacity-0 group-hover:opacity-100"
+                    className="absolute bottom-4 sm:bottom-6 right-4 sm:right-6 z-20 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-black/50 text-white backdrop-blur-md flex items-center justify-center hover:bg-black/70 transition-colors opacity-0 group-hover:opacity-100"
                   >
-                    {isMuted ? <VolumeX className="w-6 h-6" /> : <Volume2 className="w-6 h-6" />}
+                    {isMuted ? <VolumeX className="w-5 h-5 sm:w-6 sm:h-6" /> : <Volume2 className="w-5 h-5 sm:w-6 sm:h-6" />}
                   </button>
                 </>
               ) : (
@@ -159,7 +183,8 @@ export default function EventDetails() {
                   className="w-full h-full object-cover"
                 />
               )}
-              <div className="absolute top-6 left-6 z-20">
+              {/* Category / Past Convention Tag - Hidden on mobile */}
+              <div className="hidden sm:block absolute top-6 left-6 z-20">
                 <span className="px-4 py-2 rounded-sm text-xs font-bold tracking-widest uppercase bg-white/95 text-[#111111] backdrop-blur-md shadow-sm">
                   {event.category}
                 </span>
@@ -214,25 +239,38 @@ export default function EventDetails() {
             <AwardWinnersSection event={event} />
 
             {/* Event Gallery */}
-            <div className="w-full mt-12 pt-10 border-t border-gray-200">
-              <h4 className="text-2xl font-bold mb-6 tracking-tight text-[#111111]">Event Gallery</h4>
-              <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                {(event?.gallery || [
-                  "https://static.wixstatic.com/media/548938_8e1a682b5aeb4f79b98b882fa070c4f4~mv2.jpg",
-                  "https://static.wixstatic.com/media/548938_16da964fa0a64825b25b0d428948b731~mv2.jpg",
-                  "https://static.wixstatic.com/media/548938_bd414512485f4f8d829f43bf08dddcd7~mv2.jpg",
-                  "https://static.wixstatic.com/media/548938_4f37d9ddf20743fe9a52e3db9eacc36d~mv2.jpg",
-                  "https://static.wixstatic.com/media/548938_8e1a682b5aeb4f79b98b882fa070c4f4~mv2.jpg",
-                  "https://static.wixstatic.com/media/548938_67cac5d58a9e41628c58f9bf88989ffe~mv2.jpg"
-                ]).map((img, idx) => (
-                  <img key={idx} src={img} alt={`Gallery ${idx + 1}`} loading="lazy" referrerPolicy="no-referrer" className="w-full aspect-[4/3] object-cover rounded-xl shadow-sm hover:opacity-90 transition-opacity cursor-pointer bg-gray-100" />
+            <div className="w-full mt-[60px] pt-0 md:mt-12 md:pt-10 border-t border-gray-200">
+              <div className="flex items-center justify-between mb-6">
+                <h4 className="text-2xl font-bold tracking-tight text-[#111111]">Event Gallery</h4>
+                <span className="text-xs font-medium text-gray-400">Click to expand</span>
+              </div>
+              <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
+                {galleryImages.map((img, idx) => (
+                  <div
+                    key={idx}
+                    onClick={() => setLightboxIndex(idx)}
+                    className="relative group cursor-pointer overflow-hidden rounded-xl bg-gray-100 aspect-[4/3] shadow-sm hover:shadow-md transition-all active:scale-[0.98]"
+                  >
+                    <img
+                      src={img}
+                      alt={`Gallery ${idx + 1}`}
+                      loading="lazy"
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 active:bg-black/35 transition-colors flex items-center justify-center">
+                      <span className="opacity-0 group-hover:opacity-100 transition-opacity bg-black/60 text-white text-xs font-medium px-2.5 py-1 rounded-full backdrop-blur-sm">
+                        View
+                      </span>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
             
             {/* Explore More Events Section */}
             {otherEventsList.length > 0 && (
-              <div className="mt-32 border-t border-gray-200 pt-16">
+              <div className="mt-[60px] pt-0 md:mt-32 border-t border-gray-200 md:pt-16">
                 <div className="flex items-center justify-between mb-12">
                   <h3 className="text-3xl font-bold tracking-tight">Explore More Events</h3>
                   <Link to="/all-events" className="text-sm font-bold text-gray-500 uppercase tracking-widest hover:text-red-600 transition-colors flex items-center gap-2">
@@ -250,6 +288,78 @@ export default function EventDetails() {
           </div>
         )}
       </main>
+
+      {/* Lightbox Modal for clear image view on mobile & desktop */}
+      <AnimatePresence>
+        {lightboxIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 select-none"
+            onClick={() => setLightboxIndex(null)}
+          >
+            {/* Close Button */}
+            <button
+              onClick={() => setLightboxIndex(null)}
+              className="absolute top-5 right-5 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-2.5 rounded-full transition-colors z-50 min-w-[44px] min-h-[44px] flex items-center justify-center"
+              aria-label="Close modal"
+            >
+              <X className="w-6 h-6" />
+            </button>
+
+            {/* Prev Button */}
+            {galleryImages.length > 1 && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : galleryImages.length - 1));
+                }}
+                className="absolute left-3 sm:left-6 text-white/80 hover:text-white bg-black/50 hover:bg-black/80 p-2.5 sm:p-3 rounded-full transition-colors z-50 min-w-[44px] min-h-[44px] flex items-center justify-center"
+                aria-label="Previous image"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+            )}
+
+            {/* Next Button */}
+            {galleryImages.length > 1 && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxIndex((prev) => (prev !== null && prev < galleryImages.length - 1 ? prev + 1 : 0));
+                }}
+                className="absolute right-3 sm:right-6 text-white/80 hover:text-white bg-black/50 hover:bg-black/80 p-2.5 sm:p-3 rounded-full transition-colors z-50 min-w-[44px] min-h-[44px] flex items-center justify-center"
+                aria-label="Next image"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            )}
+
+            {/* Expanded Image Stage */}
+            <div
+              className="max-w-5xl max-h-[85vh] flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <motion.img
+                key={lightboxIndex}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.25 }}
+                src={galleryImages[lightboxIndex]}
+                alt={`Expanded gallery image ${lightboxIndex + 1}`}
+                className="max-w-full max-h-[80vh] sm:max-h-[85vh] object-contain rounded-xl shadow-2xl"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+
+            {/* Counter */}
+            <div className="absolute bottom-5 text-white/70 text-xs sm:text-sm font-mono tracking-widest bg-black/50 px-3.5 py-1.5 rounded-full backdrop-blur-md">
+              {lightboxIndex + 1} / {galleryImages.length}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <Footer />
     </div>

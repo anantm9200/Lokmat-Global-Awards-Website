@@ -6,7 +6,7 @@ export default function Terms() {
   return (
     <div className="w-[100vw] overflow-x-hidden min-h-screen bg-[#FAFAFA] text-[#111111] flex flex-col font-sans">
       <Navbar />
-      <main className="flex-1 w-[100vw] pt-[127px] pb-24 md:pt-[147px] md:pb-32 px-[3%] max-w-5xl mx-auto">
+      <main className="flex-1 w-[100vw] pt-[127px] pb-[30px] md:pt-[147px] md:pb-32 px-[3%] max-w-5xl mx-auto">
         <div className="flex items-center gap-3 mb-6 text-red-600 font-bold uppercase tracking-widest text-xs">
           <FileText className="w-5 h-5" /> Legal Terms
         </div>

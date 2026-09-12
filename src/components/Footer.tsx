@@ -42,7 +42,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-[#e40009] text-white pt-10 md:pt-14 pb-6 relative overflow-hidden">
+    <footer className="bg-[#e40009] text-white pt-[30px] md:pt-14 pb-6 relative overflow-hidden">
       {/* Subtle background decoration */}
       <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-red-800 rounded-full mix-blend-multiply filter blur-[120px] opacity-40 pointer-events-none transform translate-x-1/3 -translate-y-1/2"></div>
       <div className="absolute bottom-0 left-0 w-[350px] h-[350px] bg-red-600 rounded-full mix-blend-multiply filter blur-[100px] opacity-40 pointer-events-none transform -translate-x-1/2 translate-y-1/3"></div>

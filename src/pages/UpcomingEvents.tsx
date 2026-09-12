@@ -25,12 +25,12 @@ export default function UpcomingEvents() {
     <div className="w-[100vw] overflow-x-hidden min-h-screen bg-[#FAFAFA] text-[#111111] flex flex-col font-sans">
       <Navbar />
 
-      <main className="flex-1 w-[100vw] pt-[159px] pb-24 md:pt-[195px] md:pb-32 px-[3%] relative">
+      <main className="flex-1 w-[100vw] pt-[159px] pb-[30px] md:pt-[195px] md:pb-32 px-[3%] relative">
         <div className="w-full flex flex-col items-center animate-in fade-in zoom-in-95 duration-700 text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight tracking-tight mb-8">
               Upcoming Events
             </h1>
-            <p className="text-base md:text-lg text-gray-500 font-light leading-relaxed mb-16 max-w-3xl mx-auto">
+            <p className="text-base md:text-lg text-gray-500 font-light leading-relaxed mb-[60px] md:mb-16 max-w-3xl mx-auto">
               Explore upcoming Lokmat events, awards, conclaves and forums <br className="hidden md:block" /> designed for influential audiences, powerful conversations and national visibility.
             </p>
             

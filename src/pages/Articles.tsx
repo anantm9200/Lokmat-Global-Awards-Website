@@ -21,12 +21,12 @@ export default function Articles() {
     <div className="w-[100vw] overflow-x-hidden min-h-screen bg-[#FAFAFA] text-[#111111] flex flex-col font-sans">
       <Navbar />
 
-      <main className="flex-1 w-[100vw] pt-[159px] pb-24 md:pt-[195px] md:pb-32 px-[3%] relative">
+      <main className="flex-1 w-[100vw] pt-[159px] pb-[30px] md:pt-[195px] md:pb-32 px-[3%] relative">
         <div className="w-full flex flex-col items-center animate-in fade-in zoom-in-95 duration-700 text-center">
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight tracking-tight mb-8">
               Articles
             </h1>
-            <p className="text-base md:text-lg text-gray-500 font-light leading-relaxed mb-16 max-w-3xl mx-auto">
+            <p className="text-base md:text-lg text-gray-500 font-light leading-relaxed mb-[60px] md:mb-16 max-w-3xl mx-auto">
               Read the latest stories, insights and perspectives from Lokmat’s events, <br className="hidden md:block" /> awards and leadership platforms.
             </p>
             

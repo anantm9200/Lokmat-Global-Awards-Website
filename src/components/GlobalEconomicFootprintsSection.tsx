@@ -27,7 +27,7 @@ export default function GlobalEconomicFootprintsSection() {
   ];
 
   return (
-    <section className="bg-[#0b0c10] text-white py-8 md:py-10 relative overflow-hidden border-t border-white/10">
+    <section className="bg-[#0b0c10] text-white pt-[30px] pb-[30px] md:py-10 relative overflow-hidden border-t border-white/10">
       {/* Background ambient lighting */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-red-600/10 blur-[120px] rounded-full pointer-events-none" />
       <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-orange-500/5 blur-[100px] rounded-full pointer-events-none" />
@@ -88,7 +88,7 @@ export default function GlobalEconomicFootprintsSection() {
                     {stat.value}
                   </div>
 
-                  <h3 className="text-white text-xs sm:text-sm font-bold uppercase tracking-widest leading-snug">
+                  <h3 className="stat-subtext text-white text-xs sm:text-sm font-bold uppercase tracking-widest leading-snug">
                     {stat.label}
                   </h3>
                 </div>

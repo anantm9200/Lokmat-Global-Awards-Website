@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { useEvents } from "@/src/hooks/useEvents";
 import useEmblaCarousel from "embla-carousel-react";
@@ -18,10 +18,57 @@ export default function HeroSection() {
   const latestEvents = events.slice(0, 6);
   const [, setHoveredEventId] = useState<string | null>(null);
 
-  const [emblaRef] = useEmblaCarousel(
+  // Check if mobile or tablet (< 1024px)
+  const [isTouchDevice, setIsTouchDevice] = useState<boolean>(() => {
+    if (typeof window !== "undefined") {
+      return window.innerWidth < 1024;
+    }
+    return false;
+  });
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsTouchDevice(window.innerWidth < 1024);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const [emblaRef, emblaApi] = useEmblaCarousel(
     { loop: true, align: "start", dragFree: true },
-    [AutoScroll({ playOnInit: true, speed: 1.1, stopOnInteraction: false, stopOnMouseEnter: true })]
+    [
+      AutoScroll({
+        playOnInit: true,
+        speed: 1.1,
+        stopOnInteraction: false,
+        stopOnMouseEnter: !isTouchDevice, // Remove pause on hover for mobile and tablet
+      }),
+    ]
   );
+
+  // Synchronize mobile and tablet window scroll with Embla carousel scroll
+  useEffect(() => {
+    if (!isTouchDevice || !emblaApi) return;
+
+    let lastScrollY = window.scrollY;
+
+    const handleWindowScroll = () => {
+      const currentScrollY = window.scrollY;
+      const deltaY = currentScrollY - lastScrollY;
+      lastScrollY = currentScrollY;
+
+      if (Math.abs(deltaY) > 0.5) {
+        const engine = emblaApi.internalEngine();
+        // Move the carousel smoothly proportional to the scroll amount
+        engine.location.add(-deltaY * 0.9);
+        engine.target.set(engine.location);
+        engine.animation.start();
+      }
+    };
+
+    window.addEventListener("scroll", handleWindowScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleWindowScroll);
+  }, [isTouchDevice, emblaApi]);
 
   // Authentic Event Images for Hero Slider
   const carouselImages = [
@@ -108,7 +155,7 @@ export default function HeroSection() {
   ];
 
   return (
-    <div ref={containerRef} className="relative min-h-screen w-full flex flex-col justify-between bg-[#FAFAFA] pt-[81px] sm:pt-[97px] pb-8 sm:pb-10 px-[3%] overflow-hidden">
+    <div ref={containerRef} className="relative min-h-screen w-full flex flex-col justify-between bg-[#FAFAFA] pt-[141px] sm:pt-[127px] lg:pt-[97px] pb-[30px] sm:pb-10 px-[3%] overflow-hidden">
       {/* Completely Structured, Balanced Checkered Background */}
       <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden select-none">
         <svg 
@@ -158,12 +205,12 @@ export default function HeroSection() {
                 OUR LANDMARK EVENT IPS
               </div>
 
-              <h1 className="text-[2.07rem] sm:text-[2.55rem] md:text-[3.2rem] lg:text-[3.76rem] xl:text-[4.35rem] font-bold tracking-tight text-[#111111] flex items-center gap-3 sm:gap-4 flex-wrap sm:flex-nowrap leading-none">
+              <h1 className="text-[2.28rem] sm:text-[2.55rem] md:text-[3.2rem] lg:text-[3.76rem] xl:text-[4.35rem] font-bold tracking-tight text-[#111111] flex items-center gap-x-3 gap-y-[9px] sm:gap-4 flex-wrap sm:flex-nowrap leading-none">
                 <div className="relative flex items-center shrink-0">
                   <img 
                     src="/lokmat-logo.png" 
                     alt="LOKMAT" 
-                    className="h-11 sm:h-[48px] md:h-[55px] lg:h-[61px] xl:h-[70px] w-auto object-contain object-left"
+                    className="h-[48px] sm:h-[48px] md:h-[55px] lg:h-[61px] xl:h-[70px] w-auto object-contain object-left"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = 'none';
                       const fallback = document.getElementById('lokmat-fallback-text');
@@ -277,28 +324,28 @@ export default function HeroSection() {
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2.5 sm:gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-2 sm:gap-3">
               {latestEvents.map((event) => (
                 <Link 
                   key={event.id}
                   to={`/event/${event.id}`}
-                  className="group bg-white border border-gray-100 rounded-xl p-3 flex flex-col justify-between shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.06)] transition-all duration-300 hover:border-red-500/40 hover:-translate-y-0.5 min-h-[118px] sm:min-h-[125px] h-full"
+                  className="group bg-white border border-gray-100 rounded-xl p-2.5 sm:p-3 flex flex-col justify-between shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.06)] transition-all duration-300 hover:border-red-500/40 hover:-translate-y-0.5 min-h-[110px] sm:min-h-[125px] h-full"
                   onMouseEnter={() => setHoveredEventId(event.id)}
                   onMouseLeave={() => setHoveredEventId(null)}
                 >
                   <div className="flex flex-col gap-0.5 w-full">
-                    <span className={`text-[8.5px] font-mono uppercase tracking-widest ${event.category.includes('Upcoming') ? 'text-red-600 font-bold animate-pulse' : 'text-gray-500'}`}>
+                    <span className={`text-[8px] sm:text-[8.5px] font-mono uppercase tracking-wider truncate ${event.category.includes('Upcoming') ? 'text-red-600 font-bold animate-pulse' : 'text-gray-500'}`}>
                       {event.category}
                     </span>
-                    <h4 className="text-xs font-semibold text-[#111111] group-hover:text-red-600 transition-colors duration-300 line-clamp-2 leading-snug">
+                    <h4 className="text-[11px] sm:text-xs font-semibold text-[#111111] group-hover:text-red-600 transition-colors duration-300 line-clamp-2 leading-snug">
                       {event.title}
                     </h4>
                   </div>
                   <div className="flex items-center justify-between w-full mt-2 pt-1.5 border-t border-gray-100">
-                    <span className="text-[9.5px] text-gray-400 font-medium truncate pr-1">
+                    <span className="text-[8.5px] sm:text-[9.5px] text-gray-400 font-medium truncate pr-1">
                       {formatDate(event.date)} | {event.location.split(',')[0]}
                     </span>
-                    <div className="w-5 h-5 flex-shrink-0 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-red-600 group-hover:bg-red-50 text-gray-400 group-hover:text-red-600 transition-all transform group-hover:scale-105">
+                    <div className="w-4.5 h-4.5 sm:w-5 sm:h-5 shrink-0 rounded-full border border-gray-200 flex items-center justify-center group-hover:border-red-600 group-hover:bg-red-50 text-gray-400 group-hover:text-red-600 transition-all transform group-hover:scale-105">
                       <ArrowUpRight className="w-2.5 h-2.5" />
                     </div>
                   </div>

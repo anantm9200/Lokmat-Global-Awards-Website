@@ -114,8 +114,8 @@ export default function Gallery() {
     <div className="w-[100vw] overflow-x-hidden min-h-screen bg-[#FAFAFA] text-[#111111] flex flex-col font-sans">
       <Navbar />
 
-      <main className="flex-1 w-[100vw] pt-[159px] pb-24 md:pt-[195px] md:pb-32 px-[3%] relative">
-        <div className="w-full flex flex-col items-center animate-in fade-in zoom-in-95 duration-700 text-center mb-12 md:mb-14">
+      <main className="flex-1 w-[100vw] pt-[159px] pb-[30px] md:pt-[195px] md:pb-32 px-[3%] relative">
+        <div className="w-full flex flex-col items-center animate-in fade-in zoom-in-95 duration-700 text-center mb-[60px] md:mb-14">
             <span className="text-red-600 font-bold tracking-[0.3em] uppercase text-xs mb-3 block">Visual Portfolio</span>
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-bold leading-[1.12] tracking-tight text-[#111111]">
               Curated <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-orange-500 pr-2">Gallery</span>
@@ -151,7 +151,7 @@ export default function Gallery() {
             </div>
 
             {visibleCount < GALLERY_IMAGES.length && (
-                <div className="mt-16 flex justify-center">
+                <div className="mt-[60px] md:mt-16 flex justify-center">
                     <button 
                         onClick={loadMore}
                         className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 border border-gray-300 text-[#111111] rounded-2xl overflow-hidden font-bold tracking-widest uppercase text-sm hover:scale-105 hover:border-[#111111] hover:bg-gray-50 transition-all duration-300 shadow-sm"

@@ -74,7 +74,7 @@ export default function Contact() {
     <div className="w-[100vw] overflow-x-hidden min-h-screen bg-[#FAFAFA] text-[#111111] flex flex-col font-sans">
       <Navbar />
 
-      <main className="flex-1 w-[100vw] pt-[159px] pb-16 md:pt-[195px] md:pb-24 px-[3%] relative">
+      <main className="flex-1 w-[100vw] pt-[159px] pb-[30px] md:pt-[195px] md:pb-24 px-[3%] relative">
         <div className="w-full flex flex-col items-center text-center">
             
             {/* Header */}
@@ -82,7 +82,7 @@ export default function Contact() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6 }}
-              className="max-w-4xl mx-auto mb-12 md:mb-16"
+              className="max-w-4xl mx-auto mb-[60px] md:mb-16"
             >
               <span className="text-red-600 font-bold tracking-[0.3em] uppercase text-xs mb-3 block">Global Coordinates</span>
               <h1 className="text-4xl sm:text-5xl lg:text-7xl font-bold leading-tight tracking-tight">
@@ -91,7 +91,7 @@ export default function Contact() {
             </motion.div>
             
             {/* Form (Left) & Contact Details Stack (Right) */}
-            <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 text-left mb-16 md:mb-20 items-stretch">
+            <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 text-left mb-[60px] md:mb-20 items-stretch">
               
               {/* Form Block (Left side - 7 Columns) */}
               <div className="lg:col-span-7 bg-white p-8 md:p-12 border border-gray-200 rounded-2xl shadow-sm flex flex-col justify-between">
@@ -259,7 +259,7 @@ export default function Contact() {
             </div>
 
             {/* FAQ Bureau - Full Width Stretching Edge to Edge (3% margin from window edge) */}
-            <section className="w-full text-left mb-8 md:mb-12">
+            <section className="w-full text-left mb-0 md:mb-12">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-xl bg-red-50 text-red-600 flex items-center justify-center shrink-0">
                   <HelpCircle className="w-5 h-5" />

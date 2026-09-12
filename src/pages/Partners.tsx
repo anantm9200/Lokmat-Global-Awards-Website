@@ -83,7 +83,7 @@ export default function Partners() {
       <main className="flex-1 w-[100vw] pt-[143px] pb-0 md:pt-[175px] md:pb-0 relative">
         
         {/* Past Sponsors Showcase */}
-        <section className="pt-8 pb-20 bg-[#FAFAFA]">
+        <section className="pt-8 pb-[30px] md:pb-20 bg-[#FAFAFA]">
           <div className="w-[100vw] px-[3%]">
             <div className="text-center max-w-3xl mx-auto mb-10">
               <span className="text-red-600 font-bold tracking-[0.3em] uppercase text-xs mb-3 block">Proven Trust</span>

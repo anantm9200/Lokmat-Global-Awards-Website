@@ -72,7 +72,7 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section className="border-t border-gray-100 bg-[#FAFAFA] py-16 md:py-24 relative overflow-hidden">
+    <section className="border-t border-gray-100 bg-[#FAFAFA] pt-[30px] pb-[30px] md:py-24 relative overflow-hidden">
       {/* Decorative background glow */}
       <div className="absolute top-0 right-1/4 w-96 h-96 bg-red-500/5 rounded-full filter blur-[120px] pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-orange-500/5 rounded-full filter blur-[120px] pointer-events-none" />

@@ -40,7 +40,7 @@ export default function AboutBrandSection() {
   ];
 
   return (
-    <section className="w-full px-[3%] my-12 relative">
+    <section className="w-full px-[3%] pt-[30px] pb-[30px] md:my-12 relative">
       <motion.div
         initial={{ opacity: 0, y: 25 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -133,7 +133,7 @@ export default function AboutBrandSection() {
                         {card.number}
                       </div>
 
-                      <h3 className="text-sm sm:text-base font-bold text-gray-600 uppercase tracking-wider group-hover:text-[#111111] transition-colors duration-300">
+                      <h3 className="stat-subtext text-sm sm:text-base font-bold text-gray-600 uppercase tracking-wider group-hover:text-[#111111] transition-colors duration-300">
                         {card.title}
                       </h3>
                     </div>
