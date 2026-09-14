@@ -1,6 +1,7 @@
 import { LokmatEvent } from "@/src/types";
+import { getOptimizedImageUrl } from "@/src/utils/imageOptimizer";
 
-export const staticEvents: LokmatEvent[] = [
+const rawEvents: LokmatEvent[] = [
   {
     id: "mauritius-2026",
     title: "Lokmat One World Summit and Awards – Mauritius, 2026",
@@ -134,3 +135,11 @@ export const staticEvents: LokmatEvent[] = [
     createdAt: Date.now() - 65000,
   }
 ];
+
+// Automatically optimize staticEvents images for ultra-fast load time across devices
+export const staticEvents: LokmatEvent[] = rawEvents.map((evt) => ({
+  ...evt,
+  imageUrl: getOptimizedImageUrl(evt.imageUrl, { width: 720, height: 480, quality: 78 }),
+  logoUrl: getOptimizedImageUrl(evt.logoUrl, { width: 240, height: 120, quality: 85 }),
+  gallery: evt.gallery?.map((img) => getOptimizedImageUrl(img, { width: 680, height: 460, quality: 78 }))
+}));

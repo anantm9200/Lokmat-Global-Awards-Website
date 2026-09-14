@@ -1,10 +1,14 @@
 import React, { useState } from "react";
+import { getOptimizedImageUrl } from "@/src/utils/imageOptimizer";
 
 interface OptimizedImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
   src: string;
   alt: string;
   className?: string;
   fallbackSrc?: string;
+  widthOptimize?: number;
+  heightOptimize?: number;
+  loading?: "lazy" | "eager";
 }
 
 export default function OptimizedImage({
@@ -12,10 +16,14 @@ export default function OptimizedImage({
   alt,
   className = "",
   fallbackSrc = "https://images.unsplash.com/photo-1578269174936-2709b6aeb913?auto=format&fit=crop&q=80&w=800",
+  widthOptimize = 800,
+  heightOptimize = 550,
+  loading = "lazy",
   ...props
 }: OptimizedImageProps) {
   const [loaded, setLoaded] = useState(false);
-  const [imgSrc, setImgSrc] = useState(src);
+  const optimizedInitial = getOptimizedImageUrl(src, { width: widthOptimize, height: heightOptimize, quality: 80 });
+  const [imgSrc, setImgSrc] = useState(optimizedInitial);
 
   return (
     <div className={`relative overflow-hidden bg-gray-100 ${className}`}>
@@ -29,7 +37,7 @@ export default function OptimizedImage({
       <img
         src={imgSrc}
         alt={alt}
-        loading="lazy"
+        loading={loading}
         decoding="async"
         referrerPolicy="no-referrer"
         onLoad={() => setLoaded(true)}
@@ -39,7 +47,7 @@ export default function OptimizedImage({
             setImgSrc(fallbackSrc);
           }
         }}
-        className={`w-full h-full object-cover transition-opacity duration-700 ease-out ${
+        className={`w-full h-full object-cover transition-opacity duration-300 ease-out ${
           loaded ? "opacity-100" : "opacity-0"
         }`}
         {...props}

@@ -2,6 +2,7 @@ import { useState, useEffect, useCallback } from "react";
 import { LokmatEvent } from "@/src/types";
 import { motion, AnimatePresence } from "motion/react";
 import { X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
+import { getOptimizedImageUrl } from "@/src/utils/imageOptimizer";
 
 interface AwardData {
   awardName: string;
@@ -404,9 +405,10 @@ export default function AwardWinnersSection({ event }: AwardWinnersSectionProps)
               {/* Trophy image container: 1:1 square aspect ratio, image completely fills the block without any visible grey margin */}
               <div className="relative w-full aspect-square rounded-xl sm:rounded-2xl overflow-hidden mt-3">
                 <img
-                  src={TROPHY_IMAGES[formatAwardTitle(data.awardName)] || TROPHY_IMAGES[data.awardName] || data.trophyImage}
+                  src={getOptimizedImageUrl(TROPHY_IMAGES[formatAwardTitle(data.awardName)] || TROPHY_IMAGES[data.awardName] || data.trophyImage, { width: 340, height: 340, quality: 80 })}
                   alt={formatAwardTitle(data.awardName)}
                   loading="lazy"
+                  decoding="async"
                   referrerPolicy="no-referrer"
                   onError={(e) => {
                     e.currentTarget.src = "https://static.wixstatic.com/media/548938_2fa722912316444dba5be87e11bd33bf~mv2.png";
@@ -434,9 +436,10 @@ export default function AwardWinnersSection({ event }: AwardWinnersSectionProps)
               className="group relative aspect-square rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer bg-white border border-gray-200 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)] hover:border-gray-300 transition-all duration-300 p-4 sm:p-5 flex items-center justify-center"
             >
               <img
-                src={imgUrl}
+                src={getOptimizedImageUrl(imgUrl, { width: 600, height: 600, quality: 80 })}
                 alt=""
                 loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
                 className="w-full h-full object-contain rounded-xl transition-transform duration-300 group-hover:scale-[1.02]"
               />
@@ -517,8 +520,9 @@ export default function AwardWinnersSection({ event }: AwardWinnersSectionProps)
               className="max-h-[88vh] max-w-[92vw] flex items-center justify-center relative"
             >
               <img
-                src={pictures[fullscreenIndex]}
+                src={getOptimizedImageUrl(pictures[fullscreenIndex], { width: 1280, height: 1000, quality: 82 })}
                 alt=""
+                decoding="async"
                 referrerPolicy="no-referrer"
                 className="max-h-[88vh] max-w-[92vw] object-contain rounded-xl shadow-2xl"
               />

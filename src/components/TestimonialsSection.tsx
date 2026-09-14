@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { ExternalLink } from "lucide-react";
+import { getOptimizedImageUrl } from "@/src/utils/imageOptimizer";
 
 interface TestimonialDoc {
   id: string;
@@ -10,7 +11,7 @@ interface TestimonialDoc {
   image: string;
 }
 
-const testimonialDocs: TestimonialDoc[] = [
+const rawTestimonialDocs: TestimonialDoc[] = [
   {
     id: "doc-1",
     name: "Gautam Adani",
@@ -60,6 +61,11 @@ const testimonialDocs: TestimonialDoc[] = [
     image: "https://static.wixstatic.com/media/548938_d509b04fd1124c7fb694b394ba35d02e~mv2.jpeg",
   },
 ];
+
+const testimonialDocs: TestimonialDoc[] = rawTestimonialDocs.map((doc) => ({
+  ...doc,
+  image: getOptimizedImageUrl(doc.image, { width: 380, height: 537, quality: 80 })
+}));
 
 export default function TestimonialsSection() {
   const [emblaRef] = useEmblaCarousel(

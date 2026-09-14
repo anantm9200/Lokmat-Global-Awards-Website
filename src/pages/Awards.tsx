@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Navbar from "@/src/components/Navbar";
 import { Link } from "react-router-dom";
 import Footer from "@/src/components/Footer";
@@ -7,6 +8,15 @@ import EventCard from "@/src/components/EventCard";
 export default function Awards() {
   const { events, loading, error } = useEvents();
   const awards = events.filter(e => e.category.includes("Award"));
+
+  useEffect(() => {
+    document.title = "Prestigious Global Awards & Honors | Lokmat Glocon";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute("content", "Explore prestigious honors and awards conferred by Lokmat Glocon celebrating visionary leadership, innovation, and global excellence.");
+    }
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="w-[100vw] overflow-x-hidden min-h-screen bg-[#FAFAFA] text-[#111111] flex flex-col font-sans">

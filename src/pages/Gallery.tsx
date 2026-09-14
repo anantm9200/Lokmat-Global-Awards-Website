@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import Footer from "@/src/components/Footer";
 import { motion, AnimatePresence } from "motion/react";
 import { ArrowDown, X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
+import { getOptimizedImageUrl } from "@/src/utils/imageOptimizer";
 
 const GALLERY_IMAGES = [
   // Mauritius 2026
@@ -66,10 +67,10 @@ export default function Gallery() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
   useEffect(() => {
-    document.title = "Official Photo Gallery & Event Portfolios | Lokmat Events";
+    document.title = "Official Photo Gallery & Event Portfolios | Lokmat Glocon";
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute("content", "Browse historical photo portfolios and media coverage from Lokmat's flagship award nights, international conclaves, and summits.");
+      metaDesc.setAttribute("content", "Browse photographic archives, red carpet showcases, and summit galleries from Lokmat Glocon's premier international award nights and economic conclaves.");
     }
   }, []);
 
@@ -135,10 +136,11 @@ export default function Gallery() {
                         className="break-inside-avoid rounded-xl overflow-hidden bg-white border border-gray-200 shadow-sm hover:shadow-xl transition-all duration-300 group cursor-pointer relative"
                     >
                         <img 
-                            src={src} 
+                            src={getOptimizedImageUrl(src, { width: 600, height: 450, quality: 78 })} 
                             alt={`Gallery image ${idx + 1}`} 
                             className="w-full h-auto block object-contain transition-transform duration-500 group-hover:scale-[1.02]"
                             loading="lazy"
+                            decoding="async"
                             referrerPolicy="no-referrer"
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/25 transition-colors duration-300 flex items-center justify-center opacity-0 group-hover:opacity-100">
@@ -207,9 +209,10 @@ export default function Gallery() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.3 }}
-                src={visibleImages[lightboxIndex]}
+                src={getOptimizedImageUrl(visibleImages[lightboxIndex], { width: 1400, height: 1000, quality: 82 })}
                 alt={`Expanded gallery photo ${lightboxIndex + 1}`}
                 className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl"
+                decoding="async"
                 referrerPolicy="no-referrer"
               />
             </div>

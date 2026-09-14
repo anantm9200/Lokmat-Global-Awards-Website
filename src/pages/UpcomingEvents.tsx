@@ -12,12 +12,12 @@ export default function UpcomingEvents() {
 
   // AIO, GEO, and SEO Best Practices: Dynamic Title and Description Updates
   useEffect(() => {
-    document.title = "Upcoming Elite Summits & Conclaves | Lokmat Events";
+    document.title = "Upcoming Elite Summits & Conclaves | Lokmat Glocon";
     
     // Update Meta Description dynamically for SEO/AIO scrapers
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute("content", "Explore the official schedules, locations, and details of upcoming Lokmat Premium Events, Conclaves, and prestigious National Awards ceremonies.");
+      metaDesc.setAttribute("content", "Explore schedules, host destinations, and announcements for upcoming Lokmat Glocon summits, international conventions, and leadership ceremonies.");
     }
   }, []);
 

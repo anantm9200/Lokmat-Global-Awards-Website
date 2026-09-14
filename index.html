@@ -4,94 +4,196 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     
-    <!-- Premium Inline SVG Favicon ("L") -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3ClinearGradient id='gold' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FCD34D' /%3E%3Cstop offset='100%25' stop-color='%23D97706' /%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='100' height='100' rx='24' fill='%23111111' /%3E%3Crect x='6' y='6' width='88' height='88' rx='18' fill='none' stroke='url(%23gold)' stroke-width='4' /%3E%3Ctext x='50' y='70' font-family='Georgia, serif' font-weight='900' font-size='56' fill='url(%23gold)' text-anchor='middle'%3EL%3C/text%3E%3C/svg%3E" />
+    <!-- Favicon and Touch Icons -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="shortcut icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    
+    <!-- Image CDN Preconnect for instantaneous loading -->
+    <link rel="preconnect" href="https://static.wixstatic.com" crossorigin />
+    <link rel="dns-prefetch" href="https://static.wixstatic.com" />
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link rel="dns-prefetch" href="https://images.unsplash.com" />
     
     <!-- Primary SEO Meta Tags -->
-    <title>Lokmat Events | Premium Showcases & Awards</title>
-    <meta name="title" content="Lokmat Events | Premium Showcases & Awards" />
-    <meta name="description" content="Discover Lokmat's exclusive awards, global summits, and premier events. Explore past conventions in London, Dubai, Cairo, and Singapore, and get details on upcoming chapters." />
-    <meta name="keywords" content="Lokmat Events, Lokmat Awards, Lokmat Maharashtrian of the Year, India Summits, Global Economic Convention London, One World Summit, Lokmat Dubai, Lokmat Singapore" />
-    <meta name="author" content="Lokmat Network" />
-    <meta name="robots" content="index, follow" />
+    <title>Lokmat Glocon | Global Conventions, Summits & Awards Showcase</title>
+    <meta name="title" content="Lokmat Glocon | Global Conventions, Summits & Awards Showcase" />
+    <meta name="description" content="Lokmat Glocon is the premier global events and awards platform of Lokmat Media Group, curating international business conventions, high-level economic summits, and prestigious recognition ceremonies honoring transformative leaders across London, Singapore, Dubai, Cairo, Baku, and Mauritius." />
+    <meta name="keywords" content="Lokmat Glocon, Lokmat Global Conventions, Lokmat Events, Lokmat Awards, Global Economic Convention London, LGEC Singapore, Lokmat One World Summit and Awards, LOWS&A, International Awards Dubai, Mauritius Summit, Baku Conclave, Cairo Leadership Summit, Global Indian Leaders, Bharat Bhushan, Kohinoor of India, International Business Conclaves" />
+    <meta name="author" content="Lokmat Glocon - Lokmat Media Group" />
+    <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
     <link rel="canonical" href="https://lokmat-global-awards-website.vercel.app" />
 
     <!-- Open Graph / Facebook (SEO / AIO friendly) -->
+    <meta property="og:site_name" content="Lokmat Glocon" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://lokmat-global-awards-website.vercel.app" />
-    <meta property="og:title" content="Lokmat GLOCON" />
-    <meta property="og:description" content="A premium showcase platform for Lokmat's exclusive events, awards, and summits globally. Re-experience conventions in London, Singapore, Dubai, and more." />
+    <meta property="og:title" content="Lokmat Glocon | Global Conventions, Summits & Awards Showcase" />
+    <meta property="og:description" content="Official showcase for Lokmat Glocon's premier international conventions, economic conclaves, and prestigious global awards ceremonies held across London, Singapore, Dubai, Cairo, Baku, and Mauritius." />
     <meta property="og:image" content="https://static.wixstatic.com/media/548938_01de16ecda2648ee8f744a76a35e1a11~mv2.jpg" />
 
     <!-- Twitter Card -->
     <meta property="twitter:card" content="summary_large_image" />
     <meta property="twitter:url" content="https://lokmat-global-awards-website.vercel.app" />
-    <meta property="twitter:title" content="Lokmat GLOCON" />
-    <meta property="twitter:description" content="A premium showcase platform for Lokmat's exclusive events, awards, and summits globally." />
+    <meta property="twitter:title" content="Lokmat Glocon | Global Conventions, Summits & Awards Showcase" />
+    <meta property="twitter:description" content="Explore Lokmat Glocon's international business conventions, global leadership summits, and prestigious awards celebrating excellence across global capitals." />
     <meta property="twitter:image" content="https://static.wixstatic.com/media/548938_01de16ecda2648ee8f744a76a35e1a11~mv2.jpg" />
 
-    <!-- Geo Targeting Metadata (GEO Search Optimization) -->
+    <!-- Geographic & Regional Targeting Metadata (GEO Search Optimization) -->
     <meta name="geo.region" content="IN-MH" />
     <meta name="geo.placename" content="Mumbai, Maharashtra, India" />
     <meta name="geo.position" content="19.076090;72.877426" />
     <meta name="ICBM" content="19.076090, 72.877426" />
+    <meta name="target" content="all" />
+    <meta name="audience" content="Global Business Leaders, Diplomats, Innovators, Entrepreneurs, Policy Makers" />
+    <meta name="coverage" content="Worldwide" />
+    <meta name="distribution" content="Global" />
 
     <!-- Structured Data for Search Engine Optimization & LLM Content Retrieval (AIO / Schema.org) -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "Organization",
-        "name": "Lokmat Network",
-        "alternateName": "Lokmat Media Pvt. Ltd.",
-        "url": "https://lokmat-global-awards-website.vercel.app",
-        "logo": "https://static.wixstatic.com/media/548938_e7d535855ae14a3eab331ff35834918c~mv2.jpg",
-        "sameAs": [
-          "https://twitter.com/lokmat",
-          "https://www.youtube.com/user/LokmatNews",
-          "https://www.instagram.com/lokmat/"
-        ],
-        "contactPoint": {
-          "@type": "ContactPoint",
-          "telephone": "+91-22-66355555",
-          "contactType": "customer service",
-          "email": "events@lokmat.com",
-          "areaServed": "IN",
-          "availableLanguage": ["English", "Hindi", "Marathi"]
-        }
-      }
-    </script>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "EventSeries",
-        "name": "Lokmat Global Economic Conventions & Awards",
-        "description": "A global series of premier conclaves, summits, and recognition ceremonies celebrating cross-industry leadership and social impact.",
-        "startDate": "1971",
-        "location": [
+        "@graph": [
           {
-            "@type": "Place",
-            "name": "London, UK",
-            "address": "The Savoy, London"
+            "@type": "Organization",
+            "@id": "https://lokmat-global-awards-website.vercel.app/#organization",
+            "name": "Lokmat Glocon",
+            "alternateName": [
+              "Lokmat Global Conventions",
+              "Lokmat Glocon Events & Awards",
+              "Lokmat Global Economic Conventions & Awards"
+            ],
+            "url": "https://lokmat-global-awards-website.vercel.app",
+            "logo": "https://static.wixstatic.com/media/548938_e7d535855ae14a3eab331ff35834918c~mv2.jpg",
+            "description": "Lokmat Glocon is the premier international conventions, global summits, and prestigious awards vertical of Lokmat Media Group. It conceptualizes, curates, and hosts high-impact economic conventions, global leadership summits, and awards ceremonies honoring industry pioneers, diplomats, entrepreneurs, and cultural icons worldwide.",
+            "parentOrganization": {
+              "@type": "Organization",
+              "name": "Lokmat Media Pvt. Ltd.",
+              "url": "https://www.lokmat.com"
+            },
+            "areaServed": "Global",
+            "serviceType": [
+              "International Business Conventions",
+              "Global Leadership Summits",
+              "Prestigious Awards & Honors",
+              "Cross-Border Economic Conclaves",
+              "Cultural and Bilateral Diplomacy Platforms"
+            ],
+            "knowsAbout": [
+              "International Economic Diplomacy",
+              "Global Indian Diaspora Leadership",
+              "Business Awards and Recognitions",
+              "Bilateral Trade Conclaves",
+              "One World Summit and Awards (LOWS&A)",
+              "Global Economic Convention (LGEC)"
+            ],
+            "sameAs": [
+              "https://twitter.com/lokmat",
+              "https://www.youtube.com/user/LokmatNews",
+              "https://www.instagram.com/lokmat/"
+            ],
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "telephone": "+91-22-66355555",
+              "contactType": "events management",
+              "email": "events@lokmat.com",
+              "areaServed": "Global",
+              "availableLanguage": ["English", "Hindi", "Marathi"]
+            }
           },
           {
-            "@type": "Place",
-            "name": "Singapore",
-            "address": "Shangri-La Hotel, Singapore"
+            "@type": "WebSite",
+            "@id": "https://lokmat-global-awards-website.vercel.app/#website",
+            "url": "https://lokmat-global-awards-website.vercel.app",
+            "name": "Lokmat Glocon",
+            "publisher": {
+              "@id": "https://lokmat-global-awards-website.vercel.app/#organization"
+            },
+            "description": "Official showcase platform for Lokmat Glocon events, global summits, award recipient archives, and multimedia portfolios."
           },
           {
-            "@type": "Place",
-            "name": "Dubai, UAE",
-            "address": "Grand Hyatt, Dubai"
+            "@type": "EventSeries",
+            "@id": "https://lokmat-global-awards-website.vercel.app/#eventseries",
+            "name": "Lokmat Glocon Global Conventions & Awards Series",
+            "description": "A premier worldwide series of international economic conventions, global leadership summits, and prestigious award ceremonies honoring exceptional achievers and fostering bilateral dialogue.",
+            "organizer": {
+              "@id": "https://lokmat-global-awards-website.vercel.app/#organization"
+            },
+            "location": [
+              {
+                "@type": "Place",
+                "name": "London, United Kingdom",
+                "address": "The Savoy, London, UK"
+              },
+              {
+                "@type": "Place",
+                "name": "Singapore",
+                "address": "Shangri-La Hotel, Singapore"
+              },
+              {
+                "@type": "Place",
+                "name": "Dubai, United Arab Emirates",
+                "address": "Grand Hyatt, Dubai, UAE"
+              },
+              {
+                "@type": "Place",
+                "name": "Cairo, Egypt",
+                "address": "Cairo, Egypt"
+              },
+              {
+                "@type": "Place",
+                "name": "Baku, Azerbaijan",
+                "address": "Flame Towers, Baku, Azerbaijan"
+              },
+              {
+                "@type": "Place",
+                "name": "Mauritius",
+                "address": "Le Méridien, Balaclava, Mauritius"
+              },
+              {
+                "@type": "Place",
+                "name": "Macau & Hong Kong",
+                "address": "Macau SAR, China"
+              }
+            ]
           },
           {
-            "@type": "Place",
-            "name": "Cairo, Egypt",
-            "address": "Cairo, Egypt"
-          },
-          {
-            "@type": "Place",
-            "name": "Baku, Azerbaijan",
-            "address": "Flame Towers, Baku"
+            "@type": "FAQPage",
+            "@id": "https://lokmat-global-awards-website.vercel.app/#faq",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What is Lokmat Glocon?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Lokmat Glocon is the international events, global summits, and awards brand of Lokmat Media Group. It brings together global policymakers, visionary entrepreneurs, diplomats, and innovators on world stages to promote cross-border economic collaboration and recognize transformative leadership."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What does Lokmat Glocon do?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Lokmat Glocon curates, manages, and showcases premier international conventions and award ceremonies worldwide. What they do includes hosting high-level economic dialogues, presenting prestigious civilian and industry honors (such as Bharat Bhushan, Kohinoor of India, and Global Excellence Awards), fostering bilateral trade corridors, and archiving keynotes, photo portfolios, and media coverage of international summits."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "What are the flagship events hosted by Lokmat Glocon?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "The flagship events of Lokmat Glocon include the Lokmat Global Economic Convention (LGEC) in major financial hubs like London and Singapore, and the Lokmat One World Summit & Awards (LOWS&A) hosted across global destinations including Mauritius, Cairo, Baku, Dubai, and Macau & Hong Kong."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Where are Lokmat Glocon events hosted?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Lokmat Glocon events are held across the world's most iconic capital cities and business hubs, including London (UK), Singapore, Dubai (UAE), Cairo (Egypt), Baku (Azerbaijan), Mauritius, and Macau & Hong Kong."
+                }
+              }
+            ]
           }
         ]
       }

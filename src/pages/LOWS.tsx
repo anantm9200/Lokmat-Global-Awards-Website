@@ -5,12 +5,21 @@ import EventCard from "@/src/components/EventCard";
 import { useEvents } from "@/src/hooks/useEvents";
 import { motion } from "motion/react";
 import { Globe2, Sparkles, HeartHandshake, ShieldCheck } from "lucide-react";
+import { getOptimizedImageUrl } from "@/src/utils/imageOptimizer";
 
 export default function LOWS() {
   const { events, loading } = useEvents();
 
   useEffect(() => {
-    document.title = "Lokmat One World Summit & Awards (LOWS&A) | Lokmat Events";
+    document.title = "Lokmat One World Summit & Awards (LOWS&A) | Lokmat Glocon";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute("content", "Explore the Lokmat One World Summit & Awards (LOWS&A) by Lokmat Glocon across Mauritius, Cairo, Baku, Dubai, and Hong Kong. Showcasing global leadership, cross-border dialogue, and prestigious honors.");
+    }
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) {
+      canonical.setAttribute("href", "https://lokmat-global-awards-website.vercel.app/lowsa");
+    }
     window.scrollTo(0, 0);
   }, []);
 
@@ -74,8 +83,10 @@ export default function LOWS() {
               <div className="block md:hidden my-5">
                 <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-2xl bg-white border border-gray-100 shadow-sm p-4 flex items-center justify-center overflow-hidden">
                   <img
-                    src="https://static.wixstatic.com/media/548938_f3138e1501f74aa0a17aeb8ff15034cf~mv2.jpg"
+                    src={getOptimizedImageUrl("https://static.wixstatic.com/media/548938_f3138e1501f74aa0a17aeb8ff15034cf~mv2.jpg", { width: 300, height: 300, quality: 80 })}
                     alt="Lokmat One World Summit Logo"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-contain"
                   />
                 </div>
@@ -102,8 +113,10 @@ export default function LOWS() {
               className="hidden md:flex flex-shrink-0 w-52 h-52 md:w-68 md:h-68 lg:w-[270px] lg:h-[270px] rounded-2xl bg-white border border-gray-100 shadow-sm p-4 sm:p-6 items-center justify-center overflow-hidden"
             >
               <img
-                src="https://static.wixstatic.com/media/548938_f3138e1501f74aa0a17aeb8ff15034cf~mv2.jpg"
+                src={getOptimizedImageUrl("https://static.wixstatic.com/media/548938_f3138e1501f74aa0a17aeb8ff15034cf~mv2.jpg", { width: 400, height: 400, quality: 80 })}
                 alt="Lokmat One World Summit Logo"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-contain"
               />
             </motion.div>

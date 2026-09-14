@@ -9,6 +9,7 @@ import { formatDate } from "@/src/lib/utils";
 import EventCard from "@/src/components/EventCard";
 import AwardWinnersSection from "@/src/components/AwardWinnersSection";
 import { getLocationLogo } from "@/src/locationLogos";
+import { getOptimizedImageUrl } from "@/src/utils/imageOptimizer";
 
 const getEventLogoImage = (event: { location?: string; title?: string; logoUrl?: string }) => {
   if (event.logoUrl) return event.logoUrl;
@@ -48,10 +49,10 @@ export default function EventDetails() {
 
   useEffect(() => {
     if (event) {
-      document.title = `${event.title} | Lokmat Premium Events`;
+      document.title = `${event.title} | Lokmat Glocon`;
       const metaDesc = document.querySelector('meta[name="description"]');
       if (metaDesc) {
-        metaDesc.setAttribute("content", `${event.description.substring(0, 155)}... Discover summits hosted by Lokmat.`);
+        metaDesc.setAttribute("content", `${event.description.substring(0, 155)}... Curated and presented by Lokmat Glocon.`);
       }
     }
   }, [event]);
@@ -176,9 +177,11 @@ export default function EventDetails() {
                 </>
               ) : (
                 <img 
-                  src={event.imageUrl} 
+                  src={getOptimizedImageUrl(event.imageUrl, { width: 1200, height: 750, quality: 80 })} 
                   alt={event.title} 
-                  loading="lazy"
+                  loading="eager"
+                  fetchPriority="high"
+                  decoding="async"
                   referrerPolicy="no-referrer"
                   className="w-full h-full object-cover"
                 />
@@ -252,9 +255,10 @@ export default function EventDetails() {
                     className="relative group cursor-pointer overflow-hidden rounded-xl bg-gray-100 aspect-[4/3] shadow-sm hover:shadow-md transition-all active:scale-[0.98]"
                   >
                     <img
-                      src={img}
+                      src={getOptimizedImageUrl(img, { width: 500, height: 375, quality: 78 })}
                       alt={`Gallery ${idx + 1}`}
                       loading="lazy"
+                      decoding="async"
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
                     />
@@ -346,9 +350,10 @@ export default function EventDetails() {
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.25 }}
-                src={galleryImages[lightboxIndex]}
+                src={getOptimizedImageUrl(galleryImages[lightboxIndex], { width: 1400, height: 1000, quality: 82 })}
                 alt={`Expanded gallery image ${lightboxIndex + 1}`}
                 className="max-w-full max-h-[80vh] sm:max-h-[85vh] object-contain rounded-xl shadow-2xl"
+                decoding="async"
                 referrerPolicy="no-referrer"
               />
             </div>

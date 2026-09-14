@@ -5,12 +5,21 @@ import EventCard from "@/src/components/EventCard";
 import { useEvents } from "@/src/hooks/useEvents";
 import { motion } from "motion/react";
 import { Globe, TrendingUp, Building2, Award } from "lucide-react";
+import { getOptimizedImageUrl } from "@/src/utils/imageOptimizer";
 
 export default function LGEC() {
   const { events, loading } = useEvents();
 
   useEffect(() => {
-    document.title = "Lokmat Global Economic Convention (LGEC) | Lokmat Events";
+    document.title = "Lokmat Global Economic Convention (LGEC) | Lokmat Glocon";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute("content", "Explore the Lokmat Global Economic Convention (LGEC) by Lokmat Glocon in London and Singapore. Connecting Indian business leadership with international trade corridors and global markets.");
+    }
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) {
+      canonical.setAttribute("href", "https://lokmat-global-awards-website.vercel.app/lgec");
+    }
     window.scrollTo(0, 0);
   }, []);
 
@@ -71,8 +80,10 @@ export default function LGEC() {
               <div className="block md:hidden my-5">
                 <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-2xl bg-white border border-gray-100 shadow-sm p-4 flex items-center justify-center overflow-hidden">
                   <img
-                    src="https://static.wixstatic.com/media/548938_1fd265b8996d407995b8147541858509~mv2.jpg"
+                    src={getOptimizedImageUrl("https://static.wixstatic.com/media/548938_1fd265b8996d407995b8147541858509~mv2.jpg", { width: 300, height: 300, quality: 80 })}
                     alt="Lokmat Global Economic Convention Logo"
+                    loading="lazy"
+                    decoding="async"
                     className="w-full h-full object-contain"
                   />
                 </div>
@@ -96,8 +107,10 @@ export default function LGEC() {
               className="hidden md:flex flex-shrink-0 w-52 h-52 md:w-68 md:h-68 lg:w-[270px] lg:h-[270px] rounded-2xl bg-white border border-gray-100 shadow-sm p-4 sm:p-6 items-center justify-center overflow-hidden"
             >
               <img
-                src="https://static.wixstatic.com/media/548938_1fd265b8996d407995b8147541858509~mv2.jpg"
+                src={getOptimizedImageUrl("https://static.wixstatic.com/media/548938_1fd265b8996d407995b8147541858509~mv2.jpg", { width: 400, height: 400, quality: 80 })}
                 alt="Lokmat Global Economic Convention Logo"
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-contain"
               />
             </motion.div>

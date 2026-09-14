@@ -8,12 +8,12 @@ import OptimizedImage from "@/src/components/OptimizedImage";
 export default function Articles() {
   // AIO, GEO, and SEO Best Practices: Dynamic Title and Description Updates
   useEffect(() => {
-    document.title = "Insights & Press Articles | Lokmat Events";
+    document.title = "Insights & Press Articles | Lokmat Glocon";
     
     // Update Meta Description dynamically for SEO/AIO scrapers
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute("content", "Browse the latest press coverage, editorial articles, and cultural insights from Lokmat's events and national awards conclaves.");
+      metaDesc.setAttribute("content", "Browse international press coverage, editorial articles, and event insights from Lokmat Glocon conventions, awards nights, and summits.");
     }
   }, []);
 

@@ -7,16 +7,22 @@ import GlobalEconomicFootprintsSection from "@/src/components/GlobalEconomicFoot
 import GlobalMapSection from "@/src/components/GlobalMapSection";
 import { motion } from "motion/react";
 import { Award, Shield, Target, Globe, Users, Star, ArrowUpRight, Sparkles, Linkedin } from "lucide-react";
+import { getOptimizedImageUrl } from "@/src/utils/imageOptimizer";
 
 export default function About() {
   // AIO, GEO, and SEO Best Practices: Dynamic Title and Description Updates
   useEffect(() => {
-    document.title = "About Our Legacy | Lokmat GLOCON";
+    document.title = "About Us | Lokmat Glocon - Global Conventions & Awards";
     
     // Update Meta Description dynamically for SEO/AIO scrapers
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute("content", "Explore the prestigious 50+ year history of Lokmat Network's events, conventions, and awards. Learn about our core values, leadership team, and global milestones.");
+      metaDesc.setAttribute("content", "Learn what Lokmat Glocon does: curating premier international business conventions, global economic summits, and prestigious awards celebrating transformative leadership across London, Singapore, Dubai, Cairo, Baku, and Mauritius.");
+    }
+
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) {
+      canonical.setAttribute("href", "https://lokmat-global-awards-website.vercel.app/about");
     }
 
     // Add dynamic geo region specific meta for About page
@@ -179,8 +185,11 @@ export default function About() {
                     {/* Image in 3:4 ratio */}
                     <div className="relative w-full aspect-[3/4] rounded-lg overflow-hidden mb-3 bg-gray-100">
                       <img
-                        src={leader.image}
+                        src={getOptimizedImageUrl(leader.image, { width: 360, height: 480, quality: 82 })}
                         alt={leader.name}
+                        loading="lazy"
+                        decoding="async"
+                        referrerPolicy="no-referrer"
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                       />
                     </div>

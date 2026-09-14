@@ -2,6 +2,7 @@ import { motion } from "motion/react";
 import { ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { getOptimizedImageUrl } from "@/src/utils/imageOptimizer";
 
 const aboutImg = "https://static.wixstatic.com/media/548938_b2dd1ed30f5f4454ae182a8598f0553e~mv2.jpg";
 const fallbackImg = "https://static.wixstatic.com/media/548938_b2dd1ed30f5f4454ae182a8598f0553e~mv2.jpg";
@@ -30,9 +31,10 @@ export default function AboutSection({ showButton = true }: AboutSectionProps) {
             <div className="relative aspect-[4/3] w-full group cursor-pointer">
               <div className="absolute inset-0 bg-red-600 translate-x-3 translate-y-3 sm:translate-x-4 sm:translate-y-4 rounded-[10px] transition-transform duration-500 ease-out group-hover:translate-x-5 group-hover:translate-y-5" />
               <img 
-                src={imgSrc} 
+                src={getOptimizedImageUrl(imgSrc, { width: 720, height: 540, quality: 80 })} 
                 alt="About Lokmat Events" 
                 loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
                 onError={() => setImgSrc(fallbackImg)}
                 className="absolute inset-0 w-full h-full object-cover rounded-[10px] group-hover:scale-105 transition-all duration-700 shadow-xl group-hover:-translate-x-1.5 group-hover:-translate-y-1.5"

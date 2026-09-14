@@ -1,6 +1,6 @@
 {
-  "name": "Remix: Lokmat Events Showcase",
-  "description": "A premium, high-performance platform showcasing Lokmat\u0027s exclusive events, awards, and summits.",
+  "name": "Lokmat Glocon",
+  "description": "Official showcase platform for Lokmat Glocon — curating premier international conventions, economic conclaves, and prestigious awards celebrating excellence across London, Singapore, Dubai, Cairo, Baku, and Mauritius.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

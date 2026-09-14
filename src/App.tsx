@@ -44,7 +44,8 @@ export default function App() {
         <Route path="/about" element={<About />} />
         <Route path="/glocon" element={<Navigate to="/lgec" replace />} />
         <Route path="/lgec" element={<LGEC />} />
-        <Route path="/lows" element={<LOWS />} />
+        <Route path="/lowsa" element={<LOWS />} />
+        <Route path="/lows" element={<Navigate to="/lowsa" replace />} />
         <Route path="/event/:id" element={<EventDetails />} />
         <Route path="/awards" element={<Awards />} />
         <Route path="/all-events" element={<AllEvents />} />

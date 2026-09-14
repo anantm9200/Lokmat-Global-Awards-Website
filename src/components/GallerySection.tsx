@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
+import { getOptimizedImageUrl } from "@/src/utils/imageOptimizer";
 
 const image1 = "https://static.wixstatic.com/media/548938_199ab3c60a2c4f0facd965e8b6acd840~mv2.jpg";
 const image2 = "https://static.wixstatic.com/media/548938_01de16ecda2648ee8f744a76a35e1a11~mv2.jpg";
@@ -57,9 +58,10 @@ export default function GallerySection() {
               >
                 <div className="relative overflow-hidden rounded-xl w-[600px] h-[400px] group shadow-sm bg-gray-100">
                   <img 
-                    src={src} 
+                    src={getOptimizedImageUrl(src, { width: 640, height: 420, quality: 78 })} 
                     alt={`Gallery image ${index + 1}`} 
                     loading="lazy"
+                    decoding="async"
                     referrerPolicy="no-referrer"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />

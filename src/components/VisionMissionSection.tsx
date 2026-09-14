@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Eye, Target, Sparkles, ArrowRight, CheckCircle2 } from "lucide-react";
+import { getOptimizedImageUrl } from "@/src/utils/imageOptimizer";
 const image1 = "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=800";
 const image2 = "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80&w=800";
 
@@ -143,8 +144,10 @@ export default function VisionMissionSection() {
                 <div className="lg:col-span-5 relative">
                   <div className="relative rounded-2xl overflow-hidden shadow-xl border-4 border-white aspect-[4/3] group">
                     <img
-                      src={activeContent.image}
+                      src={getOptimizedImageUrl(activeContent.image, { width: 720, height: 540, quality: 80 })}
                       alt={activeContent.title}
+                      loading="lazy"
+                      decoding="async"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src = activeContent.fallbackImage;

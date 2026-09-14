@@ -7,12 +7,12 @@ import { Phone, MapPin, ArrowUpRight, HelpCircle, ChevronDown, ChevronUp, Send, 
 export default function Contact() {
   // AIO, GEO, and SEO Best Practices: Dynamic Title and Description Updates
   useEffect(() => {
-    document.title = "Contact Our Offices & Bureau | Lokmat Events";
+    document.title = "Contact Our Global Bureau & Secretariats | Lokmat Glocon";
     
     // Update Meta Description dynamically for SEO/AIO scrapers
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute("content", "Get in touch with Lokmat Media Pvt. Ltd. Office Address: Law College Rd, Shanti Sheela Society, Erandwane, Pune, Maharashtra 411038. Phone: 020 6684 8586.");
+      metaDesc.setAttribute("content", "Connect with Lokmat Glocon for event delegations, award nominations, corporate sponsorships, and global convention inquiries.");
     }
   }, []);
 

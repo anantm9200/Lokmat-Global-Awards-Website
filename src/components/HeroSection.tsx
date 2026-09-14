@@ -6,6 +6,7 @@ import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
 import { Link } from "react-router-dom";
 import { formatDate } from "@/src/lib/utils";
+import { getOptimizedImageUrl, preloadCriticalImages } from "@/src/utils/imageOptimizer";
 
 const image1 = "https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&q=80&w=800";
 const image2 = "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&q=80&w=800";
@@ -154,6 +155,14 @@ export default function HeroSection() {
     }
   ];
 
+  // Preload top carousel images immediately
+  useEffect(() => {
+    preloadCriticalImages(
+      carouselImages.map((c) => c.src),
+      { width: 680, height: 440, quality: 78 }
+    );
+  }, []);
+
   return (
     <div ref={containerRef} className="relative min-h-screen w-full flex flex-col justify-between bg-[#FAFAFA] pt-[141px] sm:pt-[127px] lg:pt-[97px] pb-[30px] sm:pb-10 px-[3%] overflow-hidden">
       {/* Completely Structured, Balanced Checkered Background */}
@@ -266,7 +275,7 @@ export default function HeroSection() {
                       className="relative overflow-hidden rounded-2xl sm:rounded-3xl w-[412px] sm:w-[528px] md:w-[600px] lg:w-[660px] h-[308px] sm:h-[354px] md:h-[396px] lg:h-[429px] shadow-[0_16px_36px_rgba(0,0,0,0.13)] border-[3.5px] border-white group bg-gray-100"
                     >
                       <img 
-                        src={imgObj.src} 
+                        src={getOptimizedImageUrl(imgObj.src, { width: 680, height: 440, quality: 78 })} 
                         className="w-full h-full object-cover object-top transition-transform duration-700 ease-out group-hover:scale-105" 
                         alt={imgObj.title} 
                         loading="eager"

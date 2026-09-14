@@ -2,16 +2,17 @@ import React, { useEffect } from "react";
 import Navbar from "@/src/components/Navbar";
 import Footer from "@/src/components/Footer";
 import PartnersCtaSection from "@/src/components/PartnersCtaSection";
+import { getOptimizedImageUrl } from "@/src/utils/imageOptimizer";
 
 export default function Partners() {
   // AIO, GEO, and SEO Best Practices: Dynamic Title and Description Updates
   useEffect(() => {
-    document.title = "Our Corporate Partners & Sponsorships | Lokmat Events";
+    document.title = "Our Global Partners & Sponsors | Lokmat Glocon";
     
     // Update Meta Description dynamically for SEO/AIO scrapers
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute("content", "Explore elite corporate sponsorship opportunities with Lokmat Premium Events. Review past sponsors, and submit dynamic inquiry decks.");
+      metaDesc.setAttribute("content", "Discover global corporate partners, trade associations, and institutional sponsors collaborating with Lokmat Glocon across worldwide summits and conventions.");
     }
   }, []);
 
@@ -113,8 +114,10 @@ export default function Partners() {
                           className="w-[196px] sm:w-[224px] md:w-[252px] lg:w-[280px] aspect-[4/3] bg-white border border-gray-200 rounded-xl p-4 shadow-xs hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center shrink-0 cursor-pointer overflow-hidden z-0 hover:z-20 relative"
                         >
                           <img
-                            src={brand.logoUrl}
+                            src={getOptimizedImageUrl(brand.logoUrl, { width: 260, height: 180, quality: 80 })}
                             alt="Partner Logo"
+                            loading="lazy"
+                            decoding="async"
                             className="max-h-[70%] max-w-[80%] object-contain rounded-lg transition-transform duration-300"
                             referrerPolicy="no-referrer"
                           />

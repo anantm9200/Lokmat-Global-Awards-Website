@@ -1,8 +1,9 @@
 import { motion } from "motion/react";
 import useEmblaCarousel from "embla-carousel-react";
 import AutoScroll from "embla-carousel-auto-scroll";
+import { getOptimizedImageUrl } from "@/src/utils/imageOptimizer";
 
-const partners = [
+const rawPartners = [
   { name: "Partner 1", url: "https://static.wixstatic.com/media/548938_e5bc3898a4bd4aa1af88fd1c02565ae9~mv2.png" },
   { name: "Partner 2", url: "https://static.wixstatic.com/media/548938_c2dfb610190f4c27875b3fe277f64816~mv2.png" },
   { name: "Partner 3", url: "https://static.wixstatic.com/media/548938_73c476cde17344c09345682b855b9633~mv2.png" },
@@ -21,6 +22,11 @@ const partners = [
   { name: "Partner 17", url: "https://static.wixstatic.com/media/548938_8e6c1821f3e9431e97486f6b61e126e5~mv2.png" },
   { name: "Partner 18", url: "https://static.wixstatic.com/media/548938_8a22c7bb4f1e49b383e46bc46038b270~mv2.png" },
 ];
+
+const partners = rawPartners.map((p) => ({
+  ...p,
+  url: getOptimizedImageUrl(p.url, { width: 280, height: 160, quality: 80 })
+}));
 
 export default function PartnerLogos() {
   const [emblaRef] = useEmblaCarousel({ loop: true, dragFree: true }, [

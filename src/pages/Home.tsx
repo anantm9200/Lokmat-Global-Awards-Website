@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { motion } from "motion/react";
 import Navbar from "@/src/components/Navbar";
 import HeroSection from "@/src/components/HeroSection";
@@ -15,6 +16,14 @@ import { AlertCircle } from "lucide-react";
 
 export default function Home() {
   const { events, loading, error } = useEvents();
+
+  useEffect(() => {
+    document.title = "Lokmat Glocon | Global Conventions, Summits & Awards Showcase";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute("content", "Lokmat Glocon curates and showcases premier international conventions, global economic summits, and prestigious awards celebrating leadership, innovation, and global excellence.");
+    }
+  }, []);
   return (
     <div className="w-[100vw] overflow-x-hidden min-h-screen bg-[#FAFAFA] text-[#111111] flex flex-col font-sans">
       <Navbar />
