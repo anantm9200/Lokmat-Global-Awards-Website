@@ -23,8 +23,8 @@ const TROPHY_IMAGES: Record<string, string> = {
   "Lokmat Global Industry Awards": "https://static.wixstatic.com/media/548938_c0f2feec36ad400cab92653b3557c53b~mv2.png",
   "Lokmat Global Sakhi Awards": "https://static.wixstatic.com/media/548938_6403716513614bd6a16dc3de4b04a482~mv2.png",
   "Lokmat Gujarat Ratna Awards": "https://static.wixstatic.com/media/548938_c03bea0990074d6e8c592946d198ccaa~mv2.png",
-  "Lokmat Global Trailblazer Awards": "https://static.wixstatic.com/media/548938_26ae440f87a444aaac8a54c53dbdb646~mv2.png",
-  "Lokmat Global Trailblazers Awards": "https://static.wixstatic.com/media/548938_26ae440f87a444aaac8a54c53dbdb646~mv2.png",
+  "Lokmat Global Trailblazer Awards": "https://static.wixstatic.com/media/548938_d516ecc271174bb6a5f11d58ca180b6e~mv2.png",
+  "Lokmat Global Trailblazers Awards": "https://static.wixstatic.com/media/548938_d516ecc271174bb6a5f11d58ca180b6e~mv2.png",
   "Lokmat Maharashtra Ratna Awards": "https://static.wixstatic.com/media/548938_45d96b0c26284e84bc98deeceb49a956~mv2.png",
   "Lokmat Kohinoor of India": "https://static.wixstatic.com/media/548938_c5d7c9f2c54545dc906d0c699cf5dc9d~mv2.png",
   "Lokmat Marudhar Sanman": "https://static.wixstatic.com/media/548938_cd16264bdf15472b8e9ecd547bd24ecb~mv2.png",
@@ -44,7 +44,7 @@ const awardDataMap: Record<string, AwardData[]> = {
   "singapore-2024": [
     {
       awardName: "Lokmat Global Trailblazer Awards",
-      trophyImage: "https://static.wixstatic.com/media/548938_26ae440f87a444aaac8a54c53dbdb646~mv2.png"
+      trophyImage: "https://static.wixstatic.com/media/548938_d516ecc271174bb6a5f11d58ca180b6e~mv2.png"
     },
     {
       awardName: "Lokmat Marudhar Sanman",
@@ -58,7 +58,7 @@ const awardDataMap: Record<string, AwardData[]> = {
   "1": [
     {
       awardName: "Lokmat Global Trailblazer Awards",
-      trophyImage: "https://static.wixstatic.com/media/548938_26ae440f87a444aaac8a54c53dbdb646~mv2.png"
+      trophyImage: "https://static.wixstatic.com/media/548938_d516ecc271174bb6a5f11d58ca180b6e~mv2.png"
     },
     {
       awardName: "Lokmat Marudhar Sanman",
@@ -208,12 +208,9 @@ const articlesAndWinnersMap: Record<string, string[]> = {
 
   // Hong Kong & Macau 2025
   "hong-kong-macau-2025": [
-    "https://static.wixstatic.com/media/548938_9548fde182f34469ae7b8aa41b781a81~mv2.jpg",
-    "https://static.wixstatic.com/media/548938_c24b4439409d464396d71f6de15c588c~mv2.jpeg",
-    "https://static.wixstatic.com/media/548938_fab36fabbc74484b9d4f9a66702fef69~mv2.jpg",
-    "https://static.wixstatic.com/media/548938_c24b4439409d464396d71f6de15c588c~mv2.jpeg",
-    "https://static.wixstatic.com/media/548938_29614dff8fbb4da69212e1af35d7961e~mv2.jpg",
-    "https://static.wixstatic.com/media/548938_8eae2d53c2e0476a8b9a9251a04a4c75~mv2.jpg"
+    "https://static.wixstatic.com/media/548938_3119b61d39c64229b58cc97446fdfe2d~mv2.jpeg",
+    "https://static.wixstatic.com/media/548938_1b7702a5ae7d4a3da73e6c2783121666~mv2.jpeg",
+    "https://static.wixstatic.com/media/548938_f1cd9d9659584125a0b4f2e398ae08a7~mv2.jpeg"
   ],
 
   // Cairo 2026
