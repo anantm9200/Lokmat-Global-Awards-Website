@@ -8,9 +8,10 @@ import OptimizedImage from "@/src/components/OptimizedImage";
 
 interface Props {
   event: LokmatEvent;
+  hideTag?: boolean;
 }
 
-const AlternativeEventCard: React.FC<Props> = ({ event }) => {
+const AlternativeEventCard: React.FC<Props> = ({ event, hideTag = true }) => {
   return (
     <Link to={`/event/${event.id}`} className="group block h-full" onClick={() => window.scrollTo(0,0)}>
       <motion.div
@@ -37,11 +38,13 @@ const AlternativeEventCard: React.FC<Props> = ({ event }) => {
                 {event.location}
              </div>
           </div>
-          <div className="absolute top-4 right-4 z-20">
-             <span className="px-2 py-1 rounded bg-red-600 text-white text-[10px] font-bold tracking-wider uppercase shadow-md">
-                {event.category.replace("Past ", "").replace("Upcoming ", "")}
-             </span>
-          </div>
+          {!hideTag && (
+            <div className="absolute top-4 right-4 z-20">
+               <span className="px-2 py-1 rounded bg-red-600 text-white text-[10px] font-bold tracking-wider uppercase shadow-md">
+                  {event.category.replace("Past ", "").replace("Upcoming ", "")}
+               </span>
+            </div>
+          )}
         </div>
         <div className="p-6 flex flex-col flex-grow">
           <h3 className="text-xl font-bold mb-3 group-hover:text-red-600 transition-colors line-clamp-3 leading-tight">

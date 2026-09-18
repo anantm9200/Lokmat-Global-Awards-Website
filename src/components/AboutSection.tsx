@@ -63,17 +63,17 @@ export default function AboutSection({ showButton = true }: AboutSectionProps) {
             </div>
             
             <p className="text-base sm:text-lg xl:text-xl text-gray-600 leading-relaxed font-light">
-              Lokmat GLOCON brings together influential leaders, creators, entrepreneurs, artists, policymakers, industry voices and changemakers through high-impact events, awards, summits and cultural platforms.
+              Our initiatives bring together influential leaders, creators, entrepreneurs, artists, policymakers, industry voices and changemakers through high-impact global platforms.
             </p>
 
             <p className="text-base sm:text-lg xl:text-xl text-gray-600 leading-relaxed font-light">
-              Built on Lokmat’s trusted media legacy, every experience is designed to celebrate excellence, spark meaningful conversations, create national and international visibility and recognise the people and ideas shaping India’s future.
+              Built on Lokmat’s trusted media legacy, every experience is designed to celebrate excellence, spark meaningful conversations, create national and international visibility, and recognise the people and ideas shaping India’s future.
             </p>
 
             {showButton && (
               <div className="pt-2">
                 <Link to="/about" onClick={() => window.scrollTo(0, 0)} className="inline-flex items-center gap-4 text-[#111111] hover:text-red-600 group transition-colors uppercase tracking-[0.2em] font-bold text-sm">
-                  <span>Discover Our History</span>
+                  <span>Know More About Us</span>
                   <div className="w-10 h-10 rounded-full border border-gray-300 flex items-center justify-center group-hover:border-red-600 transition-colors">
                     <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                   </div>

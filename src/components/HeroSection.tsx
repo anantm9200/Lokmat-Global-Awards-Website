@@ -202,24 +202,19 @@ export default function HeroSection() {
         <div className="w-full mb-5 sm:mb-7 pt-[4.5%]">
           <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-5 lg:gap-12 pb-2 sm:pb-3">
             
-            {/* Left: Eyebrow + Master Title in 1 line */}
+            {/* Left: Master Title */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="flex flex-col justify-end"
             >
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-50 border border-red-100 text-red-600 text-[12.5px] font-bold uppercase tracking-[0.2em] mb-3 self-start">
-                <span className="w-2 h-2 rounded-full bg-red-600 animate-pulse" />
-                OUR LANDMARK EVENT IPS
-              </div>
-
-              <h1 className="text-[2.28rem] sm:text-[2.55rem] md:text-[3.2rem] lg:text-[3.76rem] xl:text-[4.35rem] font-bold tracking-tight text-[#111111] flex items-center gap-x-3 gap-y-[9px] sm:gap-4 flex-wrap sm:flex-nowrap leading-none">
+              <h1 className="text-[1.95rem] xs:text-[2.2rem] sm:text-[2.55rem] md:text-[3.2rem] lg:text-[3.65rem] xl:text-[4.25rem] font-bold tracking-tight text-[#111111] flex items-center gap-x-2.5 sm:gap-4 flex-wrap sm:flex-nowrap leading-none">
                 <div className="relative flex items-center shrink-0">
                   <img 
                     src="/lokmat-logo.png" 
                     alt="LOKMAT" 
-                    className="h-[48px] sm:h-[48px] md:h-[55px] lg:h-[61px] xl:h-[70px] w-auto object-contain object-left"
+                    className="h-[38px] xs:h-[44px] sm:h-[48px] md:h-[55px] lg:h-[61px] xl:h-[70px] w-auto object-contain object-left"
                     onError={(e) => {
                       (e.target as HTMLImageElement).style.display = 'none';
                       const fallback = document.getElementById('lokmat-fallback-text');
@@ -229,7 +224,7 @@ export default function HeroSection() {
                   <span id="lokmat-fallback-text" className="text-[#111111] hidden font-bold">LOKMAT</span>
                 </div>
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-600 via-orange-500 to-yellow-500 pb-0.5 whitespace-nowrap">
-                  Global Convention
+                  Global Conventions
                 </span>
               </h1>
             </motion.div>
@@ -239,10 +234,10 @@ export default function HeroSection() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-              className="lg:max-w-md xl:max-w-lg flex flex-col justify-end"
+              className="lg:max-w-md xl:max-w-xl flex flex-col justify-end"
             >
               <p className="text-gray-600 text-[15px] sm:text-[17px] lg:text-[18px] font-normal leading-relaxed">
-                A curated platform for Lokmat’s flagship events and awards, celebrating leadership, culture, talent, enterprise and public impact across India, globe and beyond.
+                A global platform by Lokmat that brings together leadership, enterprise, culture and public impact, creating meaningful connections between India and the world and recognising those shaping conversations, communities and the future.
               </p>
             </motion.div>
 
@@ -322,7 +317,7 @@ export default function HeroSection() {
           >
             <div className="flex items-center justify-between mb-2 sm:mb-2.5">
               <h3 className="text-[11px] uppercase tracking-[0.2em] font-bold text-gray-500">
-                Latest Events & Flagship Conclaves
+                Our Initiatives
               </h3>
               <Link 
                 to="/upcoming"
@@ -338,14 +333,16 @@ export default function HeroSection() {
                 <Link 
                   key={event.id}
                   to={`/event/${event.id}`}
-                  className="group bg-white border border-gray-100 rounded-xl p-2.5 sm:p-3 flex flex-col justify-between shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.06)] transition-all duration-300 hover:border-red-500/40 hover:-translate-y-0.5 min-h-[110px] sm:min-h-[125px] h-full"
+                  className="group bg-white border border-gray-100 rounded-xl p-2.5 sm:p-3 flex flex-col justify-between shadow-[0_4px_16px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_24px_rgba(0,0,0,0.06)] transition-all duration-300 hover:border-red-500/40 hover:-translate-y-0.5 min-h-[95px] sm:min-h-[110px] h-full"
                   onMouseEnter={() => setHoveredEventId(event.id)}
                   onMouseLeave={() => setHoveredEventId(null)}
                 >
                   <div className="flex flex-col gap-0.5 w-full">
-                    <span className={`text-[8px] sm:text-[8.5px] font-mono uppercase tracking-wider truncate ${event.category.includes('Upcoming') ? 'text-red-600 font-bold animate-pulse' : 'text-gray-500'}`}>
-                      {event.category}
-                    </span>
+                    {event.category && !event.category.toLowerCase().includes("past") && (
+                      <span className={`text-[8px] sm:text-[8.5px] font-mono uppercase tracking-wider truncate ${event.category.includes('Upcoming') ? 'text-red-600 font-bold animate-pulse' : 'text-gray-500'}`}>
+                        {event.category}
+                      </span>
+                    )}
                     <h4 className="text-[11px] sm:text-xs font-semibold text-[#111111] group-hover:text-red-600 transition-colors duration-300 line-clamp-2 leading-snug">
                       {event.title}
                     </h4>

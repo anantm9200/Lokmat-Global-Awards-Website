@@ -71,7 +71,7 @@ export default function Home() {
                   .filter(e => e.title.includes("Lokmat Global Economic Convention"))
                   .slice(0, 2)
                   .map(event => (
-                    <EventCard key={event.id} event={event} hideLocationYear={true} />
+                    <EventCard key={event.id} event={event} hideLocationYear={true} hideTag={true} />
                   ))}
               </div>
 
@@ -94,7 +94,7 @@ export default function Home() {
                   .filter(e => !e.title.includes("Lokmat Global Economic Convention") && !e.category.toLowerCase().includes("upcoming"))
                   .slice(0, 4)
                   .map(event => (
-                    <AlternativeEventCard key={event.id} event={event} />
+                    <AlternativeEventCard key={event.id} event={event} hideTag={true} />
                   ))}
               </div>
             </>

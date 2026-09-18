@@ -11,9 +11,10 @@ interface EventCardProps {
   event: LokmatEvent;
   index?: number;
   hideLocationYear?: boolean;
+  hideTag?: boolean;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event, index = 0, hideLocationYear = false }) => {
+const EventCard: React.FC<EventCardProps> = ({ event, index = 0, hideLocationYear = false, hideTag = false }) => {
   const logo = event.logoUrl || getLocationLogo(event.location || event.title);
 
   return (
@@ -41,11 +42,13 @@ const EventCard: React.FC<EventCardProps> = ({ event, index = 0, hideLocationYea
             className="absolute inset-0 object-cover w-full h-full group-hover:scale-105 transition-transform duration-700 ease-out"
           />
         </motion.div>
-        <div className="absolute top-4 left-4 z-20">
-          <span className={`px-3 py-1 rounded-sm text-[10px] font-bold tracking-widest uppercase bg-white/95 backdrop-blur-md shadow-sm ${event.category.includes('Upcoming') ? 'text-red-600 animate-pulse' : 'text-[#111111]'}`}>
-            {event.category}
-          </span>
-        </div>
+        {!hideTag && event.category && (
+          <div className="absolute top-4 left-4 z-20">
+            <span className={`px-3 py-1 rounded-sm text-[10px] font-bold tracking-widest uppercase bg-white/95 backdrop-blur-md shadow-sm ${event.category.includes('Upcoming') ? 'text-red-600 animate-pulse' : 'text-[#111111]'}`}>
+              {event.category}
+            </span>
+          </div>
+        )}
         {logo && (
           <div className="absolute top-3 right-3 z-20 w-10 h-10 rounded-full bg-white/95 p-1.5 shadow-md backdrop-blur-md flex items-center justify-center border border-gray-100">
             <img src={logo} alt={`${event.location} Logo`} className="w-full h-full object-contain" />

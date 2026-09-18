@@ -12,82 +12,71 @@ interface AwardData {
 
 const TROPHY_IMAGES: Record<string, string> = {
   "Hong Kong Trophy": "https://static.wixstatic.com/media/548938_d09ae19c52eb479496863821f04cb8a3~mv2.png",
-  "Hong Kong Trophy, Hong Kong": "https://static.wixstatic.com/media/548938_d09ae19c52eb479496863821f04cb8a3~mv2.png",
   "Dubai Trophy": "https://static.wixstatic.com/media/548938_951587d6f5e44ae3803383883269cbc1~mv2.png",
-  "Dubai Trophy, Dubai": "https://static.wixstatic.com/media/548938_951587d6f5e44ae3803383883269cbc1~mv2.png",
   "Lokmat Global Excellence Award": "https://static.wixstatic.com/media/548938_2fa722912316444dba5be87e11bd33bf~mv2.png",
-  "Lokmat Global Excellence Award, Cairo": "https://static.wixstatic.com/media/548938_2fa722912316444dba5be87e11bd33bf~mv2.png",
-  "Lokmat Global Changemakers Award, Mauritius": "https://static.wixstatic.com/media/548938_cf283b32490245b7abef56f00903fe4f~mv2.png",
-  "Lokmat Global Icon Power Couple Award, Mauritius": "https://static.wixstatic.com/media/548938_b856ac21fdd24a5e951624170c5b8b60~mv2.png",
-  "Lokmat Global Power Couple Award, Mauritius": "https://static.wixstatic.com/media/548938_084bb6b595a84c96acb0730d79c98240~mv2.png",
+  "Lokmat Global Changemakers Award": "https://static.wixstatic.com/media/548938_cf283b32490245b7abef56f00903fe4f~mv2.png",
+  "Lokmat Global Icon Power Couple Award": "https://static.wixstatic.com/media/548938_b856ac21fdd24a5e951624170c5b8b60~mv2.png",
+  "Lokmat Global Power Couple Award": "https://static.wixstatic.com/media/548938_084bb6b595a84c96acb0730d79c98240~mv2.png",
   "Lokmat Bharat Bhushan Award": "https://static.wixstatic.com/media/548938_977bc89c8ad94e958d1c97178adfc1dd~mv2.png",
-  "Lokmat Bharat Bhushan Award, London": "https://static.wixstatic.com/media/548938_977bc89c8ad94e958d1c97178adfc1dd~mv2.png",
   "Lokmat Global Icon Award": "https://static.wixstatic.com/media/548938_9d91ea1bcf164e6aaaa5795885ac6050~mv2.png",
-  "Lokmat Global Icon Award, Cairo": "https://static.wixstatic.com/media/548938_9d91ea1bcf164e6aaaa5795885ac6050~mv2.png",
   "Lokmat Global Industry Awards": "https://static.wixstatic.com/media/548938_c0f2feec36ad400cab92653b3557c53b~mv2.png",
-  "Lokmat Global Industry Awards, Baku": "https://static.wixstatic.com/media/548938_c0f2feec36ad400cab92653b3557c53b~mv2.png",
-  "Lokmat Global Sakhi Awards, Singapore": "https://static.wixstatic.com/media/548938_adfd1b5219f548d0a8697c797d80fb12~mv2.png",
-  "Lokmat Global Sakhi Awards, London": "https://static.wixstatic.com/media/548938_6403716513614bd6a16dc3de4b04a482~mv2.png",
+  "Lokmat Global Sakhi Awards": "https://static.wixstatic.com/media/548938_6403716513614bd6a16dc3de4b04a482~mv2.png",
   "Lokmat Gujarat Ratna Awards": "https://static.wixstatic.com/media/548938_c03bea0990074d6e8c592946d198ccaa~mv2.png",
-  "Lokmat Gujarat Ratna Awards, London": "https://static.wixstatic.com/media/548938_c03bea0990074d6e8c592946d198ccaa~mv2.png",
+  "Lokmat Global Trailblazer Awards": "https://static.wixstatic.com/media/548938_26ae440f87a444aaac8a54c53dbdb646~mv2.png",
   "Lokmat Global Trailblazers Awards": "https://static.wixstatic.com/media/548938_26ae440f87a444aaac8a54c53dbdb646~mv2.png",
-  "Lokmat Global Trailblazers Awards, Singapore": "https://static.wixstatic.com/media/548938_26ae440f87a444aaac8a54c53dbdb646~mv2.png",
-  "Lokmat Global Trailblazers Awards, Baku": "https://static.wixstatic.com/media/548938_26ae440f87a444aaac8a54c53dbdb646~mv2.png",
   "Lokmat Maharashtra Ratna Awards": "https://static.wixstatic.com/media/548938_45d96b0c26284e84bc98deeceb49a956~mv2.png",
-  "Lokmat Maharashtra Ratna Awards, London": "https://static.wixstatic.com/media/548938_45d96b0c26284e84bc98deeceb49a956~mv2.png",
   "Lokmat Kohinoor of India": "https://static.wixstatic.com/media/548938_c5d7c9f2c54545dc906d0c699cf5dc9d~mv2.png",
-  "Lokmat Kohinoor of India, London": "https://static.wixstatic.com/media/548938_c5d7c9f2c54545dc906d0c699cf5dc9d~mv2.png",
   "Lokmat Marudhar Sanman": "https://static.wixstatic.com/media/548938_cd16264bdf15472b8e9ecd547bd24ecb~mv2.png",
-  "Lokmat Marudhar Sanman, Singapore": "https://static.wixstatic.com/media/548938_cd16264bdf15472b8e9ecd547bd24ecb~mv2.png",
 };
 
 const awardDataMap: Record<string, AwardData[]> = {
   // Dubai - 1 Trophy
   "dubai-2023": [
     {
-      awardName: "Dubai Trophy, Dubai",
+      awardName: "Dubai Trophy",
       trophyImage: "https://static.wixstatic.com/media/548938_951587d6f5e44ae3803383883269cbc1~mv2.png"
     }
   ],
 
   // Singapore - 3 Awards
+  // Sequence: Lokmat Global Trailblazer Awards, Lokmat Marudhar Sanman, Lokmat Global Sakhi Awards
   "singapore-2024": [
     {
-      awardName: "Lokmat Marudhar Sanman, Singapore",
+      awardName: "Lokmat Global Trailblazer Awards",
+      trophyImage: "https://static.wixstatic.com/media/548938_26ae440f87a444aaac8a54c53dbdb646~mv2.png"
+    },
+    {
+      awardName: "Lokmat Marudhar Sanman",
       trophyImage: "https://static.wixstatic.com/media/548938_cd16264bdf15472b8e9ecd547bd24ecb~mv2.png"
     },
     {
-      awardName: "Lokmat Global Sakhi Awards, Singapore",
+      awardName: "Lokmat Global Sakhi Awards",
       trophyImage: "https://static.wixstatic.com/media/548938_adfd1b5219f548d0a8697c797d80fb12~mv2.png"
-    },
-    {
-      awardName: "Lokmat Global Trailblazers Awards, Singapore",
-      trophyImage: "https://static.wixstatic.com/media/548938_26ae440f87a444aaac8a54c53dbdb646~mv2.png"
     }
   ],
   "1": [
     {
-      awardName: "Lokmat Marudhar Sanman, Singapore",
+      awardName: "Lokmat Global Trailblazer Awards",
+      trophyImage: "https://static.wixstatic.com/media/548938_26ae440f87a444aaac8a54c53dbdb646~mv2.png"
+    },
+    {
+      awardName: "Lokmat Marudhar Sanman",
       trophyImage: "https://static.wixstatic.com/media/548938_cd16264bdf15472b8e9ecd547bd24ecb~mv2.png"
     },
     {
-      awardName: "Lokmat Global Sakhi Awards, Singapore",
+      awardName: "Lokmat Global Sakhi Awards",
       trophyImage: "https://static.wixstatic.com/media/548938_adfd1b5219f548d0a8697c797d80fb12~mv2.png"
-    },
-    {
-      awardName: "Lokmat Global Trailblazers Awards, Singapore",
-      trophyImage: "https://static.wixstatic.com/media/548938_26ae440f87a444aaac8a54c53dbdb646~mv2.png"
     }
   ],
 
   // Baku - 2 Awards
   "baku-2024": [
     {
-      awardName: "Lokmat Global Trailblazers Awards, Baku",
+      awardName: "Lokmat Global Trailblazer Awards",
       trophyImage: "https://static.wixstatic.com/media/548938_26ae440f87a444aaac8a54c53dbdb646~mv2.png"
     },
     {
-      awardName: "Lokmat Global Industry Awards, Baku",
+      awardName: "Lokmat Global Industry Awards",
       trophyImage: "https://static.wixstatic.com/media/548938_c0f2feec36ad400cab92653b3557c53b~mv2.png"
     }
   ],
@@ -95,43 +84,43 @@ const awardDataMap: Record<string, AwardData[]> = {
   // Hong Kong - 1 Trophy
   "hong-kong-macau-2025": [
     {
-      awardName: "Hong Kong Trophy, Hong Kong",
+      awardName: "Hong Kong Trophy",
       trophyImage: "https://static.wixstatic.com/media/548938_d09ae19c52eb479496863821f04cb8a3~mv2.png"
     }
   ],
 
-  // London - 5 Awards (Complete row of 5)
+  // London - 5 Awards (Sequence: Bharat Bhushan, Kohinoor of India, Maharashtra Ratna, Global Sakhi, Gujarat Ratna)
   "london-2025": [
     {
-      awardName: "Lokmat Bharat Bhushan Award, London",
+      awardName: "Lokmat Bharat Bhushan Award",
       trophyImage: "https://static.wixstatic.com/media/548938_977bc89c8ad94e958d1c97178adfc1dd~mv2.png"
     },
     {
-      awardName: "Lokmat Global Sakhi Awards, London",
-      trophyImage: "https://static.wixstatic.com/media/548938_6403716513614bd6a16dc3de4b04a482~mv2.png"
-    },
-    {
-      awardName: "Lokmat Gujarat Ratna Awards, London",
-      trophyImage: "https://static.wixstatic.com/media/548938_c03bea0990074d6e8c592946d198ccaa~mv2.png"
-    },
-    {
-      awardName: "Lokmat Kohinoor of India, London",
+      awardName: "Lokmat Kohinoor of India",
       trophyImage: "https://static.wixstatic.com/media/548938_c5d7c9f2c54545dc906d0c699cf5dc9d~mv2.png"
     },
     {
-      awardName: "Lokmat Maharashtra Ratna Awards, London",
+      awardName: "Lokmat Maharashtra Ratna Awards",
       trophyImage: "https://static.wixstatic.com/media/548938_45d96b0c26284e84bc98deeceb49a956~mv2.png"
+    },
+    {
+      awardName: "Lokmat Global Sakhi Awards",
+      trophyImage: "https://static.wixstatic.com/media/548938_6403716513614bd6a16dc3de4b04a482~mv2.png"
+    },
+    {
+      awardName: "Lokmat Gujarat Ratna Awards",
+      trophyImage: "https://static.wixstatic.com/media/548938_c03bea0990074d6e8c592946d198ccaa~mv2.png"
     }
   ],
 
   // Cairo - 2 Awards
   "cairo-2026": [
     {
-      awardName: "Lokmat Global Excellence Award, Cairo",
+      awardName: "Lokmat Global Excellence Award",
       trophyImage: "https://static.wixstatic.com/media/548938_2fa722912316444dba5be87e11bd33bf~mv2.png"
     },
     {
-      awardName: "Lokmat Global Icon Award, Cairo",
+      awardName: "Lokmat Global Icon Award",
       trophyImage: "https://static.wixstatic.com/media/548938_9d91ea1bcf164e6aaaa5795885ac6050~mv2.png"
     }
   ],
@@ -139,15 +128,15 @@ const awardDataMap: Record<string, AwardData[]> = {
   // Mauritius - 3 Awards
   "mauritius-2026": [
     {
-      awardName: "Lokmat Global Changemakers Award, Mauritius",
+      awardName: "Lokmat Global Changemakers Award",
       trophyImage: "https://static.wixstatic.com/media/548938_cf283b32490245b7abef56f00903fe4f~mv2.png"
     },
     {
-      awardName: "Lokmat Global Icon Power Couple Award, Mauritius",
+      awardName: "Lokmat Global Icon Power Couple Award",
       trophyImage: "https://static.wixstatic.com/media/548938_b856ac21fdd24a5e951624170c5b8b60~mv2.png"
     },
     {
-      awardName: "Lokmat Global Power Couple Award, Mauritius",
+      awardName: "Lokmat Global Power Couple Award",
       trophyImage: "https://static.wixstatic.com/media/548938_084bb6b595a84c96acb0730d79c98240~mv2.png"
     }
   ]
@@ -284,28 +273,12 @@ export default function AwardWinnersSection({ event }: AwardWinnersSectionProps)
     ];
   }
 
-  // Helper to determine the event city name
-  const getEventCity = (ev: LokmatEvent): string => {
-    const loc = (ev.location || "").toLowerCase();
-    const id = (ev.id || "").toLowerCase();
-    if (loc.includes("london") || id.includes("london")) return "London";
-    if (loc.includes("mauritius") || id.includes("mauritius")) return "Mauritius";
-    if (loc.includes("cairo") || id.includes("cairo") || loc.includes("egypt")) return "Cairo";
-    if (loc.includes("singapore") || id.includes("singapore")) return "Singapore";
-    if (loc.includes("baku") || id.includes("baku")) return "Baku";
-    if (loc.includes("hong kong") || loc.includes("macau") || id.includes("hong-kong")) return "Hong Kong";
-    if (loc.includes("dubai") || id.includes("dubai")) return "Dubai";
-    return ev.location ? ev.location.split(",")[0].trim() : "";
-  };
-
-  const eventCity = getEventCity(event);
-
-  const formatAwardTitle = (name: string): string => {
-    if (!eventCity) return name;
-    if (name.toLowerCase().includes(eventCity.toLowerCase())) {
-      return name;
-    }
-    return `${name}, ${eventCity}`;
+  const cleanAwardTitle = (name: string): string => {
+    if (!name) return "";
+    return name
+      .replace(/,\s*(Singapore|London|Cairo|Mauritius|Baku|Dubai|Hong Kong|Macau|Egypt)/gi, "")
+      .replace(/,\s*$/, "")
+      .trim();
   };
 
   // Get articles and winners pictures
@@ -391,33 +364,38 @@ export default function AwardWinnersSection({ event }: AwardWinnersSectionProps)
 
         {/* 5-column grid across 1 row on large displays */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {awardsList.map((data, index) => (
-            <div
-              key={index}
-              className="bg-white border border-gray-200 shadow-[0_8px_30px_rgba(0,0,0,0.04)] p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl flex flex-col justify-between hover:shadow-[0_12px_36px_rgba(0,0,0,0.08)] hover:border-red-200 transition-all duration-300"
-            >
-              <div className="min-h-[44px] sm:min-h-[48px] flex flex-col justify-start">
-                <h5 className="text-sm sm:text-base font-bold tracking-tight text-[#111111] leading-snug">
-                  {formatAwardTitle(data.awardName)}
-                </h5>
-              </div>
+          {awardsList.map((data, index) => {
+            const displayAwardName = cleanAwardTitle(data.awardName);
+            const imageSrc = data.trophyImage || TROPHY_IMAGES[displayAwardName] || TROPHY_IMAGES[data.awardName];
 
-              {/* Trophy image container: 1:1 square aspect ratio, image completely fills the block without any visible grey margin */}
-              <div className="relative w-full aspect-square rounded-xl sm:rounded-2xl overflow-hidden mt-3">
-                <img
-                  src={getOptimizedImageUrl(TROPHY_IMAGES[formatAwardTitle(data.awardName)] || TROPHY_IMAGES[data.awardName] || data.trophyImage, { width: 340, height: 340, quality: 80 })}
-                  alt={formatAwardTitle(data.awardName)}
-                  loading="lazy"
-                  decoding="async"
-                  referrerPolicy="no-referrer"
-                  onError={(e) => {
-                    e.currentTarget.src = "https://static.wixstatic.com/media/548938_2fa722912316444dba5be87e11bd33bf~mv2.png";
-                  }}
-                  className="w-full h-full object-cover object-center rounded-xl sm:rounded-2xl transition-transform duration-300 hover:scale-105"
-                />
+            return (
+              <div
+                key={index}
+                className="bg-white border border-gray-200 shadow-[0_8px_30px_rgba(0,0,0,0.04)] p-3.5 sm:p-4 rounded-2xl sm:rounded-3xl flex flex-col justify-between hover:shadow-[0_12px_36px_rgba(0,0,0,0.08)] hover:border-red-200 transition-all duration-300"
+              >
+                <div className="min-h-[44px] sm:min-h-[48px] flex flex-col justify-start">
+                  <h5 className="text-sm sm:text-base font-bold tracking-tight text-[#111111] leading-snug">
+                    {displayAwardName}
+                  </h5>
+                </div>
+
+                {/* Trophy image container: 1:1 square aspect ratio, image completely fills the block without any visible grey margin */}
+                <div className="relative w-full aspect-square rounded-xl sm:rounded-2xl overflow-hidden mt-3">
+                  <img
+                    src={getOptimizedImageUrl(imageSrc, { width: 340, height: 340, quality: 80 })}
+                    alt={displayAwardName}
+                    loading="lazy"
+                    decoding="async"
+                    referrerPolicy="no-referrer"
+                    onError={(e) => {
+                      e.currentTarget.src = "https://static.wixstatic.com/media/548938_2fa722912316444dba5be87e11bd33bf~mv2.png";
+                    }}
+                    className="w-full h-full object-cover object-center rounded-xl sm:rounded-2xl transition-transform duration-300 hover:scale-105"
+                  />
+                </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
 
