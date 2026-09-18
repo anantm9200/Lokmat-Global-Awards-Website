@@ -11,6 +11,7 @@ interface AwardData {
 }
 
 const TROPHY_IMAGES: Record<string, string> = {
+  "Lokmat Global Achiever Awards": "https://static.wixstatic.com/media/548938_d09ae19c52eb479496863821f04cb8a3~mv2.png",
   "Hong Kong Trophy": "https://static.wixstatic.com/media/548938_d09ae19c52eb479496863821f04cb8a3~mv2.png",
   "Dubai Trophy": "https://static.wixstatic.com/media/548938_951587d6f5e44ae3803383883269cbc1~mv2.png",
   "Lokmat Global Excellence Award": "https://static.wixstatic.com/media/548938_2fa722912316444dba5be87e11bd33bf~mv2.png",
@@ -84,7 +85,7 @@ const awardDataMap: Record<string, AwardData[]> = {
   // Hong Kong - 1 Trophy
   "hong-kong-macau-2025": [
     {
-      awardName: "Hong Kong Trophy",
+      awardName: "Lokmat Global Achiever Awards",
       trophyImage: "https://static.wixstatic.com/media/548938_d09ae19c52eb479496863821f04cb8a3~mv2.png"
     }
   ],
@@ -113,24 +114,20 @@ const awardDataMap: Record<string, AwardData[]> = {
     }
   ],
 
-  // Cairo - 2 Awards
+  // Cairo - 2 Awards (Order: Global Icon, Global Excellence)
   "cairo-2026": [
-    {
-      awardName: "Lokmat Global Excellence Award",
-      trophyImage: "https://static.wixstatic.com/media/548938_2fa722912316444dba5be87e11bd33bf~mv2.png"
-    },
     {
       awardName: "Lokmat Global Icon Award",
       trophyImage: "https://static.wixstatic.com/media/548938_9d91ea1bcf164e6aaaa5795885ac6050~mv2.png"
+    },
+    {
+      awardName: "Lokmat Global Excellence Award",
+      trophyImage: "https://static.wixstatic.com/media/548938_2fa722912316444dba5be87e11bd33bf~mv2.png"
     }
   ],
 
-  // Mauritius - 3 Awards
+  // Mauritius - 3 Awards (Order: Global Icon, Global Couple, Global Changemaker)
   "mauritius-2026": [
-    {
-      awardName: "Lokmat Global Changemakers Award",
-      trophyImage: "https://static.wixstatic.com/media/548938_cf283b32490245b7abef56f00903fe4f~mv2.png"
-    },
     {
       awardName: "Lokmat Global Icon Power Couple Award",
       trophyImage: "https://static.wixstatic.com/media/548938_b856ac21fdd24a5e951624170c5b8b60~mv2.png"
@@ -138,6 +135,10 @@ const awardDataMap: Record<string, AwardData[]> = {
     {
       awardName: "Lokmat Global Power Couple Award",
       trophyImage: "https://static.wixstatic.com/media/548938_084bb6b595a84c96acb0730d79c98240~mv2.png"
+    },
+    {
+      awardName: "Lokmat Global Changemakers Award",
+      trophyImage: "https://static.wixstatic.com/media/548938_cf283b32490245b7abef56f00903fe4f~mv2.png"
     }
   ]
 };
@@ -201,18 +202,18 @@ const articlesAndWinnersMap: Record<string, string[]> = {
     "https://static.wixstatic.com/media/548938_801555c0b96f487f8435536325b6902e~mv2.jpg",
     "https://static.wixstatic.com/media/548938_178658f08f6d487697300102e2df05ed~mv2.jpg",
     "https://static.wixstatic.com/media/548938_df3137aca94d4ffdb8ec6f3730c99f92~mv2.jpg",
-    "https://static.wixstatic.com/media/548938_60d5ac560b6c4236a2aba9cd75a4c542~mv2.jpg",
+    "https://static.wixstatic.com/media/548938_dcbacbf1445148c099f17fee8dcd08d1~mv2.png",
     "https://static.wixstatic.com/media/548938_e72e0a23d7194c1cb1497c0c0fc99b6c~mv2.jpg"
   ],
 
   // Hong Kong & Macau 2025
   "hong-kong-macau-2025": [
     "https://static.wixstatic.com/media/548938_9548fde182f34469ae7b8aa41b781a81~mv2.jpg",
-    "https://static.wixstatic.com/media/548938_30e8b7fde488472a881490e41fe8e18a~mv2.jpg",
+    "https://static.wixstatic.com/media/548938_c24b4439409d464396d71f6de15c588c~mv2.jpeg",
     "https://static.wixstatic.com/media/548938_fab36fabbc74484b9d4f9a66702fef69~mv2.jpg",
-    "https://static.wixstatic.com/media/548938_007934490b504024afc2cc6ccc472252~mv2.jpg",
+    "https://static.wixstatic.com/media/548938_c24b4439409d464396d71f6de15c588c~mv2.jpeg",
     "https://static.wixstatic.com/media/548938_29614dff8fbb4da69212e1af35d7961e~mv2.jpg",
-    "https://static.wixstatic.com/media/548938_11904c4021e84c8ead2f68bd201bbe9c~mv2.jpg"
+    "https://static.wixstatic.com/media/548938_8eae2d53c2e0476a8b9a9251a04a4c75~mv2.jpg"
   ],
 
   // Cairo 2026
@@ -277,7 +278,9 @@ export default function AwardWinnersSection({ event }: AwardWinnersSectionProps)
     if (!name) return "";
     return name
       .replace(/,\s*(Singapore|London|Cairo|Mauritius|Baku|Dubai|Hong Kong|Macau|Egypt)/gi, "")
+      .replace(/\b(Singapore|London|Cairo|Mauritius|Baku|Dubai|Hong Kong|Macau|Egypt)\b/gi, "")
       .replace(/,\s*$/, "")
+      .replace(/\s+/g, " ")
       .trim();
   };
 

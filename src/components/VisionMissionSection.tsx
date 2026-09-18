@@ -21,7 +21,7 @@ export default function VisionMissionSection() {
         "Creating and scaling super brands that drive long-term impact."
       ],
       stat: "Super Brands & Media Excellence",
-      image: "https://static.wixstatic.com/media/548938_8e1a682b5aeb4f79b98b882fa070c4f4~mv2.jpg",
+      image: "https://static.wixstatic.com/media/548938_8a99776800014275b51edc32f0fd83be~mv2.jpeg",
       fallbackImage: image1
     },
     mission: {
@@ -36,7 +36,7 @@ export default function VisionMissionSection() {
         "Entertaining through world-class summits, conclaves, and cultural experiences."
       ],
       stat: "Enriching Millions of Lives",
-      image: "https://static.wixstatic.com/media/548938_01de16ecda2648ee8f744a76a35e1a11~mv2.jpg",
+      image: "https://static.wixstatic.com/media/548938_de9658b49b9a40dca9c339fdebe1fa4a~mv2.jpeg",
       fallbackImage: image2
     }
   };

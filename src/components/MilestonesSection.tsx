@@ -26,7 +26,7 @@ export const milestones = [
   {
     year: "2025",
     title: "London Savoy & Hong Kong Chapters",
-    desc: "Hosted the prestigious Global Economic Convention at The Savoy, London, and strategic corridors in Hong Kong & Macau, recognizing Global Sakhis & Kohinoors.",
+    desc: "Hosted the prestigious Global Economic Convention at The Savoy, London, and strategic corridors in Hong Kong, recognizing Global Sakhis & Kohinoors.",
   },
   {
     year: "2026 & Beyond",

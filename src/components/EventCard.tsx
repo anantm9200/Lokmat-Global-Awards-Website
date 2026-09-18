@@ -12,9 +12,41 @@ interface EventCardProps {
   index?: number;
   hideLocationYear?: boolean;
   hideTag?: boolean;
+  showCityYearOnly?: boolean;
 }
 
-const EventCard: React.FC<EventCardProps> = ({ event, index = 0, hideLocationYear = false, hideTag = false }) => {
+export function getEventCityYear(event: { id?: string; location?: string; title?: string }): string {
+  const str = `${event.id || ''} ${event.location || ''} ${event.title || ''}`.toLowerCase();
+  
+  if (str.includes("hong-kong") || str.includes("hong kong") || str.includes("macau")) {
+    return "Hong Kong, 2025";
+  }
+  if (str.includes("mauritius")) {
+    return "Mauritius, 2026";
+  }
+  if (str.includes("cairo") || str.includes("egypt")) {
+    return "Cairo, 2026";
+  }
+  if (str.includes("london")) {
+    return "London, 2025";
+  }
+  if (str.includes("singapore") || event.id === "1") {
+    return "Singapore, 2024";
+  }
+  if (str.includes("baku")) {
+    return "Baku, 2024";
+  }
+  if (str.includes("dubai")) {
+    return "Dubai, 2023";
+  }
+  if (event.title && event.title.includes(" – ")) {
+    const parts = event.title.split(" – ");
+    return (parts[1] || parts[0]).replace(/\s*&\s*Macau/gi, "").trim();
+  }
+  return (event.title || "").replace(/\s*&\s*Macau/gi, "").trim();
+}
+
+const EventCard: React.FC<EventCardProps> = ({ event, index = 0, hideLocationYear = false, hideTag = false, showCityYearOnly = false }) => {
   const logo = event.logoUrl || getLocationLogo(event.location || event.title);
 
   return (
@@ -60,7 +92,9 @@ const EventCard: React.FC<EventCardProps> = ({ event, index = 0, hideLocationYea
       <div className="flex-1 flex flex-col justify-center space-y-4 pb-16 xl:pb-0 relative">
         <div className="space-y-3">
           <h3 className="text-xl lg:text-2xl font-bold leading-tight text-[#111111] group-hover:text-red-600 transition-colors duration-300">
-            {(() => {
+            {showCityYearOnly ? (
+              <span>{getEventCityYear(event)}</span>
+            ) : (() => {
               const parts = event.title.split(' – ');
               const eventName = parts[0];
               const eventPlaceYear = parts[1];
@@ -69,7 +103,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, index = 0, hideLocationYea
                   <span>{eventName}</span>
                   {!hideLocationYear && eventPlaceYear && (
                     <span className="font-normal text-gray-500 text-base lg:text-lg">
-                      – {eventPlaceYear}
+                      – {eventPlaceYear.replace(/\s*&\s*Macau/gi, "")}
                     </span>
                   )}
                 </span>
@@ -88,7 +122,7 @@ const EventCard: React.FC<EventCardProps> = ({ event, index = 0, hideLocationYea
           </div>
           <div className="flex items-center gap-2">
             <MapPin className="w-5 h-5 text-red-600" />
-            <span className="text-base">{event.location}</span>
+            <span className="text-base">{event.location?.replace(/\s*&\s*Macau/gi, "")}</span>
           </div>
         </div>
       </div>

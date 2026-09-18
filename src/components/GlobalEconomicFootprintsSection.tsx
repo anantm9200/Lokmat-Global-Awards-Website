@@ -6,7 +6,7 @@ export default function GlobalEconomicFootprintsSection() {
     {
       value: "7",
       label: "GLOBAL BUSINESS CITIES",
-      description: "Singapore · Cairo · London · Dubai · Hong Kong · Baku · Port Louis",
+      description: "Singapore · Cairo · London · Dubai · Hong Kong · Baku · Mauritius",
       icon: Globe2,
       gradient: "from-red-500 via-orange-400 to-amber-300",
     },

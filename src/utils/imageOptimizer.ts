@@ -11,11 +11,12 @@ export interface OptimizeOptions {
   height?: number;
   quality?: number;
   format?: "webp" | "jpg" | "png" | "auto";
+  fit?: boolean;
 }
 
 /**
  * Optimizes an image URL for fast loading across all devices.
- * Supports Wix static media URLs by appending CDN responsive fill parameters.
+ * Supports Wix static media URLs by appending CDN responsive fill/fit parameters.
  */
 export function getOptimizedImageUrl(
   url: string | undefined | null,
@@ -37,14 +38,18 @@ export function getOptimizedImageUrl(
     width = 800,
     height = 600,
     quality = 80,
+    fit = false,
   } = options;
 
   // Preserve PNG format if it's a transparent logo/trophy
   const isPng = url.toLowerCase().includes(".png");
   const ext = isPng ? "png" : "webp";
 
+  // Use fit mode for logos/PNGs or when explicitly requested to never crop
+  const mode = fit || isPng ? "fit" : "fill";
+
   // Wix media dynamic CDN resizing pattern
-  return `${url}/v1/fill/w_${Math.round(width)},h_${Math.round(height)},q_${quality},enc_auto/image.${ext}`;
+  return `${url}/v1/${mode}/w_${Math.round(width)},h_${Math.round(height)},q_${quality},enc_auto/image.${ext}`;
 }
 
 /**

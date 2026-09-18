@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { MapPin, Phone, ArrowRight, CheckCircle2 } from "lucide-react";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "motion/react";
 import footerLogo from "../assets/images/regenerated_image_1781776578908.png";
@@ -7,6 +7,7 @@ import { navigationData } from "@/src/config/navigation";
 
 export default function Footer() {
   const [email, setEmail] = useState("");
+  const [lastSubscribedEmail, setLastSubscribedEmail] = useState("");
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -18,6 +19,7 @@ export default function Footer() {
     }
 
     setIsSubmitting(true);
+    setLastSubscribedEmail(cleanEmail);
 
     try {
       // Store in localStorage
@@ -88,10 +90,15 @@ export default function Footer() {
                     animate={{ opacity: 1, y: 0, scale: 1 }}
                     exit={{ opacity: 0, y: -4, scale: 0.98 }}
                     transition={{ duration: 0.25 }}
-                    className="flex items-center gap-2.5 text-white bg-black/25 border border-white/20 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-medium backdrop-blur-sm"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-white bg-black/30 border border-white/20 p-3 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-medium backdrop-blur-sm"
                   >
-                    <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0" />
-                    <span>Thank you for subscribing! You've been successfully added to our mailing list.</span>
+                    <div className="flex items-center gap-2">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-300 shrink-0" />
+                      <span>Subscribed! Received for: <strong className="underline text-emerald-200">{lastSubscribedEmail}</strong></span>
+                    </div>
+                    <span className="text-[11px] text-red-100 bg-white/10 px-2 py-0.5 rounded-md self-start sm:self-auto">
+                      Dispatched to: <strong>milan.darda@lokmat.com</strong>
+                    </span>
                   </motion.div>
                 )}
               </AnimatePresence>
@@ -161,38 +168,8 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Contact Information */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 py-8 border-t border-b border-white/15 mb-8 items-center">
-          <div className="flex items-start gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center flex-shrink-0 shadow-sm">
-              <MapPin className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <p className="text-xs text-red-200 font-semibold uppercase tracking-widest mb-1.5">Office Address</p>
-              <p className="font-medium text-white leading-relaxed text-sm md:text-base">
-                Lokmat Media Pvt. Ltd.<br />
-                Law College Rd, Shanti Sheela Society, Erandwane, Pune, Maharashtra 411038
-              </p>
-            </div>
-          </div>
-          <div className="flex items-start md:items-center gap-4 md:justify-end">
-            <div className="w-12 h-12 rounded-2xl bg-white/10 border border-white/15 flex items-center justify-center flex-shrink-0 shadow-sm">
-              <Phone className="w-6 h-6 text-white" />
-            </div>
-            <div>
-              <p className="text-xs text-red-200 font-semibold uppercase tracking-widest mb-1.5">Phone</p>
-              <a 
-                href="tel:02066848586" 
-                className="font-bold text-white hover:text-red-200 transition-colors text-lg md:text-xl tracking-wide inline-block"
-              >
-                020 6684 8586
-              </a>
-            </div>
-          </div>
-        </div>
-
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-4 text-red-200 text-sm font-medium">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/15 text-red-200 text-sm font-medium">
           <p>© 2026 Lokmat GLOCON. All Rights Reserved.</p>
           <div className="flex flex-wrap items-center justify-center gap-6">
             {/* Hidden CMS Link for Admin */}

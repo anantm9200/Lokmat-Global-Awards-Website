@@ -1,15 +1,13 @@
-import { getOptimizedImageUrl } from "./utils/imageOptimizer";
-
 export const LOCATION_LOGOS: Record<string, string> = {
-  mauritius: getOptimizedImageUrl("https://static.wixstatic.com/media/548938_9e17a561cd3a45d49344c302d18c3e59~mv2.png", { width: 120, height: 120, quality: 80 }),
-  baku: getOptimizedImageUrl("https://static.wixstatic.com/media/548938_1ab989b4e53944148b356acca3d590bd~mv2.png", { width: 120, height: 120, quality: 80 }),
-  dubai: getOptimizedImageUrl("https://static.wixstatic.com/media/548938_a197a9bae5b84d93920a8f6feeb15841~mv2.png", { width: 120, height: 120, quality: 80 }),
-  "hong kong": getOptimizedImageUrl("https://static.wixstatic.com/media/548938_ffe099d2f4ed4e8eb57c90cabf19628f~mv2.png", { width: 120, height: 120, quality: 80 }),
-  macau: getOptimizedImageUrl("https://static.wixstatic.com/media/548938_ffe099d2f4ed4e8eb57c90cabf19628f~mv2.png", { width: 120, height: 120, quality: 80 }),
-  london: getOptimizedImageUrl("https://static.wixstatic.com/media/548938_1fd265b8996d407995b8147541858509~mv2.jpg", { width: 120, height: 120, quality: 80 }),
-  cairo: getOptimizedImageUrl("https://static.wixstatic.com/media/548938_f3b5076c66b8459ab236b19a2cce9775~mv2.png", { width: 120, height: 120, quality: 80 }),
-  egypt: getOptimizedImageUrl("https://static.wixstatic.com/media/548938_f3b5076c66b8459ab236b19a2cce9775~mv2.png", { width: 120, height: 120, quality: 80 }),
-  singapore: getOptimizedImageUrl("https://static.wixstatic.com/media/548938_e9fa4e9a5f1b40f9a16d85af6ca4b2dd~mv2.png", { width: 120, height: 120, quality: 80 }),
+  mauritius: "https://static.wixstatic.com/media/548938_438b462f94964b7db67be6832c7f0c8a~mv2.jpeg",
+  baku: "https://static.wixstatic.com/media/548938_a5d6be6c6d8e45638fcb7df2bd13c34a~mv2.png",
+  dubai: "https://static.wixstatic.com/media/548938_a60af7ec1b614f34a373233455bbd3d7~mv2.png",
+  "hong kong": "https://static.wixstatic.com/media/548938_b6ac96c297934e36b9e0d49f52e67036~mv2.png",
+  macau: "https://static.wixstatic.com/media/548938_b6ac96c297934e36b9e0d49f52e67036~mv2.png",
+  london: "https://static.wixstatic.com/media/548938_f73683c6cb494dae9d199c55838ddf01~mv2.png",
+  cairo: "https://static.wixstatic.com/media/548938_37c105393e5d487895641e750062cf92~mv2.png",
+  egypt: "https://static.wixstatic.com/media/548938_37c105393e5d487895641e750062cf92~mv2.png",
+  singapore: "https://static.wixstatic.com/media/548938_d803581c573846a8bf97d7f6bf982637~mv2.png",
 };
 
 export function getLocationLogo(locationOrTitle: string): string {

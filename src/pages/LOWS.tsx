@@ -139,7 +139,7 @@ export default function LOWS() {
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
               {lowsEvents.map((event, idx) => (
-                <EventCard key={event.id} event={event} index={idx} hideLocationYear={true} />
+                <EventCard key={event.id} event={event} index={idx} showCityYearOnly={true} />
               ))}
             </div>
           )}

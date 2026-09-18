@@ -1,44 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { motion } from "motion/react";
 import logoImg from "@/src/assets/images/regenerated_image_1781776475830.png";
-import {
-  Sparkles,
-  Building2,
-  Award,
-  Users,
-  Globe
-} from "lucide-react";
+import { Sparkles } from "lucide-react";
 
 export default function AboutBrandSection() {
-  const [hoveredCard, setHoveredCard] = useState<number | null>(0);
-
-  const numericalCards = [
-    {
-      id: "hubs",
-      number: "7",
-      title: "Business Hubs",
-      icon: Building2
-    },
-    {
-      id: "awardees",
-      number: "400+",
-      title: "Awardees",
-      icon: Award
-    },
-    {
-      id: "attendees",
-      number: "2000+",
-      title: "Global Attendees",
-      icon: Users
-    },
-    {
-      id: "continents",
-      number: "3",
-      title: "Continents",
-      icon: Globe
-    }
-  ];
-
   return (
     <section className="w-full px-[3%] pt-[30px] pb-[30px] md:my-12 relative">
       <motion.div
@@ -84,8 +49,8 @@ export default function AboutBrandSection() {
           </div>
         </div>
 
-        {/* Narrative Paragraphs - full width stretched to right edge of cards */}
-        <div className="relative z-10 mb-12 space-y-5 w-full">
+        {/* Narrative Paragraphs - full width stretched to right edge */}
+        <div className="relative z-10 space-y-5 w-full">
           <p className="text-gray-700 font-light text-base sm:text-lg leading-relaxed">
             <strong className="text-[#111111] font-bold">Lokmat Media Pvt. Ltd.</strong> is a leading media company with interests in a diversified portfolio of publishing, broadcast, digital, entertainment and community. It has an employee strength of more than 3,000 and has a PAN-India network of offices.
           </p>
@@ -98,50 +63,6 @@ export default function AboutBrandSection() {
           <p className="text-gray-700 font-light text-base sm:text-lg leading-relaxed">
             Lokmat’s experiential marketing division – <span className="text-[#111111] font-semibold">‘Taplight’</span> organizes various annual properties like <span className="text-[#111111] font-semibold">‘Lokmat Maharashtrian of the Year’</span>, <span className="text-[#111111] font-semibold">‘Lokmat Most Stylish’</span>, <span className="text-[#111111] font-semibold">‘Lokmat DIA’</span>, <span className="text-[#111111] font-semibold">‘Lokmat Infra Conclave’</span>, <span className="text-[#111111] font-semibold">'Lokmat Maha Marathon'</span>, <span className="text-[#111111] font-semibold">‘Lokmat Women Summit’</span> etc., which are the benchmarks in their respective categories. It also provides comprehensive 360-degree marketing solutions to clients including ‘BTL’ promotions and client-led activations. It is the largest event management company in Maharashtra in terms of the number of events held. This division also runs various community forums focused on Women, Youth and Children.
           </p>
-        </div>
-
-        {/* Numerical Cards Grid */}
-        <div className="relative z-10">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {numericalCards.map((card, idx) => {
-              const Icon = card.icon;
-              const isHovered = hoveredCard === idx;
-
-              return (
-                <div
-                  key={card.id}
-                  onMouseEnter={() => setHoveredCard(idx)}
-                  className={`relative p-7 rounded-2xl border transition-all duration-300 flex flex-col justify-between overflow-hidden cursor-default group ${
-                    isHovered
-                      ? "bg-white border-red-200 shadow-xl shadow-red-600/5 -translate-y-1"
-                      : "bg-[#FAFAFA] border-gray-200/80 hover:bg-white hover:border-red-200 hover:shadow-lg"
-                  }`}
-                >
-                  <div className="flex flex-col justify-between h-full">
-                    <div
-                      className={`w-12 h-12 rounded-xl flex items-center justify-center transition-all duration-300 mb-6 ${
-                        isHovered
-                          ? "bg-gradient-to-br from-red-600 to-orange-500 text-white shadow-md shadow-red-600/20 scale-105"
-                          : "bg-red-50 border border-red-100 text-red-600"
-                      }`}
-                    >
-                      <Icon className="w-6 h-6" />
-                    </div>
-
-                    <div>
-                      <div className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#111111] tracking-tight mb-2 group-hover:text-red-600 transition-colors duration-300">
-                        {card.number}
-                      </div>
-
-                      <h3 className="stat-subtext text-sm sm:text-base font-bold text-gray-600 uppercase tracking-wider group-hover:text-[#111111] transition-colors duration-300">
-                        {card.title}
-                      </h3>
-                    </div>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
         </div>
       </motion.div>
     </section>

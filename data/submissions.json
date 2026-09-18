@@ -1,0 +1,35 @@
+[
+  {
+    "id": "SUB-MU6RD13G-UDU6",
+    "formType": "Enquiry Form",
+    "recipient": "milan.darda@lokmat.com",
+    "submittedAt": "18/9/2026, 3:00:34 pm",
+    "timestamp": 1789723834828,
+    "data": {
+      "name": "Rahul Kapoor",
+      "email": "rahul@enterprise.org",
+      "phone": "+91 91234 56789",
+      "designation": "Chief Marketing Officer",
+      "industry": "Automotive & Tech",
+      "message": "Interested in partnership packages for upcoming summits."
+    },
+    "resendDelivered": false,
+    "smtpDelivered": false
+  },
+  {
+    "id": "SUB-MU6RCWDZ-KB6U",
+    "formType": "Contact Form",
+    "recipient": "milan.darda@lokmat.com",
+    "submittedAt": "18/9/2026, 3:00:28 pm",
+    "timestamp": 1789723828728,
+    "data": {
+      "name": "Priya Sharma",
+      "email": "priya.sharma@example.com",
+      "phone": "+91 98201 23456",
+      "subject": "Sponsorship for Global Awards",
+      "message": "We would like to discuss category sponsorship for the Lokmat Global Awards 2026."
+    },
+    "resendDelivered": false,
+    "smtpDelivered": false
+  }
+]

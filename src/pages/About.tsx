@@ -58,7 +58,7 @@ export default function About() {
   const leaders = [
     {
       name: "Dr. Vijay Darda",
-      role: "Member of Parliament, Rajya Sabha (1998-2016)\nChairman, Editorial Board, Lokmat Media Group",
+      role: "Member of Parliament, Rajya Sabha (1998-2016)\nChairman, Editorial Board",
       image: "https://static.wixstatic.com/media/548938_ef75f912b1584b51abead72fa116b3d8~mv2.png",
       linkedin: "https://www.linkedin.com",
     },

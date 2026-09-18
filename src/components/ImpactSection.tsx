@@ -10,7 +10,7 @@ export default function ImpactSection() {
     },
     { 
       label: "Distinguished Awardees", 
-      value: "400+", 
+      value: "750+", 
       suffix: "Recognised Across Editions", 
       color: "from-orange-500 to-yellow-400" 
     },
@@ -66,7 +66,7 @@ export default function ImpactSection() {
               <div className="hidden lg:block bg-white border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] p-6 rounded-2xl relative overflow-hidden my-4">
                 <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-red-500 to-orange-400" />
                 <p className="text-sm md:text-base italic text-gray-600 leading-snug font-sans relative z-10 pl-2">
-                  "Creating national impact through recognition, culture and meaningful conversations. Lokmat Experiences brings together influential voices, iconic platforms and high-impact events that set new benchmarks for credibility, scale and prestige."
+                  "Creating global impact through recognition, culture an meaningful conversations. Our initiatives bring together influential voices, iconic platforms and high-impact results that set new benchmarks for credibility, scale and prestige."
                 </p>
                 {/* Quote mark decoration */}
                 <span className="absolute -bottom-8 -right-4 text-8xl text-gray-50 font-serif font-black pointer-events-none select-none leading-none">"</span>
@@ -103,7 +103,7 @@ export default function ImpactSection() {
                     </span>
 
                     {/* Numbers */}
-                    <h3 className={`text-4xl sm:text-[41px] md:text-[47px] lg:text-[54px] xl:text-[68px] font-black tracking-tighter my-1.5 sm:my-3 text-transparent bg-clip-text bg-gradient-to-br ${stat.color} relative z-10 text-left sm:text-center w-full`}>
+                    <h3 className={`text-[31px] sm:text-[35px] md:text-[40px] lg:text-[46px] xl:text-[58px] font-black tracking-tighter my-1.5 sm:my-3 text-transparent bg-clip-text bg-gradient-to-br ${stat.color} relative z-10 text-left sm:text-center w-full`}>
                       {stat.value}
                     </h3>
                     
@@ -130,7 +130,7 @@ export default function ImpactSection() {
             >
               <div className="absolute top-0 left-0 w-1.5 h-full bg-gradient-to-b from-red-500 to-orange-400" />
               <p className="text-sm sm:text-base italic text-gray-600 leading-relaxed font-sans relative z-10 pl-2">
-                "Creating national impact through recognition, culture and meaningful conversations. Lokmat Experiences brings together influential voices, iconic platforms and high-impact events that set new benchmarks for credibility, scale and prestige."
+                "Creating global impact through recognition, culture an meaningful conversations. Our initiatives bring together influential voices, iconic platforms and high-impact results that set new benchmarks for credibility, scale and prestige."
               </p>
               {/* Quote mark decoration */}
               <span className="absolute -bottom-8 -right-4 text-8xl text-gray-50 font-serif font-black pointer-events-none select-none leading-none">"</span>

@@ -5,13 +5,15 @@ import { Calendar, MapPin, ArrowRight } from "lucide-react";
 import { LokmatEvent } from "@/src/types";
 import { formatDate } from "@/src/lib/utils";
 import OptimizedImage from "@/src/components/OptimizedImage";
+import { getEventCityYear } from "./EventCard";
 
 interface Props {
   event: LokmatEvent;
   hideTag?: boolean;
+  showCityYearOnly?: boolean;
 }
 
-const AlternativeEventCard: React.FC<Props> = ({ event, hideTag = true }) => {
+const AlternativeEventCard: React.FC<Props> = ({ event, hideTag = true, showCityYearOnly = false }) => {
   return (
     <Link to={`/event/${event.id}`} className="group block h-full" onClick={() => window.scrollTo(0,0)}>
       <motion.div
@@ -35,7 +37,7 @@ const AlternativeEventCard: React.FC<Props> = ({ event, hideTag = true }) => {
              </div>
              <div className="flex items-center gap-1.5 text-white text-xs font-medium bg-white/20 backdrop-blur-md px-2.5 py-1 rounded-full">
                 <MapPin className="w-3 h-3" />
-                {event.location}
+                {event.location?.replace(/\s*&\s*Macau/gi, "")}
              </div>
           </div>
           {!hideTag && (
@@ -48,7 +50,9 @@ const AlternativeEventCard: React.FC<Props> = ({ event, hideTag = true }) => {
         </div>
         <div className="p-6 flex flex-col flex-grow">
           <h3 className="text-xl font-bold mb-3 group-hover:text-red-600 transition-colors line-clamp-3 leading-tight">
-            {(() => {
+            {showCityYearOnly ? (
+              <span>{getEventCityYear(event)}</span>
+            ) : (() => {
               const parts = event.title.split(' – ');
               const eventName = parts[0];
               const eventPlaceYear = parts[1];
@@ -57,7 +61,7 @@ const AlternativeEventCard: React.FC<Props> = ({ event, hideTag = true }) => {
                   <span>{eventName}</span>
                   {eventPlaceYear && (
                     <span className="font-normal text-gray-500 text-sm">
-                      – {eventPlaceYear}
+                      – {eventPlaceYear.replace(/\s*&\s*Macau/gi, "")}
                     </span>
                   )}
                 </span>

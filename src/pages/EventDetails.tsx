@@ -11,7 +11,33 @@ import AwardWinnersSection from "@/src/components/AwardWinnersSection";
 import { getLocationLogo } from "@/src/locationLogos";
 import { getOptimizedImageUrl } from "@/src/utils/imageOptimizer";
 
-const getEventLogoImage = (event: { location?: string; title?: string; logoUrl?: string }) => {
+const getEventLogoImage = (event: { id?: string; location?: string; title?: string; logoUrl?: string }) => {
+  const loc = (event.location || "").toLowerCase();
+  const title = (event.title || "").toLowerCase();
+  const id = (event.id || "").toLowerCase();
+
+  if (loc.includes("london") || title.includes("london") || id.includes("london")) {
+    return "https://static.wixstatic.com/media/548938_f73683c6cb494dae9d199c55838ddf01~mv2.png";
+  }
+  if (loc.includes("hong kong") || loc.includes("macau") || title.includes("hong kong") || title.includes("macau") || id.includes("hong-kong")) {
+    return "https://static.wixstatic.com/media/548938_b6ac96c297934e36b9e0d49f52e67036~mv2.png";
+  }
+  if (loc.includes("dubai") || title.includes("dubai") || id.includes("dubai")) {
+    return "https://static.wixstatic.com/media/548938_a60af7ec1b614f34a373233455bbd3d7~mv2.png";
+  }
+  if (loc.includes("singapore") || title.includes("singapore") || id.includes("singapore") || id === "1") {
+    return "https://static.wixstatic.com/media/548938_d803581c573846a8bf97d7f6bf982637~mv2.png";
+  }
+  if (loc.includes("baku") || title.includes("baku") || id.includes("baku")) {
+    return "https://static.wixstatic.com/media/548938_a5d6be6c6d8e45638fcb7df2bd13c34a~mv2.png";
+  }
+  if (loc.includes("cairo") || loc.includes("egypt") || title.includes("cairo") || title.includes("egypt") || id.includes("cairo")) {
+    return "https://static.wixstatic.com/media/548938_37c105393e5d487895641e750062cf92~mv2.png";
+  }
+  if (loc.includes("mauritius") || title.includes("mauritius") || id.includes("mauritius")) {
+    return "https://static.wixstatic.com/media/548938_438b462f94964b7db67be6832c7f0c8a~mv2.jpeg";
+  }
+
   if (event.logoUrl) return event.logoUrl;
   return getLocationLogo(event.location || event.title || "");
 };
@@ -66,7 +92,7 @@ export default function EventDetails() {
 
   const galleryImages = event?.gallery && event.gallery.length > 0 ? event.gallery : [
     "https://static.wixstatic.com/media/548938_8e1a682b5aeb4f79b98b882fa070c4f4~mv2.jpg",
-    "https://static.wixstatic.com/media/548938_16da964fa0a64825b25b0d428948b731~mv2.jpg",
+    "https://static.wixstatic.com/media/548938_c3071a65c719496794c0badcec2dfe63~mv2.jpg",
     "https://static.wixstatic.com/media/548938_bd414512485f4f8d829f43bf08dddcd7~mv2.jpg",
     "https://static.wixstatic.com/media/548938_4f37d9ddf20743fe9a52e3db9eacc36d~mv2.jpg",
     "https://static.wixstatic.com/media/548938_8e1a682b5aeb4f79b98b882fa070c4f4~mv2.jpg",
@@ -135,7 +161,7 @@ export default function EventDetails() {
               {(() => {
                 const parts = event.title.split(' – ');
                 const eventName = parts[0];
-                const eventPlaceYear = parts[1] || `${event.location}, ${event.date}`;
+                const eventPlaceYear = (parts[1] || `${event.location}, ${event.date}`).replace(/\s*&\s*Macau/gi, "");
                 return (
                   <div className="w-full flex flex-col md:flex-row md:items-baseline justify-between gap-3 md:gap-8 pb-3 border-b border-gray-100">
                     <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-[44px] font-bold leading-tight tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-red-600 to-orange-500">
@@ -195,19 +221,19 @@ export default function EventDetails() {
             </motion.div>
 
             <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 w-full items-stretch">
-              {/* Left Column - Event Logo Card (1:1 Aspect Ratio) */}
+              {/* Left Column - Event Logo Card (1:1 Rounded Corner Card with 3:4 Vertical Logo) */}
               <div className="w-full lg:w-auto flex flex-col order-2 lg:order-1 shrink-0 items-center justify-center">
-                <div className="bg-white rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] aspect-square h-full max-h-[320px] w-full max-w-[320px] lg:w-auto flex items-center justify-center overflow-hidden p-6">
-                  <img
-                    src={getEventLogoImage(event)}
-                    alt={`${event.title} Logo`}
-                    className={`w-full h-full aspect-square object-contain transition-transform duration-300 hover:scale-105 ${
-                      event.id === "mauritius-2026" ? "max-h-[240px] max-w-[240px] p-2" : ""
-                    }`}
-                    onError={(e) => {
-                      e.currentTarget.src = "https://static.wixstatic.com/media/548938_9e17a561cd3a45d49344c302d18c3e59~mv2.png";
-                    }}
-                  />
+                <div className="bg-white rounded-3xl border border-gray-100 shadow-[0_8px_30px_rgb(0,0,0,0.04)] w-[260px] h-[260px] sm:w-[320px] sm:h-[320px] max-w-full aspect-square flex items-center justify-center p-6 sm:p-7 shrink-0">
+                  <div className="h-full aspect-[3/4] max-w-full flex items-center justify-center">
+                    <img
+                      src={getEventLogoImage(event)}
+                      alt={`${event.title} Logo`}
+                      className="w-full h-full aspect-[3/4] object-contain transition-transform duration-300 hover:scale-105"
+                      onError={(e) => {
+                        e.currentTarget.src = getLocationLogo(event.location || event.title || "");
+                      }}
+                    />
+                  </div>
                 </div>
               </div>
 
@@ -231,7 +257,7 @@ export default function EventDetails() {
                   </div>
                   <div className="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-white border border-gray-100 shadow-sm text-sm font-semibold text-gray-700">
                     <MapPin className="w-4 h-4 text-red-600" />
-                    <span>{event.location}</span>
+                    <span>{event.location?.replace(/\s*&\s*Macau/gi, "")}</span>
                   </div>
                 </div>
 

@@ -12,13 +12,13 @@ const GALLERY_IMAGES = [
   "https://static.wixstatic.com/media/548938_be23b27ab71249bfb2e17b73b8c9144c~mv2.jpg",
   "https://static.wixstatic.com/media/548938_199ab3c60a2c4f0facd965e8b6acd840~mv2.jpg",
   "https://static.wixstatic.com/media/548938_8ff50397db974348beb21275c51dc349~mv2.jpg",
-  "https://static.wixstatic.com/media/548938_bcc5199fa79b4acd8231eeaeac061ee3~mv2.jpg",
+  "https://static.wixstatic.com/media/548938_fa6faeac32df4ea7a4f1c79aabc9a39f~mv2.png",
 
   // Cairo 2026
   "https://static.wixstatic.com/media/548938_e7d3e1979a4744b79da66690874091b9~mv2.jpg",
   "https://static.wixstatic.com/media/548938_e5cba0d41a6d4055abe0f39a47e999af~mv2.jpg",
-  "https://static.wixstatic.com/media/548938_4726a3324014489a9fc72f013ab14bfe~mv2.jpg",
-  "https://static.wixstatic.com/media/548938_fb341ebfdd434a53bb8b88849b274423~mv2.jpg",
+  "https://static.wixstatic.com/media/548938_eded7d8862064d0a888ef87d52bc2c76~mv2.png",
+  "https://static.wixstatic.com/media/548938_53279ca9f3904e328d12683065dd528c~mv2.png",
 
   // London 2025
   "https://static.wixstatic.com/media/548938_01de16ecda2648ee8f744a76a35e1a11~mv2.jpg",
@@ -28,24 +28,24 @@ const GALLERY_IMAGES = [
   "https://static.wixstatic.com/media/548938_1024fa5c4e6b41709f36a98f7d398d3a~mv2.jpg",
   "https://static.wixstatic.com/media/548938_677525051cc843be800ff94bdefbc0ef~mv2.jpg",
 
-  // Macau & Hong Kong 2024
+  // Hong Kong 2025
   "https://static.wixstatic.com/media/548938_c154eed85ef3434684d993283d8b3f5c~mv2.jpg",
-  "https://static.wixstatic.com/media/548938_30e8b7fde488472a881490e41fe8e18a~mv2.jpg",
+  "https://static.wixstatic.com/media/548938_c24b4439409d464396d71f6de15c588c~mv2.jpeg",
   "https://static.wixstatic.com/media/548938_fab36fabbc74484b9d4f9a66702fef69~mv2.jpg",
-  "https://static.wixstatic.com/media/548938_007934490b504024afc2cc6ccc472252~mv2.jpg",
+  "https://static.wixstatic.com/media/548938_c24b4439409d464396d71f6de15c588c~mv2.jpeg",
   "https://static.wixstatic.com/media/548938_29614dff8fbb4da69212e1af35d7961e~mv2.jpg",
-  "https://static.wixstatic.com/media/548938_11904c4021e84c8ead2f68bd201bbe9c~mv2.jpg",
+  "https://static.wixstatic.com/media/548938_8eae2d53c2e0476a8b9a9251a04a4c75~mv2.jpg",
 
   // Baku 2024
   "https://static.wixstatic.com/media/548938_7c6fc72928a346979bc09fc548fb6f2c~mv2.jpg",
   "https://static.wixstatic.com/media/548938_178658f08f6d487697300102e2df05ed~mv2.jpg",
   "https://static.wixstatic.com/media/548938_df3137aca94d4ffdb8ec6f3730c99f92~mv2.jpg",
-  "https://static.wixstatic.com/media/548938_60d5ac560b6c4236a2aba9cd75a4c542~mv2.jpg",
+  "https://static.wixstatic.com/media/548938_dcbacbf1445148c099f17fee8dcd08d1~mv2.png",
   "https://static.wixstatic.com/media/548938_e72e0a23d7194c1cb1497c0c0fc99b6c~mv2.jpg",
 
   // Singapore 2024
   "https://static.wixstatic.com/media/548938_8e1a682b5aeb4f79b98b882fa070c4f4~mv2.jpg",
-  "https://static.wixstatic.com/media/548938_16da964fa0a64825b25b0d428948b731~mv2.jpg",
+  "https://static.wixstatic.com/media/548938_c3071a65c719496794c0badcec2dfe63~mv2.jpg",
   "https://static.wixstatic.com/media/548938_bd414512485f4f8d829f43bf08dddcd7~mv2.jpg",
   "https://static.wixstatic.com/media/548938_4f37d9ddf20743fe9a52e3db9eacc36d~mv2.jpg",
   "https://static.wixstatic.com/media/548938_67cac5d58a9e41628c58f9bf88989ffe~mv2.jpg",

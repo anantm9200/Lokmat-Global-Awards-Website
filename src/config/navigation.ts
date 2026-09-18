@@ -21,10 +21,10 @@ export const navigationData: NavMenu[] = [
     href: "/about"
   },
   {
-    label: "GloCon",
+    label: "Our Initiatives",
     items: [
-      { label: "Global Economic Convention (LGEC)", href: "/lgec" },
-      { label: "One World Summit & Awards (LOWS&A)", href: "/lowsa" }
+      { label: "Global Economic Convention", href: "/lgec" },
+      { label: "One World Summit & Awards", href: "/lowsa" }
     ]
   },
   {

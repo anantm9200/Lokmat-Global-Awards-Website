@@ -15,13 +15,13 @@ const rawTestimonialDocs: TestimonialDoc[] = [
   {
     id: "doc-1",
     name: "Gautam Adani",
-    designation: "Chairman, Adani Group",
+    designation: "Adani Group",
     image: "https://static.wixstatic.com/media/548938_ea4af470ce28422085569bdc00372c32~mv2.jpeg",
   },
   {
     id: "doc-2",
     name: "Anil Agarwal",
-    designation: "Founder and Chairman, Vedanta Resources Ltd.",
+    designation: "Vedanta Resources",
     image: "https://static.wixstatic.com/media/548938_2b48a88bbf344fc8954797f2e8d28070~mv2.jpeg",
   },
   {
@@ -33,19 +33,19 @@ const rawTestimonialDocs: TestimonialDoc[] = [
   {
     id: "doc-4",
     name: "Nitin Gadkari",
-    designation: "Minister Road and Highways Transport, Govt of India",
+    designation: "Union Minister, India",
     image: "https://static.wixstatic.com/media/548938_578521094b6a40849875f817e222c45f~mv2.jpeg",
   },
   {
     id: "doc-5",
     name: "Piyush Goyal",
-    designation: "Minister of Commerce & Industry, Govt of India",
+    designation: "Union Minister, India",
     image: "https://static.wixstatic.com/media/548938_d4c3569faac243a29361278a7cd62c48~mv2.jpeg",
   },
   {
     id: "doc-6",
     name: "Vikram Doraiswami",
-    designation: "High Commissioner",
+    designation: "Indian Diplomat",
     image: "https://static.wixstatic.com/media/548938_d12c8f34d42a4453bdec205253fe7c0b~mv2.jpeg",
   },
   {
@@ -57,7 +57,7 @@ const rawTestimonialDocs: TestimonialDoc[] = [
   {
     id: "doc-8",
     name: "Sajjan Jindal",
-    designation: "Chairman, JSW Group",
+    designation: "JSW Group",
     image: "https://static.wixstatic.com/media/548938_d509b04fd1124c7fb694b394ba35d02e~mv2.jpeg",
   },
 ];

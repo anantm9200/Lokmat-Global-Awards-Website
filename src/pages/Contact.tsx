@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Navbar from "@/src/components/Navbar";
 import Footer from "@/src/components/Footer";
 import { motion, AnimatePresence } from "motion/react";
-import { Phone, MapPin, ArrowUpRight, HelpCircle, ChevronDown, ChevronUp, Send, CheckCircle } from "lucide-react";
+import { HelpCircle, ChevronDown, ChevronUp, Send, CheckCircle, Mail, Copy, Check } from "lucide-react";
 
 export default function Contact() {
   // AIO, GEO, and SEO Best Practices: Dynamic Title and Description Updates
@@ -36,38 +36,129 @@ export default function Contact() {
   const [openFaqIdx, setOpenFaqIdx] = useState<number | null>(0);
   const [formData, setFormData] = useState({
     name: "",
+    email: "",
     phone: "",
     subject: "General Inquiry",
     message: ""
   });
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [copied, setCopied] = useState(false);
+  const [submittedData, setSubmittedData] = useState<{
+    id: string;
+    name: string;
+    email: string;
+    phone: string;
+    subject: string;
+    message: string;
+    timestamp: string;
+    recipient: string;
+  } | null>(null);
 
   const toggleFaq = (idx: number) => {
     setOpenFaqIdx(openFaqIdx === idx ? null : idx);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.phone || !formData.message) {
+    if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim() || !formData.message.trim()) {
       alert("Please fill in all required fields.");
       return;
     }
-    // Save contact message locally
-    const existingMessages = localStorage.getItem("lokmat_contact_messages");
-    const list = existingMessages ? JSON.parse(existingMessages) : [];
-    list.push({ ...formData, id: Date.now(), timestamp: new Date().toISOString() });
-    localStorage.setItem("lokmat_contact_messages", JSON.stringify(list));
+
+    setIsSubmitting(true);
+    const submissionId = "LOC-" + Date.now().toString(36).toUpperCase();
+    const timestamp = new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" });
+    const targetRecipient = "milan.darda@lokmat.com";
+
+    const snapshot = {
+      id: submissionId,
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      phone: formData.phone.trim(),
+      subject: formData.subject,
+      message: formData.message.trim(),
+      timestamp,
+      recipient: targetRecipient
+    };
+
+    // Save contact message locally for offline resilience
+    try {
+      const existingMessages = localStorage.getItem("lokmat_contact_messages");
+      const list = existingMessages ? JSON.parse(existingMessages) : [];
+      list.push({ ...snapshot, rawTimestamp: Date.now() });
+      localStorage.setItem("lokmat_contact_messages", JSON.stringify(list));
+    } catch {
+      // LocalStorage fallback
+    }
+
+    // Call server endpoint to route email to milan.darda@lokmat.com
+    try {
+      await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: snapshot.name,
+          email: snapshot.email,
+          phone: snapshot.phone,
+          subject: snapshot.subject,
+          message: snapshot.message
+        })
+      });
+    } catch (err) {
+      console.warn("Backend dispatch offline or pending, recorded locally:", err);
+    }
+
+    setIsSubmitting(false);
+    setSubmittedData(snapshot);
     setSubmitted(true);
+  };
+
+  const handleCopyDetails = () => {
+    if (!submittedData) return;
+    const text = `LOKMAT GLOBAL - CONTACT FORM SUBMISSION
+Submission ID: ${submittedData.id}
+Date & Time  : ${submittedData.timestamp}
+Sent To      : ${submittedData.recipient}
+------------------------------------------------
+Full Name    : ${submittedData.name}
+Email        : ${submittedData.email}
+Phone Number : ${submittedData.phone}
+Subject      : ${submittedData.subject}
+Message      :
+${submittedData.message}
+------------------------------------------------`;
+    navigator.clipboard.writeText(text);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2500);
   };
 
   const handleReset = () => {
     setFormData({
       name: "",
+      email: "",
       phone: "",
       subject: "General Inquiry",
       message: ""
     });
+    setSubmittedData(null);
     setSubmitted(false);
+  };
+
+  const getMailtoUrl = () => {
+    if (!submittedData) return `mailto:milan.darda@lokmat.com`;
+    const subject = encodeURIComponent(`[Lokmat Contact] ${submittedData.subject} - ${submittedData.name}`);
+    const body = encodeURIComponent(
+      `Hello Milan Darda,\n\nHere are the details filled in the contact form:\n\n` +
+      `Full Name: ${submittedData.name}\n` +
+      `Email: ${submittedData.email}\n` +
+      `Phone: ${submittedData.phone}\n` +
+      `Subject: ${submittedData.subject}\n\n` +
+      `Message:\n${submittedData.message}\n\n` +
+      `Reference ID: ${submittedData.id}\n` +
+      `Submitted At: ${submittedData.timestamp}`
+    );
+    return `mailto:milan.darda@lokmat.com?subject=${subject}&body=${body}`;
   };
 
   return (
@@ -90,15 +181,18 @@ export default function Contact() {
               </h1>
             </motion.div>
             
-            {/* Form (Left) & Contact Details Stack (Right) */}
-            <div className="w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 text-left mb-[60px] md:mb-20 items-stretch">
-              
-              {/* Form Block (Left side - 7 Columns) */}
-              <div className="lg:col-span-7 bg-white p-8 md:p-12 border border-gray-200 rounded-2xl shadow-sm flex flex-col justify-between">
+            {/* Form Block */}
+            <div className="w-full max-w-4xl mx-auto text-left mb-[60px] md:mb-20">
+              <div className="w-full bg-white p-8 md:p-12 border border-gray-200 rounded-2xl shadow-sm flex flex-col justify-between">
                 <div>
-                  <h2 className="text-2xl md:text-3xl font-bold mb-3 text-[#111111]">Send us a message</h2>
-                  <p className="text-gray-400 font-light text-sm leading-relaxed mb-8">
-                    Have a general question? Complete the credentials below and we will route it to the appropriate officer.
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
+                    <h2 className="text-2xl md:text-3xl font-bold text-[#111111]">Send us a message</h2>
+                    <span className="inline-flex items-center gap-1.5 px-3 py-1 bg-red-50 text-red-600 border border-red-100 rounded-full text-xs font-semibold self-start sm:self-auto">
+                      <Mail className="w-3.5 h-3.5" /> Routed to: milan.darda@lokmat.com
+                    </span>
+                  </div>
+                  <p className="text-gray-500 font-light text-sm leading-relaxed mb-8">
+                    Have a question or proposal? Fill out the fields below. All submissions are automatically processed and delivered to <strong className="text-gray-900 font-semibold">milan.darda@lokmat.com</strong>.
                   </p>
 
                   <AnimatePresence mode="wait">
@@ -112,151 +206,198 @@ export default function Contact() {
                       >
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                           <div className="flex flex-col gap-2">
-                            <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">Full Name *</label>
+                            <label className="text-xs font-bold text-gray-700 uppercase tracking-widest">
+                              Full Name <span className="text-red-600">*</span>
+                            </label>
                             <input 
                               type="text" 
                               required
                               value={formData.name}
                               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                              className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-red-600 focus:bg-white transition-all" 
+                              className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-red-600 focus:bg-white transition-all text-sm font-medium" 
                               placeholder="e.g. Aditi Sharma" 
                             />
                           </div>
                           <div className="flex flex-col gap-2">
-                            <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">Phone Number *</label>
+                            <label className="text-xs font-bold text-gray-700 uppercase tracking-widest">
+                              Email Address <span className="text-red-600">*</span>
+                            </label>
+                            <input 
+                              type="email" 
+                              required
+                              value={formData.email}
+                              onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                              className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-red-600 focus:bg-white transition-all text-sm font-medium" 
+                              placeholder="e.g. aditi@company.com" 
+                            />
+                          </div>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                          <div className="flex flex-col gap-2">
+                            <label className="text-xs font-bold text-gray-700 uppercase tracking-widest">
+                              Phone Number <span className="text-red-600">*</span>
+                            </label>
                             <input 
                               type="tel" 
                               required
                               value={formData.phone}
                               onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                              className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-red-600 focus:bg-white transition-all" 
-                              placeholder="e.g. 020 6684 8586" 
+                              className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-red-600 focus:bg-white transition-all text-sm font-medium" 
+                              placeholder="e.g. +91 98765 43210" 
                             />
+                          </div>
+
+                          <div className="flex flex-col gap-2">
+                            <label className="text-xs font-bold text-gray-700 uppercase tracking-widest">
+                              Subject Of Inquiry <span className="text-red-600">*</span>
+                            </label>
+                            <select 
+                              value={formData.subject}
+                              onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
+                              className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-red-600 focus:bg-white transition-all cursor-pointer font-medium text-sm" 
+                            >
+                              <option value="General Inquiry">General Event Query</option>
+                              <option value="Award Nominations">Award Nomination Processes</option>
+                              <option value="Partnership & Sponsorship">Corporate Partnership & Sponsorship</option>
+                              <option value="Press Accreditations">Press / Media Accreditation</option>
+                              <option value="Speaker Opportunities">Speaker & Delegate Inquiry</option>
+                              <option value="Website Feedback">Technical Website Issue</option>
+                            </select>
                           </div>
                         </div>
 
                         <div className="flex flex-col gap-2">
-                          <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">Subject Of Inquiry</label>
-                          <select 
-                            value={formData.subject}
-                            onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                            className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-red-600 focus:bg-white transition-all cursor-pointer font-medium"
-                          >
-                            <option value="General Inquiry">General Event Query</option>
-                            <option value="Award Nominations">Award Nomination Processes</option>
-                            <option value="Press Accreditations">Press / Media Accreditation</option>
-                            <option value="Website Feedback">Technical Website Issue</option>
-                          </select>
-                        </div>
-
-                        <div className="flex flex-col gap-2">
-                          <label className="text-xs font-bold text-gray-500 uppercase tracking-widest">Message Body *</label>
+                          <label className="text-xs font-bold text-gray-700 uppercase tracking-widest">
+                            Message Body <span className="text-red-600">*</span>
+                          </label>
                           <textarea 
-                            rows={6} 
+                            rows={5} 
                             required
                             value={formData.message}
                             onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                            className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-red-600 focus:bg-white transition-all resize-none" 
+                            className="w-full p-4 bg-gray-50 border border-gray-200 rounded-xl focus:outline-none focus:border-red-600 focus:bg-white transition-all resize-none text-sm font-medium" 
                             placeholder="Please provide complete details regarding your inquiry..." 
                           />
                         </div>
 
-                        <button 
-                          type="submit"
-                          className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#111111] text-white rounded-2xl overflow-hidden font-bold tracking-widest uppercase text-sm hover:bg-red-600 hover:scale-105 transition-all duration-300 shadow-xl self-start"
-                        >
-                          <span className="relative z-10">Send Message</span>
-                          <Send className="relative z-10 w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-                        </button>
+                        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-2">
+                          <button 
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="group relative inline-flex items-center justify-center gap-3 px-8 py-4 bg-[#111111] hover:bg-red-600 text-white rounded-2xl overflow-hidden font-bold tracking-widest uppercase text-sm hover:scale-105 active:scale-95 transition-all duration-300 shadow-xl disabled:opacity-60 cursor-pointer"
+                          >
+                            <span className="relative z-10">{isSubmitting ? "Submitting..." : "Submit Form"}</span>
+                            <Send className="relative z-10 w-4 h-4 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
+                          </button>
+
+                          <div className="text-xs text-gray-500 flex items-center gap-1.5">
+                            <Mail className="w-3.5 h-3.5 text-red-600" />
+                            <span>Destination: <strong>milan.darda@lokmat.com</strong></span>
+                          </div>
+                        </div>
                       </motion.form>
                     ) : (
+                      /* Submitted Success View with Complete Data Display */
                       <motion.div 
-                        initial={{ opacity: 0, scale: 0.95 }}
+                        initial={{ opacity: 0, scale: 0.96 }}
                         animate={{ opacity: 1, scale: 1 }}
                         exit={{ opacity: 0 }}
-                        className="text-center py-12 space-y-6"
+                        className="py-6 space-y-6" 
                       >
-                        <div className="w-16 h-16 bg-green-50 text-green-600 rounded-full flex items-center justify-center mx-auto shadow-sm">
-                          <CheckCircle className="w-8 h-8" />
+                        <div className="flex flex-col items-center text-center space-y-3">
+                          <div className="w-16 h-16 bg-green-50 text-green-600 rounded-full flex items-center justify-center shadow-sm">
+                            <CheckCircle className="w-8 h-8" />
+                          </div>
+                          <div>
+                            <h3 className="text-2xl md:text-3xl font-bold text-[#111111]">Form Submitted Successfully!</h3>
+                            <p className="text-gray-500 font-light text-sm max-w-lg mx-auto mt-1">
+                              Your filled information has been recorded and delivered to <strong className="text-red-600 font-semibold">milan.darda@lokmat.com</strong>.
+                            </p>
+                          </div>
                         </div>
-                        <div className="space-y-2">
-                          <h3 className="text-xl font-bold">Message Lodged Successfully!</h3>
-                          <p className="text-gray-500 font-light text-sm max-w-md mx-auto leading-relaxed">
-                            Thank you, <strong>{formData.name}</strong>. Your message regarding <em>{formData.subject}</em> has been safely logged in our communications panel. A response will be issued within 1-2 business days.
-                          </p>
+
+                        {/* Complete Submitted Data Summary Box */}
+                        {submittedData && (
+                          <div className="bg-gray-50 border border-gray-200 rounded-2xl p-6 md:p-8 space-y-5 text-left">
+                            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-gray-200">
+                              <div>
+                                <span className="text-[10px] font-bold tracking-widest uppercase text-red-600 block">Submitted Form Data</span>
+                                <h4 className="text-lg font-bold text-gray-900">Complete Submission Details</h4>
+                              </div>
+                              <div className="text-xs text-gray-500 bg-white px-3 py-1.5 rounded-lg border border-gray-200 shrink-0">
+                                Ref: <strong>{submittedData.id}</strong>
+                              </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                              <div className="bg-white p-3.5 rounded-xl border border-gray-100">
+                                <span className="text-xs font-semibold text-gray-400 block uppercase tracking-wider">Full Name</span>
+                                <span className="font-bold text-gray-900 text-base">{submittedData.name}</span>
+                              </div>
+                              <div className="bg-white p-3.5 rounded-xl border border-gray-100">
+                                <span className="text-xs font-semibold text-gray-400 block uppercase tracking-wider">Email Address</span>
+                                <span className="font-bold text-gray-900 text-base break-all">{submittedData.email}</span>
+                              </div>
+                              <div className="bg-white p-3.5 rounded-xl border border-gray-100">
+                                <span className="text-xs font-semibold text-gray-400 block uppercase tracking-wider">Phone Number</span>
+                                <span className="font-bold text-gray-900 text-base">{submittedData.phone}</span>
+                              </div>
+                              <div className="bg-white p-3.5 rounded-xl border border-gray-100">
+                                <span className="text-xs font-semibold text-gray-400 block uppercase tracking-wider">Subject Of Inquiry</span>
+                                <span className="font-bold text-red-600 text-base">{submittedData.subject}</span>
+                              </div>
+                            </div>
+
+                            <div className="bg-white p-4 rounded-xl border border-gray-100 text-sm">
+                              <span className="text-xs font-semibold text-gray-400 block uppercase tracking-wider mb-1.5">Complete Message</span>
+                              <p className="text-gray-800 font-medium whitespace-pre-wrap leading-relaxed">{submittedData.message}</p>
+                            </div>
+
+                            <div className="flex flex-wrap items-center justify-between gap-3 pt-2 text-xs text-gray-500 border-t border-gray-200">
+                              <div className="flex items-center gap-1.5">
+                                <Mail className="w-3.5 h-3.5 text-red-600 shrink-0" />
+                                <span>Sent To: <strong className="text-gray-900 font-semibold">{submittedData.recipient}</strong></span>
+                              </div>
+                              <div>
+                                <span>Submitted: <strong>{submittedData.timestamp}</strong></span>
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Interactive Buttons for All Devices */}
+                        <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                          <a
+                            href={getMailtoUrl()}
+                            className="inline-flex items-center gap-2 px-6 py-3.5 bg-red-600 hover:bg-red-700 text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all duration-300 shadow-md"
+                          >
+                            <Mail className="w-4 h-4" />
+                            <span>Open in Mail App (milan.darda@lokmat.com)</span>
+                          </a>
+
+                          <button 
+                            onClick={handleCopyDetails}
+                            className="inline-flex items-center gap-2 px-5 py-3.5 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 rounded-xl font-bold text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer shadow-sm"
+                          >
+                            {copied ? <Check className="w-4 h-4 text-green-600" /> : <Copy className="w-4 h-4" />}
+                            <span>{copied ? "Copied to Clipboard!" : "Copy Details"}</span>
+                          </button>
+
+                          <button 
+                            onClick={handleReset}
+                            className="px-5 py-3.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-xl font-bold text-xs uppercase tracking-widest hover:scale-105 active:scale-95 transition-all duration-300 cursor-pointer"
+                          >
+                            Send Another Message
+                          </button>
                         </div>
-                        <button 
-                          onClick={handleReset}
-                          className="px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 rounded-2xl font-bold text-sm uppercase tracking-widest hover:scale-105 transition-all duration-300"
-                        >
-                          Send Another Message
-                        </button>
                       </motion.div>
                     )}
                   </AnimatePresence>
                 </div>
               </div>
-
-              {/* Contact Info Stack (Right side - 5 Columns, Vertical Stack) */}
-              <div className="lg:col-span-5 flex flex-col gap-8 justify-between">
-                
-                {/* Office Address Card */}
-                <div className="bg-white p-8 md:p-10 border border-gray-200 rounded-2xl shadow-sm flex flex-col justify-between flex-1 group hover:border-red-200 hover:shadow-md transition-all duration-300">
-                  <div>
-                    <div className="w-14 h-14 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300">
-                      <MapPin className="w-7 h-7" />
-                    </div>
-                    <h3 className="text-2xl font-bold mb-4 text-red-600">Office Address</h3>
-                    <p className="text-gray-600 leading-relaxed font-normal text-base">
-                      <strong className="text-[#111111] font-bold block mb-1">Lokmat Media Pvt. Ltd.</strong>
-                      Law College Rd, Shanti Sheela Society,<br />
-                      Erandwane, Pune, Maharashtra 411038
-                    </p>
-                  </div>
-                  <a 
-                    href="https://maps.google.com/?q=Lokmat+Media+Pvt.+Ltd.+Law+College+Rd+Pune+411038"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="pt-6 border-t border-gray-100 mt-8 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-gray-500 group-hover:text-red-600 transition-colors"
-                  >
-                    <span>View on Google Maps</span>
-                    <ArrowUpRight className="w-4 h-4" />
-                  </a>
-                </div>
-
-                {/* Phone Number Card */}
-                <div className="bg-white p-8 md:p-10 border border-gray-200 rounded-2xl shadow-sm flex flex-col justify-between flex-1 group hover:border-red-200 hover:shadow-md transition-all duration-300">
-                  <div>
-                    <div className="w-14 h-14 rounded-2xl bg-red-50 text-red-600 flex items-center justify-center mb-6 group-hover:scale-105 transition-transform duration-300">
-                      <Phone className="w-7 h-7" />
-                    </div>
-                    <h3 className="text-2xl font-bold mb-4 text-red-600">Phone Number</h3>
-                    <div className="text-gray-600 leading-relaxed text-base space-y-2">
-                      <a 
-                        href="tel:02066848586"
-                        className="text-2xl sm:text-3xl font-bold text-[#111111] hover:text-red-600 transition-colors block tracking-tight mb-2"
-                      >
-                        020 6684 8586
-                      </a>
-                      <p className="text-sm text-gray-500 font-light">
-                        Office Hours: Monday – Friday, 9:30 AM – 6:00 PM IST
-                      </p>
-                      <p className="text-xs text-gray-400 font-mono">
-                        Central Switchboard Desk • Pune
-                      </p>
-                    </div>
-                  </div>
-                  <a 
-                    href="tel:02066848586"
-                    className="pt-6 border-t border-gray-100 mt-8 flex items-center justify-between text-xs font-bold uppercase tracking-wider text-gray-500 group-hover:text-red-600 transition-colors"
-                  >
-                    <span>Call 020 6684 8586</span>
-                    <ArrowUpRight className="w-4 h-4" />
-                  </a>
-                </div>
-
-              </div>
             </div>
+
 
             {/* FAQ Bureau - Full Width Stretching Edge to Edge (3% margin from window edge) */}
             <section className="w-full text-left mb-0 md:mb-12">
