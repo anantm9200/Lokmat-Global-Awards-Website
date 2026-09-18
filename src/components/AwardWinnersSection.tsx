@@ -1,8 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 import { LokmatEvent } from "@/src/types";
 import { motion, AnimatePresence } from "motion/react";
-import { X, ChevronLeft, ChevronRight, Maximize2 } from "lucide-react";
-import { getOptimizedImageUrl } from "@/src/utils/imageOptimizer";
+import { X, ChevronLeft, ChevronRight, Maximize2, ZoomIn, ZoomOut, ExternalLink } from "lucide-react";
+import { getOptimizedImageUrl, getRawImageUrl } from "@/src/utils/imageOptimizer";
 
 interface AwardData {
   awardName: string;
@@ -236,6 +236,9 @@ interface AwardWinnersSectionProps {
 
 export default function AwardWinnersSection({ event }: AwardWinnersSectionProps) {
   const [fullscreenIndex, setFullscreenIndex] = useState<number | null>(null);
+  const [isZoomed, setIsZoomed] = useState(false);
+  const [selectedTrophy, setSelectedTrophy] = useState<{ name: string; image: string } | null>(null);
+  const [isTrophyZoomed, setIsTrophyZoomed] = useState(false);
 
   // Get awards list for event
   let awardsList = awardDataMap[event.id];
@@ -318,30 +321,40 @@ export default function AwardWinnersSection({ event }: AwardWinnersSectionProps)
   // Lightbox handlers
   const handleCloseFullscreen = useCallback(() => {
     setFullscreenIndex(null);
+    setIsZoomed(false);
   }, []);
 
   const handleNext = useCallback(() => {
     if (fullscreenIndex !== null && pictures) {
       setFullscreenIndex((fullscreenIndex + 1) % pictures.length);
+      setIsZoomed(false);
     }
   }, [fullscreenIndex, pictures]);
 
   const handlePrev = useCallback(() => {
     if (fullscreenIndex !== null && pictures) {
       setFullscreenIndex((fullscreenIndex - 1 + pictures.length) % pictures.length);
+      setIsZoomed(false);
     }
   }, [fullscreenIndex, pictures]);
 
-  // Keyboard navigation for fullscreen lightbox
+  // Keyboard navigation for fullscreen lightbox & trophy modal
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (fullscreenIndex === null) return;
-      if (e.key === "Escape") handleCloseFullscreen();
-      if (e.key === "ArrowRight") handleNext();
-      if (e.key === "ArrowLeft") handlePrev();
+      if (e.key === "Escape") {
+        if (fullscreenIndex !== null) handleCloseFullscreen();
+        if (selectedTrophy !== null) {
+          setSelectedTrophy(null);
+          setIsTrophyZoomed(false);
+        }
+      }
+      if (fullscreenIndex !== null) {
+        if (e.key === "ArrowRight") handleNext();
+        if (e.key === "ArrowLeft") handlePrev();
+      }
     };
 
-    if (fullscreenIndex !== null) {
+    if (fullscreenIndex !== null || selectedTrophy !== null) {
       document.body.style.overflow = "hidden";
       window.addEventListener("keydown", handleKeyDown);
     } else {
@@ -352,7 +365,7 @@ export default function AwardWinnersSection({ event }: AwardWinnersSectionProps)
       document.body.style.overflow = "unset";
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [fullscreenIndex, handleCloseFullscreen, handleNext, handlePrev]);
+  }, [fullscreenIndex, selectedTrophy, handleCloseFullscreen, handleNext, handlePrev]);
 
   return (
     <div className="w-full">
@@ -379,10 +392,17 @@ export default function AwardWinnersSection({ event }: AwardWinnersSectionProps)
                   </h5>
                 </div>
 
-                {/* Trophy image container: 1:1 square aspect ratio, image completely fills the block without any visible grey margin */}
-                <div className="relative w-full aspect-square rounded-xl sm:rounded-2xl overflow-hidden mt-3">
+                {/* Trophy image container: 1:1 square aspect ratio, clickable to view complete uncropped original */}
+                <div 
+                  onClick={() => {
+                    setSelectedTrophy({ name: displayAwardName, image: imageSrc });
+                    setIsTrophyZoomed(false);
+                  }}
+                  className="relative w-full aspect-square rounded-xl sm:rounded-2xl overflow-hidden mt-3 cursor-pointer group"
+                  title="Click to view full uncropped trophy"
+                >
                   <img
-                    src={getOptimizedImageUrl(imageSrc, { width: 340, height: 340, quality: 80 })}
+                    src={getOptimizedImageUrl(imageSrc, { width: 340, height: 340, quality: 80, fit: true })}
                     alt={displayAwardName}
                     loading="lazy"
                     decoding="async"
@@ -390,8 +410,13 @@ export default function AwardWinnersSection({ event }: AwardWinnersSectionProps)
                     onError={(e) => {
                       e.currentTarget.src = "https://static.wixstatic.com/media/548938_2fa722912316444dba5be87e11bd33bf~mv2.png";
                     }}
-                    className="w-full h-full object-cover object-center rounded-xl sm:rounded-2xl transition-transform duration-300 hover:scale-105"
+                    className="w-full h-full object-contain object-center rounded-xl sm:rounded-2xl transition-transform duration-300 group-hover:scale-105"
                   />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors duration-300 flex items-center justify-center pointer-events-none rounded-xl sm:rounded-2xl">
+                    <div className="opacity-0 group-hover:opacity-100 scale-90 group-hover:scale-100 transition-all duration-300 p-2 rounded-full bg-white/95 text-gray-900 shadow-md">
+                      <Maximize2 className="w-4 h-4 text-gray-900" />
+                    </div>
+                  </div>
                 </div>
               </div>
             );
@@ -414,8 +439,8 @@ export default function AwardWinnersSection({ event }: AwardWinnersSectionProps)
               className="group relative aspect-square rounded-2xl sm:rounded-3xl overflow-hidden cursor-pointer bg-white border border-gray-200 shadow-[0_4px_20px_rgba(0,0,0,0.03)] hover:shadow-[0_12px_32px_rgba(0,0,0,0.08)] hover:border-gray-300 transition-all duration-300 p-4 sm:p-5 flex items-center justify-center"
             >
               <img
-                src={getOptimizedImageUrl(imgUrl, { width: 600, height: 600, quality: 80 })}
-                alt=""
+                src={getOptimizedImageUrl(imgUrl, { width: 800, height: 800, quality: 85, fit: true })}
+                alt="Award winner or event article"
                 loading="lazy"
                 decoding="async"
                 referrerPolicy="no-referrer"
@@ -440,23 +465,59 @@ export default function AwardWinnersSection({ event }: AwardWinnersSectionProps)
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={handleCloseFullscreen}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 select-none"
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center p-3 sm:p-6 select-none"
           >
-            {/* Close button */}
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                handleCloseFullscreen();
-              }}
-              aria-label="Close full screen"
-              className="absolute top-4 right-4 sm:top-6 sm:right-6 p-2.5 sm:p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors cursor-pointer z-50"
+            {/* Top Bar Controls */}
+            <div
+              className="absolute top-3 sm:top-5 left-3 sm:left-6 right-3 sm:right-6 flex items-center justify-between z-50 pointer-events-none"
+              onClick={(e) => e.stopPropagation()}
             >
-              <X className="w-6 h-6 sm:w-7 sm:h-7" />
-            </button>
+              {/* Counter indicator */}
+              <div className="px-3.5 py-1.5 rounded-full bg-white/10 text-white text-xs sm:text-sm font-medium tracking-wider backdrop-blur-sm pointer-events-auto">
+                {fullscreenIndex + 1} / {pictures.length}
+              </div>
 
-            {/* Counter indicator */}
-            <div className="absolute top-4 left-4 sm:top-6 sm:left-6 px-4 py-1.5 rounded-full bg-white/10 text-white text-xs sm:text-sm font-medium tracking-wider backdrop-blur-sm">
-              {fullscreenIndex + 1} / {pictures.length}
+              {/* Action Buttons: Zoom Toggle, Open Original, Close */}
+              <div className="flex items-center gap-2 pointer-events-auto">
+                <button
+                  onClick={() => setIsZoomed((prev) => !prev)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-medium transition-colors cursor-pointer"
+                  title={isZoomed ? "Fit to screen" : "View 100% original size"}
+                  aria-label={isZoomed ? "Fit to screen" : "View original size"}
+                >
+                  {isZoomed ? (
+                    <>
+                      <ZoomOut className="w-4 h-4" />
+                      <span className="hidden sm:inline">Fit Screen</span>
+                    </>
+                  ) : (
+                    <>
+                      <ZoomIn className="w-4 h-4" />
+                      <span className="hidden sm:inline">Original Size</span>
+                    </>
+                  )}
+                </button>
+
+                <a
+                  href={getRawImageUrl(pictures[fullscreenIndex])}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-medium transition-colors cursor-pointer"
+                  title="Open original uncompressed image in new tab"
+                  aria-label="Open original image in new tab"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span className="hidden sm:inline">Original</span>
+                </a>
+
+                <button
+                  onClick={handleCloseFullscreen}
+                  aria-label="Close full screen"
+                  className="p-2 sm:p-2.5 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors cursor-pointer min-w-[40px] min-h-[40px] flex items-center justify-center"
+                >
+                  <X className="w-5 h-5 sm:w-6 sm:h-6" />
+                </button>
+              </div>
             </div>
 
             {/* Prev button */}
@@ -467,7 +528,7 @@ export default function AwardWinnersSection({ event }: AwardWinnersSectionProps)
                   handlePrev();
                 }}
                 aria-label="Previous image"
-                className="absolute left-3 sm:left-6 p-2.5 sm:p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors cursor-pointer z-50"
+                className="absolute left-2 sm:left-6 p-2.5 sm:p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors cursor-pointer z-50 min-w-[44px] min-h-[44px] flex items-center justify-center"
               >
                 <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8" />
               </button>
@@ -481,28 +542,135 @@ export default function AwardWinnersSection({ event }: AwardWinnersSectionProps)
                   handleNext();
                 }}
                 aria-label="Next image"
-                className="absolute right-3 sm:right-6 p-2.5 sm:p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors cursor-pointer z-50"
+                className="absolute right-2 sm:right-6 p-2.5 sm:p-3 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors cursor-pointer z-50 min-w-[44px] min-h-[44px] flex items-center justify-center"
               >
                 <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8" />
               </button>
             )}
 
-            {/* Main Fullscreen Image */}
+            {/* Main Fullscreen Image Stage */}
             <motion.div
               key={fullscreenIndex}
-              initial={{ scale: 0.96, opacity: 0 }}
+              initial={{ scale: 0.97, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.96, opacity: 0 }}
+              exit={{ scale: 0.97, opacity: 0 }}
               transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
-              className="max-h-[88vh] max-w-[92vw] flex items-center justify-center relative"
+              className={`relative flex items-center justify-center transition-all ${
+                isZoomed
+                  ? "max-w-[96vw] max-h-[84vh] sm:max-h-[86vh] overflow-auto rounded-xl p-2 cursor-zoom-out"
+                  : "max-w-[96vw] max-h-[84vh] sm:max-h-[86vh] cursor-zoom-in"
+              }`}
             >
               <img
-                src={getOptimizedImageUrl(pictures[fullscreenIndex], { width: 1280, height: 1000, quality: 82 })}
-                alt=""
+                src={getRawImageUrl(pictures[fullscreenIndex])}
+                alt="Full event article and award winners image"
                 decoding="async"
                 referrerPolicy="no-referrer"
-                className="max-h-[88vh] max-w-[92vw] object-contain rounded-xl shadow-2xl"
+                onClick={() => setIsZoomed((prev) => !prev)}
+                className={`rounded-xl shadow-2xl transition-transform duration-200 ${
+                  isZoomed
+                    ? "max-w-none w-auto h-auto object-none"
+                    : "max-w-[92vw] max-h-[82vh] sm:max-w-[94vw] sm:max-h-[85vh] w-auto h-auto object-contain"
+                }`}
+              />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {/* Trophy Fullscreen Lightbox Modal */}
+      <AnimatePresence>
+        {selectedTrophy !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            onClick={() => {
+              setSelectedTrophy(null);
+              setIsTrophyZoomed(false);
+            }}
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center p-3 sm:p-6 select-none"
+          >
+            {/* Top Bar Controls */}
+            <div
+              className="absolute top-3 sm:top-5 left-3 sm:left-6 right-3 sm:right-6 flex items-center justify-between z-50 pointer-events-none"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="px-3.5 py-1.5 rounded-full bg-white/10 text-white text-xs sm:text-sm font-medium tracking-wider backdrop-blur-sm pointer-events-auto">
+                {selectedTrophy.name}
+              </div>
+
+              <div className="flex items-center gap-2 pointer-events-auto">
+                <button
+                  onClick={() => setIsTrophyZoomed((prev) => !prev)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-medium transition-colors cursor-pointer"
+                  title={isTrophyZoomed ? "Fit to screen" : "View 100% original size"}
+                  aria-label={isTrophyZoomed ? "Fit to screen" : "View original size"}
+                >
+                  {isTrophyZoomed ? (
+                    <>
+                      <ZoomOut className="w-4 h-4" />
+                      <span className="hidden sm:inline">Fit Screen</span>
+                    </>
+                  ) : (
+                    <>
+                      <ZoomIn className="w-4 h-4" />
+                      <span className="hidden sm:inline">Original Size</span>
+                    </>
+                  )}
+                </button>
+
+                <a
+                  href={getRawImageUrl(selectedTrophy.image)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-medium transition-colors cursor-pointer"
+                  title="Open original uncompressed trophy in new tab"
+                  aria-label="Open original trophy in new tab"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span className="hidden sm:inline">Original</span>
+                </a>
+
+                <button
+                  onClick={() => {
+                    setSelectedTrophy(null);
+                    setIsTrophyZoomed(false);
+                  }}
+                  aria-label="Close modal"
+                  className="p-2 sm:p-2.5 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors cursor-pointer min-w-[40px] min-h-[40px] flex items-center justify-center"
+                >
+                  <X className="w-5 h-5 sm:w-6 sm:h-6" />
+                </button>
+              </div>
+            </div>
+
+            {/* Main Fullscreen Trophy Stage */}
+            <motion.div
+              initial={{ scale: 0.97, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.97, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              onClick={(e) => e.stopPropagation()}
+              className={`relative flex items-center justify-center transition-all ${
+                isTrophyZoomed
+                  ? "max-w-[96vw] max-h-[84vh] sm:max-h-[86vh] overflow-auto rounded-xl p-2 cursor-zoom-out"
+                  : "max-w-[96vw] max-h-[84vh] sm:max-h-[86vh] cursor-zoom-in"
+              }`}
+            >
+              <img
+                src={getRawImageUrl(selectedTrophy.image)}
+                alt={selectedTrophy.name}
+                decoding="async"
+                referrerPolicy="no-referrer"
+                onClick={() => setIsTrophyZoomed((prev) => !prev)}
+                className={`rounded-xl shadow-2xl transition-transform duration-200 ${
+                  isTrophyZoomed
+                    ? "max-w-none w-auto h-auto object-none"
+                    : "max-w-[92vw] max-h-[82vh] sm:max-w-[94vw] sm:max-h-[85vh] w-auto h-auto object-contain"
+                }`}
               />
             </motion.div>
           </motion.div>

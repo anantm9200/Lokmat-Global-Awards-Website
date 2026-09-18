@@ -2,14 +2,14 @@ import Navbar from "@/src/components/Navbar";
 import { useParams, Link } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
 import { useEvents } from "@/src/hooks/useEvents";
-import { ArrowLeft, Calendar, MapPin, Share2, Clock, Users, ArrowUpRight, Volume2, VolumeX, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, Calendar, MapPin, Share2, Clock, Users, ArrowUpRight, Volume2, VolumeX, X, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, ExternalLink } from "lucide-react";
 import Footer from "@/src/components/Footer";
 import { motion, AnimatePresence } from "motion/react";
 import { formatDate } from "@/src/lib/utils";
 import EventCard from "@/src/components/EventCard";
 import AwardWinnersSection from "@/src/components/AwardWinnersSection";
 import { getLocationLogo } from "@/src/locationLogos";
-import { getOptimizedImageUrl } from "@/src/utils/imageOptimizer";
+import { getOptimizedImageUrl, getRawImageUrl } from "@/src/utils/imageOptimizer";
 
 const getEventLogoImage = (event: { id?: string; location?: string; title?: string; logoUrl?: string }) => {
   const loc = (event.location || "").toLowerCase();
@@ -47,6 +47,7 @@ export default function EventDetails() {
   const { events, loading, error } = useEvents();
   const [isMuted, setIsMuted] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [isLightboxZoomed, setIsLightboxZoomed] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
 
   const event = events.find((e) => {
@@ -102,12 +103,17 @@ export default function EventDetails() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (lightboxIndex === null) return;
-      if (e.key === "Escape") setLightboxIndex(null);
+      if (e.key === "Escape") {
+        setLightboxIndex(null);
+        setIsLightboxZoomed(false);
+      }
       if (e.key === "ArrowLeft") {
         setLightboxIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : galleryImages.length - 1));
+        setIsLightboxZoomed(false);
       }
       if (e.key === "ArrowRight") {
         setLightboxIndex((prev) => (prev !== null && prev < galleryImages.length - 1 ? prev + 1 : 0));
+        setIsLightboxZoomed(false);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
@@ -321,22 +327,72 @@ export default function EventDetails() {
 
       {/* Lightbox Modal for clear image view on mobile & desktop */}
       <AnimatePresence>
-        {lightboxIndex !== null && (
+        {lightboxIndex !== null && galleryImages[lightboxIndex] && (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8 select-none"
-            onClick={() => setLightboxIndex(null)}
+            className="fixed inset-0 z-50 bg-black/95 backdrop-blur-md flex flex-col items-center justify-center p-3 sm:p-6 select-none"
+            onClick={() => {
+              setLightboxIndex(null);
+              setIsLightboxZoomed(false);
+            }}
           >
-            {/* Close Button */}
-            <button
-              onClick={() => setLightboxIndex(null)}
-              className="absolute top-5 right-5 text-white/80 hover:text-white bg-white/10 hover:bg-white/20 p-2.5 rounded-full transition-colors z-50 min-w-[44px] min-h-[44px] flex items-center justify-center"
-              aria-label="Close modal"
+            {/* Top Bar Controls */}
+            <div
+              className="absolute top-3 sm:top-5 left-3 sm:left-6 right-3 sm:right-6 flex items-center justify-between z-50 pointer-events-none"
+              onClick={(e) => e.stopPropagation()}
             >
-              <X className="w-6 h-6" />
-            </button>
+              {/* Counter indicator */}
+              <div className="px-3.5 py-1.5 rounded-full bg-white/10 text-white text-xs sm:text-sm font-medium tracking-wider backdrop-blur-sm pointer-events-auto">
+                {lightboxIndex + 1} / {galleryImages.length}
+              </div>
+
+              {/* Action Buttons: Zoom Toggle, Open Original, Close */}
+              <div className="flex items-center gap-2 pointer-events-auto">
+                <button
+                  onClick={() => setIsLightboxZoomed((prev) => !prev)}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-medium transition-colors cursor-pointer"
+                  title={isLightboxZoomed ? "Fit to screen" : "View 100% original size"}
+                  aria-label={isLightboxZoomed ? "Fit to screen" : "View original size"}
+                >
+                  {isLightboxZoomed ? (
+                    <>
+                      <ZoomOut className="w-4 h-4" />
+                      <span className="hidden sm:inline">Fit Screen</span>
+                    </>
+                  ) : (
+                    <>
+                      <ZoomIn className="w-4 h-4" />
+                      <span className="hidden sm:inline">Original Size</span>
+                    </>
+                  )}
+                </button>
+
+                <a
+                  href={getRawImageUrl(galleryImages[lightboxIndex])}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-medium transition-colors cursor-pointer"
+                  title="Open original uncompressed image in new tab"
+                  aria-label="Open original image in new tab"
+                >
+                  <ExternalLink className="w-4 h-4" />
+                  <span className="hidden sm:inline">Original</span>
+                </a>
+
+                <button
+                  onClick={() => {
+                    setLightboxIndex(null);
+                    setIsLightboxZoomed(false);
+                  }}
+                  aria-label="Close modal"
+                  className="p-2 sm:p-2.5 rounded-full bg-white/10 hover:bg-white/25 text-white transition-colors cursor-pointer min-w-[40px] min-h-[40px] flex items-center justify-center"
+                >
+                  <X className="w-5 h-5 sm:w-6 sm:h-6" />
+                </button>
+              </div>
+            </div>
 
             {/* Prev Button */}
             {galleryImages.length > 1 && (
@@ -344,11 +400,12 @@ export default function EventDetails() {
                 onClick={(e) => {
                   e.stopPropagation();
                   setLightboxIndex((prev) => (prev !== null && prev > 0 ? prev - 1 : galleryImages.length - 1));
+                  setIsLightboxZoomed(false);
                 }}
-                className="absolute left-3 sm:left-6 text-white/80 hover:text-white bg-black/50 hover:bg-black/80 p-2.5 sm:p-3 rounded-full transition-colors z-50 min-w-[44px] min-h-[44px] flex items-center justify-center"
+                className="absolute left-2 sm:left-6 text-white/80 hover:text-white bg-white/10 hover:bg-white/25 p-2.5 sm:p-3 rounded-full transition-colors z-50 min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
                 aria-label="Previous image"
               >
-                <ChevronLeft className="w-6 h-6" />
+                <ChevronLeft className="w-6 h-6 sm:w-8 sm:h-8" />
               </button>
             )}
 
@@ -358,36 +415,42 @@ export default function EventDetails() {
                 onClick={(e) => {
                   e.stopPropagation();
                   setLightboxIndex((prev) => (prev !== null && prev < galleryImages.length - 1 ? prev + 1 : 0));
+                  setIsLightboxZoomed(false);
                 }}
-                className="absolute right-3 sm:right-6 text-white/80 hover:text-white bg-black/50 hover:bg-black/80 p-2.5 sm:p-3 rounded-full transition-colors z-50 min-w-[44px] min-h-[44px] flex items-center justify-center"
+                className="absolute right-2 sm:right-6 text-white/80 hover:text-white bg-white/10 hover:bg-white/25 p-2.5 sm:p-3 rounded-full transition-colors z-50 min-w-[44px] min-h-[44px] flex items-center justify-center cursor-pointer"
                 aria-label="Next image"
               >
-                <ChevronRight className="w-6 h-6" />
+                <ChevronRight className="w-6 h-6 sm:w-8 sm:h-8" />
               </button>
             )}
 
             {/* Expanded Image Stage */}
-            <div
-              className="max-w-5xl max-h-[85vh] flex items-center justify-center"
+            <motion.div
+              key={lightboxIndex}
+              initial={{ scale: 0.97, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.97, opacity: 0 }}
+              transition={{ duration: 0.2 }}
               onClick={(e) => e.stopPropagation()}
+              className={`relative flex items-center justify-center transition-all ${
+                isLightboxZoomed
+                  ? "max-w-[96vw] max-h-[84vh] sm:max-h-[86vh] overflow-auto rounded-xl p-2 cursor-zoom-out"
+                  : "max-w-[96vw] max-h-[84vh] sm:max-h-[86vh] cursor-zoom-in"
+              }`}
             >
-              <motion.img
-                key={lightboxIndex}
-                initial={{ opacity: 0, scale: 0.95 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.25 }}
-                src={getOptimizedImageUrl(galleryImages[lightboxIndex], { width: 1400, height: 1000, quality: 82 })}
+              <img
+                src={getRawImageUrl(galleryImages[lightboxIndex])}
                 alt={`Expanded gallery image ${lightboxIndex + 1}`}
-                className="max-w-full max-h-[80vh] sm:max-h-[85vh] object-contain rounded-xl shadow-2xl"
                 decoding="async"
                 referrerPolicy="no-referrer"
+                onClick={() => setIsLightboxZoomed((prev) => !prev)}
+                className={`rounded-xl shadow-2xl transition-transform duration-200 ${
+                  isLightboxZoomed
+                    ? "max-w-none w-auto h-auto object-none"
+                    : "max-w-[92vw] max-h-[82vh] sm:max-w-[94vw] sm:max-h-[85vh] w-auto h-auto object-contain"
+                }`}
               />
-            </div>
-
-            {/* Counter */}
-            <div className="absolute bottom-5 text-white/70 text-xs sm:text-sm font-mono tracking-widest bg-black/50 px-3.5 py-1.5 rounded-full backdrop-blur-md">
-              {lightboxIndex + 1} / {galleryImages.length}
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

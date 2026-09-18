@@ -148,7 +148,7 @@ export const staticEvents: LokmatEvent[] = rawEvents.map((evt) => ({
   ...evt,
   imageUrl: getOptimizedImageUrl(evt.imageUrl, { width: 720, height: 480, quality: 78 }),
   logoUrl: evt.logoUrl,
-  gallery: evt.gallery?.map((img) => getOptimizedImageUrl(img, { width: 680, height: 460, quality: 78 }))
+  gallery: evt.gallery // Keep pure original URLs so images remain full and uncropped
 }));
 
 

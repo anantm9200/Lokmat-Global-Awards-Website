@@ -15,6 +15,16 @@ export interface OptimizeOptions {
 }
 
 /**
+ * Returns the pristine, raw original image URL without any CDN cropping or scaling parameters.
+ * Guarantees that the image is served at 100% full resolution and uncropped.
+ */
+export function getRawImageUrl(url: string | undefined | null): string {
+  if (!url) return "";
+  // Strip any Wix CDN transformation suffix (/v1/fill/..., /v1/fit/...)
+  return url.replace(/\/v1\/(fill|fit)\/.*$/, "");
+}
+
+/**
  * Optimizes an image URL for fast loading across all devices.
  * Supports Wix static media URLs by appending CDN responsive fill/fit parameters.
  */
