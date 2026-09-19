@@ -33,6 +33,11 @@ export const navigationData: NavMenu[] = [
     isExternal: true
   },
   {
+    label: "LMS",
+    href: "https://lokmatmoststylish.com/",
+    isExternal: true
+  },
+  {
     label: "Gallery",
     href: "/gallery"
   },
